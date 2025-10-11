@@ -333,6 +333,7 @@ GameObject:
   - component: {fileID: 786157244}
   - component: {fileID: 786157243}
   - component: {fileID: 786157245}
+  - component: {fileID: 786157246}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -408,8 +409,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 935879837
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 3204480812468917802, guid: 9caeaa91bd91e3342a5d985b642ca178, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -457,6 +458,22 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.036527824}
   m_Size: {x: 0.19, y: 0.29694468}
   m_Direction: 0
+--- !u!114 &786157246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 786157240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f642dcc8d0e07bd438ba7df28e999b53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 0}
+  deathPlayer: 0
+  currentHealth: 0
+  maxHealth: 100
 --- !u!1 &1472589076
 GameObject:
   m_ObjectHideFlags: 0

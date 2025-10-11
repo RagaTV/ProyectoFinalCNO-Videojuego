@@ -15,14 +15,22 @@ public class PlayerController : MonoBehaviour
     private Vector3 moveInput;
     private Vector3 lastDirection;
 
+    private PlayerHealthController healthController;
+
     void Start()
     {
         anim = GetComponent<Animator>();
+        healthController = GetComponent<PlayerHealthController>();
     }
 
     void Update()
     {
-        if (isDashing) return;
+        if (healthController.deathPlayer)
+        { 
+            return; 
+        } else if (isDashing){
+            return;
+        } 
 
         // Movimiento normal
         moveInput.x = Input.GetAxisRaw("Horizontal");
@@ -41,7 +49,6 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("isMoving", false);
         }
 
-        // Voltear sprite
         Vector3 spriteOrientation = transform.localScale;
         if (moveInput.x > 0)
             spriteOrientation.x = Mathf.Abs(spriteOrientation.x);
