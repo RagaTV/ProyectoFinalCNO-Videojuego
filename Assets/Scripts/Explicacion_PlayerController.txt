@@ -2,34 +2,48 @@
 Explicación del código PlayerController.cs
 -------------------------------------------
 
-Este script controla el movimiento y el dash (rodar rápido) del jugador en Unity.
+Este script controla el movimiento y el dash del jugador utilizando el motor de físicas de Unity (Rigidbody2D), lo que permite interacciones más realistas como colisiones y empujes.
 
-1. Variables principales
-   - `speed`: velocidad de movimiento normal del personaje.
-   - `dashDistance`: distancia que recorre el personaje al hacer dash.
-   - `dashDuration`: tiempo que tarda en completarse el dash.
-   - `dashCooldown`: tiempo de espera antes de poder hacer otro dash.
-   - `anim`: referencia al componente Animator para manejar animaciones.
+1. Variables Principales
+   - speed: La velocidad de movimiento normal del personaje.
+
+   - dashForce: Un multiplicador de velocidad que se aplica al hacer un dash. Ya no es una distancia fija, sino un impulso de velocidad.
+
+   - dashDuration: El tiempo en segundos que dura el impulso del dash.
+
+   - dashCooldown: El tiempo de espera necesario antes de poder realizar otro dash.
+
+   - anim: Referencia al componente Animator para controlar las animaciones.
+
+   - rb: (Nueva y muy importante) Referencia al componente Rigidbody2D, que gestiona la física del personaje.
 
 2. Variables internas
-   - `isDashing`: indica si el jugador está haciendo un dash actualmente (bloquea movimiento normal).
-   - `canDash`: controla si el dash está disponible o si está en enfriamiento.
-   - `moveInput`: vector que guarda la dirección actual del movimiento.
-   - `lastDirection`: almacena la última dirección en la que el jugador se movió, útil cuando hace dash sin moverse.
+   - isDashing: Un booleano que indica si el jugador está actualmente en medio de un dash. 
+
+   - canDash: Controla si el dash está disponible o en período de enfriamiento. 
+
+   - moveInput: Un vector que guarda la dirección actual del movimiento (leído de las teclas). 
+
+   - lastDirection: Almacena la última dirección en la que el jugador se movió, para poder hacer un dash incluso estando quieto. 
+
+   - healthController: Referencia al script de vida del jugador para poder interactuar con él.
 
 3. Método Start()
-   - Obtiene el componente Animator del objeto para poder activar animaciones.
+   - Obtiene las referencias a los componentes necesarios para funcionar: Rigidbody2D, Animator y PlayerHealthController. 
 
 4. Método Update()
-   - Si el jugador está dashing (`isDashing == true`), se cancela el resto del código para evitar que se mueva durante el dash.
+   - Si el jugador está haciendo un dash (isDashing), la función se detiene para no interferir con el movimiento del dash. 
    - Se leen las teclas WASD o flechas (`Input.GetAxisRaw("Horizontal")` y `("Vertical")`) para determinar la dirección de movimiento.
    - Se normaliza el vector para que no sea más rápido en diagonal.
-   - Se actualiza la posición del jugador multiplicando la dirección por la velocidad y el tiempo (`Time.deltaTime`).
    - Se activan animaciones según el movimiento:
        - Si se mueve, `isMoving` se activa y se guarda la última dirección.
        - Si está quieto, `isMoving` se desactiva.
    - Se voltea el sprite según la dirección horizontal (izquierda/derecha) ajustando `transform.localScale.x`.
    - Si el jugador presiona **ESPACIO** y puede hacer dash (`canDash == true`), se inicia la corrutina `Dash()`.
+
+4.1. Método FixedUpdate()
+   - Aquí es donde se aplica el movimiento.
+   - Si el jugador no está haciendo un dash, se actualiza la velocidad del Rigidbody2D (rb.velocity) para mover al personaje. Usar FixedUpdate para la física asegura un movimiento más suave y consistente.
 
 5. Corrutina Dash()
    - Marca `isDashing = true` y `canDash = false` para evitar movimientos o dashes dobles.
@@ -37,16 +51,24 @@ Este script controla el movimiento y el dash (rodar rápido) del jugador en Unit
    - Determina la dirección del dash:
        - Si el jugador está quieto, usa la última dirección registrada.
        - Si se está moviendo, usa la dirección actual.
-   - Calcula la posición inicial (`startPos`) y final (`targetPos`) del dash.
-   - Usa un bucle `while` con `Vector3.Lerp()` para mover suavemente al jugador desde la posición inicial hasta la final durante el tiempo de `dashDuration`.
-   - Al finalizar, coloca al jugador exactamente en `targetPos`.
-   - Luego, espera el tiempo de enfriamiento (`dashCooldown`) antes de volver a permitir otro dash.
+   -  En lugar de mover al personaje a un punto final, ahora le aplica un impulso de velocidad (rb.velocity = dashDirection * dashForce;). El personaje se moverá a alta velocidad por su cuenta.
+   - Espera dashDuration segundos mientras el personaje se desliza. 
+   - Al terminar la duración, detiene abruptamente al personaje poniendo su velocidad a cero (rb.velocity = Vector2.zero;).
+   - Finalmente, espera el dashCooldown antes de permitir que el jugador pueda volver a hacer un dash (canDash = true). 
 
 6. Resumen del comportamiento
-   - El personaje se mueve en 8 direcciones (usando WASD).
+   - El personaje se mueve suavemente en 8 direcciones usando el motor de físicas. 
    - Puede rodar (dash) presionando **ESPACIO** en la dirección actual o en la última dirección usada.
    - No puede moverse ni hacer otro dash durante el rodar.
    - El sprite gira automáticamente según la dirección horizontal.
+   - Al morir, todo el movimiento y control se detienen instantáneamente.
+
+7. Método Die()
+   - Es una función pública que puede ser llamada desde otros scripts (en este caso PlayerHealthController).
+   - Es el "interruptor de apagado" del personaje.
+   - StopAllCoroutines(): Detiene inmediatamente cualquier corrutina activa (crucial si el jugador muere en medio de un dash).
+   - rb.velocity = Vector2.zero: Detiene todo el movimiento físico al instante.
+   - this.enabled = false: Desactiva por completo este script, asegurando que las funciones Update() y FixedUpdate() dejen de ejecutarse.
 
 Explicación de las funciones clave
 
@@ -66,6 +88,20 @@ private IEnumerator Esperar()
 
 Esto imprime el segundo mensaje dos segundos después, pero el juego sigue corriendo normal.
 
+   Corrutina IEnumerator Dash() (Basada en Física)
+
+   - Inicio del Dash: Se activan las banderas isDashing = true y canDash = false para tomar el control del personaje y evitar dashes dobles. Se activa la animación de "roll".
+
+   - Impulso de Velocidad: Se determina la dirección y se aplica una velocidad alta y constante al Rigidbody2D del personaje (rb.velocity = dashDirection * dashForce;). Esto hace que el personaje se deslice rápidamente.
+
+   - Duración del Impulso: La corrutina se pausa con yield return new WaitForSeconds(dashDuration);. Durante este tiempo, el personaje mantiene la alta velocidad que se le aplicó.
+
+   - Fin del Dash: Una vez que pasa el tiempo de dashDuration, la corrutina se despierta y detiene al personaje por completo estableciendo su velocidad a cero (rb.velocity = Vector2.zero;). El estado isDashing se vuelve false.
+
+   - Enfriamiento (Cooldown): La corrutina vuelve a pausarse con yield return new WaitForSeconds(dashCooldown); para el tiempo de espera.
+
+   - Habilitar Nuevo Dash: Pasado el enfriamiento, la bandera canDash se vuelve true, permitiendo al jugador realizar otro dash.
+
 2. yield
 La palabra clave yield indica un punto de pausa dentro de una corrutina.
 Le dice a Unity que detenga temporalmente el método y continúe después, según el tipo de yield que se use.
@@ -78,25 +114,8 @@ yield return new WaitForSeconds(x); → espera x segundos.
 
 yield break; → termina la corrutina.
 
-En este código, yield return null; se usa dentro del while para que el movimiento del dash se actualice cada frame, logrando una transición fluida.
 
-3. Vector3.Lerp()
-Lerp significa Interpolación Lineal (Linear Interpolation).
-Sirve para obtener una posición entre dos puntos (inicio y fin), según un valor de progreso entre 0 y 1.
-
-Si t = 0 → posición inicial.
-
-Si t = 1 → posición final.
-
-Si t = 0.5 → punto medio.
-
-Ejemplo del código:
-
-transform.position = Vector3.Lerp(startPos, targetPos, elapsed / dashDuration);
-
-Esto hace que el jugador se desplace suavemente desde startPos hasta targetPos durante la duración del dash.
-
-4. WaitForSeconds
+3. WaitForSeconds
 Es una instrucción que se usa junto con yield para pausar la ejecución durante un tiempo específico.
 En este script, se usa para controlar el cooldown del dash, es decir, el tiempo que debe pasar antes de volver a hacerlo.
 

@@ -8,11 +8,15 @@ public class PlayerHealthController : MonoBehaviour
     public bool deathPlayer;
 
     public float currentHealth, maxHealth;
+
+    private PlayerController playerController;
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
         currentHealth = maxHealth;
+
+        playerController = GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
@@ -21,12 +25,17 @@ public class PlayerHealthController : MonoBehaviour
         
     }
 
-    public void TakeDamage(float damageReceived){
-        currentHealth-=damageReceived;
+    public void TakeDamage(float damageReceived)
+    {
+        if (deathPlayer) return;
 
-        if(currentHealth <= 0){
+        currentHealth -= damageReceived;
+
+        if (currentHealth <= 0)
+        {
             deathPlayer = true;
             anim.SetBool("isDeath", deathPlayer);
+            playerController.Die();
         }
     }
 }
