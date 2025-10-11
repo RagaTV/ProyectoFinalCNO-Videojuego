@@ -1,19 +1,28 @@
 fileFormatVersion: 2
-guid: 2a634a8ccf82a044dbec4eacd5bb694e
+guid: 823077ba0062ca34cb18ea02d253b366
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8096908110815696859
-    second: AppleCat_0
+      213: 3328807515777547764
+    second: AppleCat_Spinning_0
   - first:
-      213: -8248084434125524381
-    second: AppleCat_1
+      213: 8345993209705326162
+    second: AppleCat_Spinning_1
   - first:
-      213: 2257014767332377966
-    second: AppleCat_2
+      213: -6740199166887054474
+    second: AppleCat_Spinning_2
   - first:
-      213: 1741609193025663819
-    second: AppleCat_3
+      213: 212918571065640794
+    second: AppleCat_Spinning_3
+  - first:
+      213: 4873282216097926954
+    second: AppleCat_Spinning_4
+  - first:
+      213: 5399374016691576993
+    second: AppleCat_Spinning_5
+  - first:
+      213: 7206851007875432435
+    second: AppleCat_Spinning_6
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -103,85 +112,148 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: AppleCat_0
+      name: AppleCat_Spinning_0
       rect:
         serializedVersion: 2
-        x: 14
-        y: 56
-        width: 187
-        height: 209
+        x: 57
+        y: 68
+        width: 195
+        height: 192
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 528e9d3f8f002af80800000000000000
-      internalID: -8096908110815696859
+      spriteID: 4fd329f7ccc423e20800000000000000
+      internalID: 3328807515777547764
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AppleCat_1
+      name: AppleCat_Spinning_1
       rect:
         serializedVersion: 2
-        x: 228
-        y: 56
-        width: 184
-        height: 209
+        x: 375
+        y: 64
+        width: 160
+        height: 197
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 362f48a48eae88d80800000000000000
-      internalID: -8248084434125524381
+      spriteID: 256ee42fa9ce2d370800000000000000
+      internalID: 8345993209705326162
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AppleCat_2
+      name: AppleCat_Spinning_2
       rect:
         serializedVersion: 2
-        x: 422
-        y: 56
-        width: 208
-        height: 209
+        x: 634
+        y: 63
+        width: 169
+        height: 197
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e6548a309f6825f10800000000000000
-      internalID: 2257014767332377966
+      spriteID: 673305e91900672a0800000000000000
+      internalID: -6740199166887054474
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AppleCat_3
+      name: AppleCat_Spinning_3
       rect:
         serializedVersion: 2
-        x: 639
-        y: 56
-        width: 200
-        height: 209
+        x: 881
+        y: 64
+        width: 188
+        height: 194
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b4379d765507b2810800000000000000
-      internalID: 1741609193025663819
+      spriteID: a578372ff4074f200800000000000000
+      internalID: 212918571065640794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AppleCat_Spinning_4
+      rect:
+        serializedVersion: 2
+        x: 1113
+        y: 66
+        width: 164
+        height: 193
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2fceb41b5061a340800000000000000
+      internalID: 4873282216097926954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AppleCat_Spinning_5
+      rect:
+        serializedVersion: 2
+        x: 1345
+        y: 68
+        width: 163
+        height: 190
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a02062af0e6eea40800000000000000
+      internalID: 5399374016691576993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AppleCat_Spinning_6
+      rect:
+        serializedVersion: 2
+        x: 1590
+        y: 71
+        width: 196
+        height: 188
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ffb491eec0e30460800000000000000
+      internalID: 7206851007875432435
       vertices: []
       indices: 
       edges: []
