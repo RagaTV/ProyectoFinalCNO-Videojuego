@@ -242,7 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 468a2f8f4f698424f9288a0876fd86f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToSpawn: 0
+  timeToSpawn: 2
   minSpawn: {fileID: 1755254336}
   maxSpawn: {fileID: 1867075605}
   pool: {fileID: 783882066}
@@ -554,8 +554,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5311ae5765905524ea1a674a262215d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
-  poolSize: 10
+  enemyTiers:
+  - tierName: Easy
+    prefabs:
+    - {fileID: 2579952633896165858, guid: a1576bafd4dd1f44b8cf38ca8b8b74f5, type: 3}
+    - {fileID: 8840134048782674907, guid: 9b236ac77b36b5a46a6a3a5b68ebb02a, type: 3}
+    - {fileID: 3988174073544292676, guid: 0816f1ae5cbfe4547a552b7131c7baf1, type: 3}
+    - {fileID: 3385012298764764304, guid: 0c6e9f10133b1694c92503764c95d039, type: 3}
+    poolSizePerPrefab: 5
+  - tierName: Normal
+    prefabs:
+    - {fileID: 8149832341284205149, guid: 86a9185cb1d24a447985144f0d8662f2, type: 3}
+    - {fileID: 5835608462402980039, guid: 38c6b1c904ba29d49a53e7cd3969ae88, type: 3}
+    - {fileID: 1327223596240735934, guid: 7db2757bcf819f84dba08340784fd2f7, type: 3}
+    - {fileID: 3842781343459348715, guid: 35d0ab566d4357f4cacf98410bfe5217, type: 3}
+    poolSizePerPrefab: 5
+  - tierName: Hard
+    prefabs:
+    - {fileID: 8231832183284430363, guid: 8a1cdb5dbe5ed3b4aa6c6f34dd628572, type: 3}
+    - {fileID: 5548952675958717000, guid: eb0818b948600fb459bf194d1a15b95c, type: 3}
+    poolSizePerPrefab: 5
 --- !u!4 &783882067
 Transform:
   m_ObjectHideFlags: 0
