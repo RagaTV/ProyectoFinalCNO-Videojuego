@@ -9,20 +9,26 @@ public class EnemySpawner : MonoBehaviour
 
     public Transform minSpawn, maxSpawn;
     private Transform target;
+    private GameObject playerObject;
 
     [SerializeField] private ObjectPooler pool;
+    private PlayerHealthController playerHealth;
 
     // Start is called before the first frame update
     void Start()
     {
         spawnCounter = timeToSpawn;
-        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        playerObject = GameObject.FindGameObjectWithTag("Player");
         target = playerObject.transform;
+        playerHealth = playerObject.GetComponent<PlayerHealthController>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (playerHealth != null && playerHealth.deathPlayer)
+            return;
+            
         spawnCounter -= Time.deltaTime;
         if (spawnCounter <= 0)
         {
