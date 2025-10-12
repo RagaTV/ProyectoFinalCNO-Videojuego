@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class PlayerHealthController : MonoBehaviour
 {
@@ -8,6 +10,8 @@ public class PlayerHealthController : MonoBehaviour
     public bool deathPlayer;
 
     public float currentHealth, maxHealth;
+    public Slider healthSlider;
+    public TextMeshProUGUI healthText;
 
     private PlayerController playerController;
     // Start is called before the first frame update
@@ -17,6 +21,9 @@ public class PlayerHealthController : MonoBehaviour
         currentHealth = maxHealth;
 
         playerController = GetComponent<PlayerController>();
+        healthSlider.maxValue = maxHealth;
+        healthSlider.value = currentHealth;
+        healthText.text = currentHealth + " / " + maxHealth;
     }
 
     // Update is called once per frame
@@ -30,6 +37,12 @@ public class PlayerHealthController : MonoBehaviour
         if (deathPlayer) return;
 
         currentHealth -= damageReceived;
+        if (currentHealth < 0)
+        {
+            currentHealth = 0;
+        }
+        healthSlider.value = currentHealth;
+        healthText.text = currentHealth + " / " + maxHealth;
 
         if (currentHealth <= 0)
         {
