@@ -1,7 +1,55 @@
 fileFormatVersion: 2
 guid: 68a8d5b9b884331458d51d35e4314116
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 4989508580979249289
+    second: Freebies_Icons_Halloween_0
+  - first:
+      213: -8793033723575153101
+    second: Freebies_Icons_Halloween_1
+  - first:
+      213: -5797027563947676491
+    second: Freebies_Icons_Halloween_2
+  - first:
+      213: 243651835578644838
+    second: Freebies_Icons_Halloween_3
+  - first:
+      213: -2620791708767292028
+    second: Freebies_Icons_Halloween_4
+  - first:
+      213: -700026401933836060
+    second: Freebies_Icons_Halloween_5
+  - first:
+      213: 1698200408493973014
+    second: Freebies_Icons_Halloween_6
+  - first:
+      213: 6763478925086236191
+    second: Freebies_Icons_Halloween_7
+  - first:
+      213: -7879054698516324953
+    second: Freebies_Icons_Halloween_8
+  - first:
+      213: -1039071406706049846
+    second: Freebies_Icons_Halloween_9
+  - first:
+      213: 5511263113371725058
+    second: Freebies_Icons_Halloween_10
+  - first:
+      213: -3082796775233861177
+    second: Freebies_Icons_Halloween_11
+  - first:
+      213: 1411911120798770589
+    second: Freebies_Icons_Halloween_12
+  - first:
+      213: 1055590979614945245
+    second: Freebies_Icons_Halloween_13
+  - first:
+      213: 1536327801013820898
+    second: Freebies_Icons_Halloween_14
+  - first:
+      213: 8813669235686783326
+    second: Freebies_Icons_Halloween_15
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -32,7 +80,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -41,7 +89,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -68,7 +116,19 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -77,7 +137,343 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Freebies_Icons_Halloween_0
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 99
+        width: 15
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 980180d6e9b4e3540800000000000000
+      internalID: 4989508580979249289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Halloween_1
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 99
+        width: 15
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33ec5487a6ed8f580800000000000000
+      internalID: -8793033723575153101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Halloween_2
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 99
+        width: 15
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5bc20c10522dc8fa0800000000000000
+      internalID: -5797027563947676491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Halloween_3
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 99
+        width: 15
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6697984bd00a16300800000000000000
+      internalID: 243651835578644838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Halloween_4
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 67
+        width: 15
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 485f2a093d311abd0800000000000000
+      internalID: -2620791708767292028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Halloween_5
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 67
+        width: 15
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e0c65342b10946f0800000000000000
+      internalID: -700026401933836060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Halloween_6
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 74
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61ed4b92648319710800000000000000
+      internalID: 1698200408493973014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Halloween_7
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 70
+        width: 15
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1e1b977f34bcdd50800000000000000
+      internalID: 6763478925086236191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Halloween_8
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 39
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7addf092f79f7a290800000000000000
+      internalID: -7879054698516324953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Halloween_9
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 42
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: acc35039f0a7491f0800000000000000
+      internalID: -1039071406706049846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Halloween_10
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 38
+        width: 15
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20d2c380a90fb7c40800000000000000
+      internalID: 5511263113371725058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Halloween_11
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 39
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c947719aa4b735d0800000000000000
+      internalID: -3082796775233861177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Halloween_12
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 6
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9562a90fad189310800000000000000
+      internalID: 1411911120798770589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Halloween_13
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 5
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ddf2e08376636ae00800000000000000
+      internalID: 1055590979614945245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Halloween_14
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 4
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ed5cf5cef1225510800000000000000
+      internalID: 1536327801013820898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Halloween_15
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 5
+        width: 19
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5936e81971705a70800000000000000
+      internalID: 8813669235686783326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

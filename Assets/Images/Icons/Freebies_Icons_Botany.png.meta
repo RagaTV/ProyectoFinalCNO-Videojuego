@@ -1,7 +1,79 @@
 fileFormatVersion: 2
 guid: a60d3247c700dad4bb660abed21fbc42
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -5423475302383750296
+    second: Freebies_Icons_Botany_0
+  - first:
+      213: 7234790384689135908
+    second: Freebies_Icons_Botany_1
+  - first:
+      213: 3399245577082388605
+    second: Freebies_Icons_Botany_2
+  - first:
+      213: -3743182611640429668
+    second: Freebies_Icons_Botany_3
+  - first:
+      213: -4202733026005988785
+    second: Freebies_Icons_Botany_4
+  - first:
+      213: 7676836285598503086
+    second: Freebies_Icons_Botany_5
+  - first:
+      213: 6677988532284067262
+    second: Freebies_Icons_Botany_6
+  - first:
+      213: -5182282274407532017
+    second: Freebies_Icons_Botany_7
+  - first:
+      213: -5138799141682250641
+    second: Freebies_Icons_Botany_8
+  - first:
+      213: -2123251855802618980
+    second: Freebies_Icons_Botany_9
+  - first:
+      213: -3320624066334689230
+    second: Freebies_Icons_Botany_10
+  - first:
+      213: -5157311930008988705
+    second: Freebies_Icons_Botany_11
+  - first:
+      213: -1028754171124583905
+    second: Freebies_Icons_Botany_12
+  - first:
+      213: -2657136869694139050
+    second: Freebies_Icons_Botany_13
+  - first:
+      213: -1489562247964309775
+    second: Freebies_Icons_Botany_14
+  - first:
+      213: -8463480940343765627
+    second: Freebies_Icons_Botany_15
+  - first:
+      213: 6305112192820189763
+    second: Freebies_Icons_Botany_16
+  - first:
+      213: -4140417291375460047
+    second: Freebies_Icons_Botany_17
+  - first:
+      213: -8858549446623869333
+    second: Freebies_Icons_Botany_18
+  - first:
+      213: 3174782742781128561
+    second: Freebies_Icons_Botany_19
+  - first:
+      213: 1686715136199253050
+    second: Freebies_Icons_Botany_20
+  - first:
+      213: -2599759408014905546
+    second: Freebies_Icons_Botany_21
+  - first:
+      213: -4187989836946624814
+    second: Freebies_Icons_Botany_22
+  - first:
+      213: -5153198724932166029
+    second: Freebies_Icons_Botany_23
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -32,7 +104,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -41,7 +113,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -68,7 +140,19 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -77,7 +161,511 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Freebies_Icons_Botany_0
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 129
+        width: 26
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 863ff4182f1fbb4b0800000000000000
+      internalID: -5423475302383750296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Botany_1
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 129
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 421cec7f583276460800000000000000
+      internalID: 7234790384689135908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Botany_2
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 129
+        width: 27
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d704056a7db8c2f20800000000000000
+      internalID: 3399245577082388605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Botany_3
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 129
+        width: 25
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c93d0c73f3b8d0cc0800000000000000
+      internalID: -3743182611640429668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Botany_4
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 130
+        width: 28
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4a4c137494eca5c0800000000000000
+      internalID: -4202733026005988785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Botany_5
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 97
+        width: 24
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea09de99de9998a60800000000000000
+      internalID: 7676836285598503086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Botany_6
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 97
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ebd8ce8403bfcac50800000000000000
+      internalID: 6677988532284067262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Botany_7
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 96
+        width: 28
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0ab2247ab5d418b0800000000000000
+      internalID: -5182282274407532017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Botany_8
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 98
+        width: 27
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6c72fb38615fa8b0800000000000000
+      internalID: -5138799141682250641
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Botany_9
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 97
+        width: 23
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9b2236cfa1b882e0800000000000000
+      internalID: -2123251855802618980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Botany_10
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 65
+        width: 29
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 238f18d4106cae1d0800000000000000
+      internalID: -3320624066334689230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Botany_11
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 66
+        width: 28
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd31eefcf1c8d68b0800000000000000
+      internalID: -5157311930008988705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Botany_12
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 66
+        width: 27
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f12faec288129b1f0800000000000000
+      internalID: -1028754171124583905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Botany_13
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 65
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 655994a5814ff1bd0800000000000000
+      internalID: -2657136869694139050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Botany_14
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 65
+        width: 28
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f6414b0703045be0800000000000000
+      internalID: -1489562247964309775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Botany_15
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 35
+        width: 23
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 585558b1decab8a80800000000000000
+      internalID: -8463480940343765627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Botany_16
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 34
+        width: 28
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34a180a2222408750800000000000000
+      internalID: 6305112192820189763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Botany_17
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 33
+        width: 29
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1314ead09684a86c0800000000000000
+      internalID: -4140417291375460047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Botany_18
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 34
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6640c0863c101580800000000000000
+      internalID: -8858549446623869333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Botany_19
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 33
+        width: 28
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17f628675181f0c20800000000000000
+      internalID: 3174782742781128561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Botany_20
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 1
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3c5e62da7a686710800000000000000
+      internalID: 1686715136199253050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Botany_21
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 1
+        width: 22
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63faacfa79ccbebd0800000000000000
+      internalID: -2599759408014905546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Botany_22
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 1
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2dea9d5ae6541e5c0800000000000000
+      internalID: -4187989836946624814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Botany_23
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 1
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37e1c6fff092c78b0800000000000000
+      internalID: -5153198724932166029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

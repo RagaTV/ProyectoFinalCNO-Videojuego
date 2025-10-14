@@ -1,7 +1,82 @@
 fileFormatVersion: 2
 guid: fecd1aa20f331b04bbe090e09819d09b
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 5414487041758812022
+    second: Freebies_Icons_Fishing_0
+  - first:
+      213: 8922624690437097203
+    second: Freebies_Icons_Fishing_1
+  - first:
+      213: 2663660489949205433
+    second: Freebies_Icons_Fishing_2
+  - first:
+      213: -6834709633621844170
+    second: Freebies_Icons_Fishing_3
+  - first:
+      213: 9072327185290239941
+    second: Freebies_Icons_Fishing_4
+  - first:
+      213: 7029605126603394320
+    second: Freebies_Icons_Fishing_5
+  - first:
+      213: -5860351151024723953
+    second: Freebies_Icons_Fishing_6
+  - first:
+      213: 3895606753118769817
+    second: Freebies_Icons_Fishing_7
+  - first:
+      213: -973304122718785318
+    second: Freebies_Icons_Fishing_8
+  - first:
+      213: -3850972668132170404
+    second: Freebies_Icons_Fishing_9
+  - first:
+      213: 1745534360294502589
+    second: Freebies_Icons_Fishing_10
+  - first:
+      213: -4770310862777785659
+    second: Freebies_Icons_Fishing_11
+  - first:
+      213: 3167237084922603396
+    second: Freebies_Icons_Fishing_12
+  - first:
+      213: -8543414542817892777
+    second: Freebies_Icons_Fishing_13
+  - first:
+      213: 3486460187179599101
+    second: Freebies_Icons_Fishing_14
+  - first:
+      213: -3651645284099196241
+    second: Freebies_Icons_Fishing_15
+  - first:
+      213: 7389333661446058092
+    second: Freebies_Icons_Fishing_16
+  - first:
+      213: -5870763029048291359
+    second: Freebies_Icons_Fishing_17
+  - first:
+      213: 4251553589246552766
+    second: Freebies_Icons_Fishing_18
+  - first:
+      213: -6853364634250325609
+    second: Freebies_Icons_Fishing_19
+  - first:
+      213: 4394029679969911197
+    second: Freebies_Icons_Fishing_20
+  - first:
+      213: -7592298271180390228
+    second: Freebies_Icons_Fishing_21
+  - first:
+      213: 3180465162008858705
+    second: Freebies_Icons_Fishing_22
+  - first:
+      213: 6395808971361696052
+    second: Freebies_Icons_Fishing_23
+  - first:
+      213: 8364220949320918106
+    second: Freebies_Icons_Fishing_24
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -32,7 +107,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -41,7 +116,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -68,7 +143,19 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -77,7 +164,532 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Freebies_Icons_Fishing_0
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 131
+        width: 27
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6775dfcf64f142b40800000000000000
+      internalID: 5414487041758812022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Fishing_1
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 144
+        width: 17
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f602a1c1e783db70800000000000000
+      internalID: 8922624690437097203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Fishing_2
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 139
+        width: 26
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b35aa95a1937f420800000000000000
+      internalID: 2663660489949205433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Fishing_3
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 131
+        width: 27
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63f9701dccb3621a0800000000000000
+      internalID: -6834709633621844170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Fishing_4
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 144
+        width: 17
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5cf185df18167ed70800000000000000
+      internalID: 9072327185290239941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Fishing_5
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 132
+        width: 25
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01dc5724e9c2e8160800000000000000
+      internalID: 7029605126603394320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Fishing_6
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 131
+        width: 27
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f08ae187da9dbaea0800000000000000
+      internalID: -5860351151024723953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Fishing_7
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 144
+        width: 17
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 992d140c3b9ff0630800000000000000
+      internalID: 3895606753118769817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Fishing_8
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 100
+        width: 25
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad07ce2ae012e72f0800000000000000
+      internalID: -973304122718785318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Fishing_9
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 99
+        width: 27
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c556e3cf2c89e8ac0800000000000000
+      internalID: -3850972668132170404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Fishing_10
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 112
+        width: 17
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db0b790a042693810800000000000000
+      internalID: 1745534360294502589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Fishing_11
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 100
+        width: 25
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c261f36b837ccdb0800000000000000
+      internalID: -4770310862777785659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Fishing_12
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 99
+        width: 17
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4876146195944fb20800000000000000
+      internalID: 3167237084922603396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Fishing_13
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 99
+        width: 17
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 756ee6efcb1bf6980800000000000000
+      internalID: -8543414542817892777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Fishing_14
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 67
+        width: 17
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df4c1647115626030800000000000000
+      internalID: 3486460187179599101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Fishing_15
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 67
+        width: 17
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: faa798b16ffb25dc0800000000000000
+      internalID: -3651645284099196241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Fishing_16
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 67
+        width: 17
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c60345190df2c8660800000000000000
+      internalID: 7389333661446058092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Fishing_17
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 67
+        width: 17
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ef8415312cd68ea0800000000000000
+      internalID: -5870763029048291359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Fishing_18
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 66
+        width: 17
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ebae396b67d800b30800000000000000
+      internalID: 4251553589246552766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Fishing_19
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 37
+        width: 23
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 791d8430d25f3e0a0800000000000000
+      internalID: -6853364634250325609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Fishing_20
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 37
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d91412f96babafc30800000000000000
+      internalID: 4394029679969911197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Fishing_21
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 40
+        width: 23
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca00b75b2fcb2a690800000000000000
+      internalID: -7592298271180390228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Fishing_22
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 39
+        width: 27
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1501b0ac638432c20800000000000000
+      internalID: 3180465162008858705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Fishing_23
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 34
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 439354d7f5a72c850800000000000000
+      internalID: 6395808971361696052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Fishing_24
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 3
+        width: 21
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a54672b43aea31470800000000000000
+      internalID: 8364220949320918106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

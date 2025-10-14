@@ -1,7 +1,76 @@
 fileFormatVersion: 2
 guid: 04bfd9b045239ec419b183772d611f13
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -5867327139315067566
+    second: Freebies_Icons_Miscellaneous_0
+  - first:
+      213: -7749238595060045176
+    second: Freebies_Icons_Miscellaneous_1
+  - first:
+      213: -3365473200912967854
+    second: Freebies_Icons_Miscellaneous_2
+  - first:
+      213: 7820814043693783462
+    second: Freebies_Icons_Miscellaneous_3
+  - first:
+      213: -568100749579044145
+    second: Freebies_Icons_Miscellaneous_4
+  - first:
+      213: -6099070434732154979
+    second: Freebies_Icons_Miscellaneous_5
+  - first:
+      213: -6352539596507928776
+    second: Freebies_Icons_Miscellaneous_6
+  - first:
+      213: 3318136099707033427
+    second: Freebies_Icons_Miscellaneous_7
+  - first:
+      213: -2209089999247896619
+    second: Freebies_Icons_Miscellaneous_8
+  - first:
+      213: 4761590397174379884
+    second: Freebies_Icons_Miscellaneous_9
+  - first:
+      213: 7036648573142212505
+    second: Freebies_Icons_Miscellaneous_10
+  - first:
+      213: 6427005411478572955
+    second: Freebies_Icons_Miscellaneous_11
+  - first:
+      213: 8991678049875193222
+    second: Freebies_Icons_Miscellaneous_12
+  - first:
+      213: -715501835022377849
+    second: Freebies_Icons_Miscellaneous_13
+  - first:
+      213: -633658543326818753
+    second: Freebies_Icons_Miscellaneous_14
+  - first:
+      213: 8171563979960006726
+    second: Freebies_Icons_Miscellaneous_15
+  - first:
+      213: -4617117422359032038
+    second: Freebies_Icons_Miscellaneous_16
+  - first:
+      213: 3132427097406273278
+    second: Freebies_Icons_Miscellaneous_17
+  - first:
+      213: -3088084652861965825
+    second: Freebies_Icons_Miscellaneous_18
+  - first:
+      213: -2172493953958920779
+    second: Freebies_Icons_Miscellaneous_19
+  - first:
+      213: -9147836674254334148
+    second: Freebies_Icons_Miscellaneous_20
+  - first:
+      213: 4299242836463279409
+    second: Freebies_Icons_Miscellaneous_21
+  - first:
+      213: -2247926749715955666
+    second: Freebies_Icons_Miscellaneous_22
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -32,7 +101,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -41,7 +110,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -68,7 +137,19 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -77,7 +158,490 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Freebies_Icons_Miscellaneous_0
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 132
+        width: 18
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 255dd10ad01139ea0800000000000000
+      internalID: -5867327139315067566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Miscellaneous_1
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 130
+        width: 27
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88ae2b51e8c257490800000000000000
+      internalID: -7749238595060045176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Miscellaneous_2
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 136
+        width: 10
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2575c7e64ff6b41d0800000000000000
+      internalID: -3365473200912967854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Miscellaneous_3
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 133
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a911c0bfec198c60800000000000000
+      internalID: 7820814043693783462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Miscellaneous_4
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 130
+        width: 27
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fca35b0d063bd18f0800000000000000
+      internalID: -568100749579044145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Miscellaneous_5
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 99
+        width: 15
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9fd3bdf0cfbb5ba0800000000000000
+      internalID: -6099070434732154979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Miscellaneous_6
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 99
+        width: 23
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 837aa88e4ee37d7a0800000000000000
+      internalID: -6352539596507928776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Miscellaneous_7
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 104
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3571073d3336c0e20800000000000000
+      internalID: 3318136099707033427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Miscellaneous_8
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 107
+        width: 24
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5df06f5995cb751e0800000000000000
+      internalID: -2209089999247896619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Miscellaneous_9
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 98
+        width: 25
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c657d7dfc31941240800000000000000
+      internalID: 4761590397174379884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Miscellaneous_10
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 69
+        width: 25
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99f9663789237a160800000000000000
+      internalID: 7036648573142212505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Miscellaneous_11
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 75
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9f81b8be5f413950800000000000000
+      internalID: 6427005411478572955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Miscellaneous_12
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 82
+        width: 15
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68dec71eb8bd8cc70800000000000000
+      internalID: 8991678049875193222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Miscellaneous_13
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 70
+        width: 10
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78cd9573fd60216f0800000000000000
+      internalID: -715501835022377849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Miscellaneous_14
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 70
+        width: 17
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3e0d1089eac437f0800000000000000
+      internalID: -633658543326818753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Miscellaneous_15
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 71
+        width: 24
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 648b4ec152a376170800000000000000
+      internalID: 8171563979960006726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Miscellaneous_16
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 73
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1fc50aba24bcefb0800000000000000
+      internalID: -4617117422359032038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Miscellaneous_17
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 41
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef675b949dd987b20800000000000000
+      internalID: 3132427097406273278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Miscellaneous_18
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 35
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff9b3dd9e5be425d0800000000000000
+      internalID: -3088084652861965825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Miscellaneous_19
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 35
+        width: 28
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5bd389d5240c9d1e0800000000000000
+      internalID: -2172493953958920779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Miscellaneous_20
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 34
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3797c7130b5c0180800000000000000
+      internalID: -9147836674254334148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Miscellaneous_21
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 34
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13d5986d49af9ab30800000000000000
+      internalID: 4299242836463279409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Freebies_Icons_Miscellaneous_22
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 2
+        width: 22
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e20051af782cdc0e0800000000000000
+      internalID: -2247926749715955666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
