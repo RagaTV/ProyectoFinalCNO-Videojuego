@@ -1,0 +1,73 @@
+
+📘 EXPLICACIÓN DE ENEMYCONTROLLER
+
+──────────────────────────────
+👾 FUNCIÓN PRINCIPAL
+──────────────────────────────
+El script **EnemyController** controla el comportamiento de cada enemigo individual.  
+Su objetivo es **seguir al jugador**, **atacarlo** y **aplicar daño y retroceso (knockback)** cuando hay colisión.
+
+──────────────────────────────
+⚙️ VARIABLES PRINCIPALES
+──────────────────────────────
+- rB: componente Rigidbody2D, necesario para mover al enemigo mediante físicas.
+- anim: referencia al Animator del enemigo para controlar sus animaciones.
+- moveSpeed: velocidad de movimiento del enemigo.
+- damageAmount: cantidad de daño que inflige al jugador al tocarlo.
+- hitWaitTime: tiempo de espera entre cada golpe (evita daño constante).
+- hitCounter: contador para medir ese tiempo de espera.
+- knockbackForce: fuerza con la que empuja al jugador al golpearlo.
+- target: referencia al transform del jugador (su posición en el mundo).
+- healthController: referencia al script PlayerHealthController para aplicar daño.
+
+──────────────────────────────
+🚀 INICIO DEL ENEMIGO (Start)
+──────────────────────────────
+1. Se obtienen los componentes Rigidbody2D y Animator del enemigo.
+2. Busca al jugador por su etiqueta “Player”.
+3. Guarda la posición (Transform) y su componente de salud (PlayerHealthController).
+
+──────────────────────────────
+🏃 MOVIMIENTO Y LÓGICA (FixedUpdate)
+──────────────────────────────
+Cada frame de física (FixedUpdate) hace lo siguiente:
+
+1. **Verifica que el jugador exista y esté vivo.**
+   - Si el jugador está vivo, el enemigo lo sigue.
+   - Si el jugador está muerto, el enemigo se detiene y su animación se congela.
+
+2. **Movimiento hacia el jugador:**
+   - Calcula la dirección hacia el jugador con `(target.position - transform.position).normalized`.
+   - Multiplica por la velocidad (`moveSpeed`) para generar la velocidad del Rigidbody.
+
+3. **Orientación del sprite:**
+   - Invierte el eje X del sprite para que siempre mire hacia el jugador.
+
+4. **Control del contador de golpe (hitCounter):**
+   - Si el contador es mayor que 0, lo reduce con el tiempo hasta permitir el siguiente golpe.
+
+──────────────────────────────
+💥 COLISIÓN Y DAÑO (OnCollisionStay2D)
+──────────────────────────────
+Cuando el enemigo **permanece en contacto** con el jugador:
+
+1. Verifica si el objeto tiene la etiqueta “Player”.
+2. Comprueba que el contador `hitCounter` esté en 0 (es decir, que pueda volver a golpear).
+3. Si el jugador está vivo:
+   - Llama a `TakeDamage(damageAmount)` del PlayerHealthController.
+   - Obtiene el Rigidbody2D del jugador para aplicar un **knockback** (empuje hacia atrás).
+   - Calcula la dirección del empuje y aplica una fuerza instantánea (`ForceMode2D.Impulse`).
+4. Reinicia el `hitCounter` con el valor de `hitWaitTime` para esperar antes del siguiente golpe.
+
+──────────────────────────────
+🧠 EN RESUMEN
+──────────────────────────────
+- El enemigo **persigue constantemente al jugador** mientras esté vivo.
+- Cuando colisiona, le **hace daño y lo empuja** hacia atrás.
+- Usa un **temporizador de ataque** (`hitCounter`) para evitar golpear continuamente.
+- Si el jugador muere, el enemigo se **detiene por completo**.
+
+En conjunto con **EnemySpawner** y **ObjectPooler**, este script forma la parte dinámica del sistema de enemigos:
+- **ObjectPooler** gestiona su creación y rendimiento.
+- **EnemySpawner** controla cuándo y dónde aparecen.
+- **EnemyController** define cómo se comportan en el juego.

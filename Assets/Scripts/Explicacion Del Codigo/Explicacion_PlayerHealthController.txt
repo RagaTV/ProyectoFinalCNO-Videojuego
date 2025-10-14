@@ -1,0 +1,78 @@
+📘 EXPLICACIÓN DE PLAYERHEALTHCONTROLLER
+
+──────────────────────────────
+❤️ FUNCIÓN PRINCIPAL
+──────────────────────────────
+Este script controla la vida del jugador, su muerte y la actualización de la interfaz de usuario (UI) que muestra la salud.
+Se encarga de reducir la vida cuando recibe daño, actualizar la barra de salud y ejecutar la animación y lógica de muerte cuando llega a 0.
+
+──────────────────────────────
+⚙️ VARIABLES PRINCIPALES
+──────────────────────────────
+
+anim: referencia al Animator para controlar las animaciones del jugador (como la muerte).
+
+deathPlayer: indica si el jugador ha muerto (true o false).
+
+currentHealth: salud actual del jugador.
+
+maxHealth: salud máxima que puede tener.
+
+healthSlider: barra de vida (UI tipo Slider) que muestra visualmente la salud.
+
+healthText: texto en pantalla que muestra los valores numéricos de la salud.
+
+playerController: referencia al script PlayerController, para poder ejecutar la función de muerte.
+
+──────────────────────────────
+🚀 INICIO (Start)
+──────────────────────────────
+
+Obtiene el componente Animator del jugador.
+
+Inicializa la salud actual con el valor máximo (currentHealth = maxHealth).
+
+Guarda la referencia al PlayerController del mismo objeto.
+
+Configura los elementos de la interfaz (barra y texto) para que reflejen la salud actual y máxima.
+
+──────────────────────────────
+💥 DAÑO Y MUERTE (TakeDamage)
+──────────────────────────────
+El método TakeDamage(float damageReceived) se llama cuando el jugador recibe daño (por ejemplo, al chocar con un enemigo).
+
+Verifica si el jugador ya está muerto:
+
+Si deathPlayer es verdadero, no se aplica más daño.
+
+Resta el daño recibido:
+
+Disminuye currentHealth según el valor de damageReceived.
+
+Si la salud baja de 0, se ajusta a 0 para evitar valores negativos.
+
+Actualiza la interfaz:
+
+Mueve el healthSlider para que muestre la nueva cantidad de vida.
+
+Actualiza el texto healthText para reflejar los valores actuales.
+
+Verifica si la salud llegó a 0:
+
+Cambia deathPlayer a true.
+
+Activa la animación de muerte (anim.SetBool("isDeath", true)).
+
+Llama a playerController.Die() para ejecutar la lógica de muerte (por ejemplo, desactivar movimiento o reiniciar el juego).
+
+──────────────────────────────
+🧠 EN RESUMEN
+──────────────────────────────
+
+Este script gestiona toda la salud del jugador.
+
+Controla la interfaz visual de vida (barra y texto).
+
+Cuando recibe daño, actualiza la UI y, si llega a 0, activa la animación y secuencia de muerte.
+
+Evita errores al impedir que se aplique daño extra si el jugador ya ha muerto.

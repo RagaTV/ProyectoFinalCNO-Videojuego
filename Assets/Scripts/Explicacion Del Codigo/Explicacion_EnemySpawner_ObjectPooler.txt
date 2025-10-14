@@ -1,0 +1,72 @@
+
+📘 EXPLICACIÓN DE ENEMYSPAWNER Y OBJECTPOOLER
+
+──────────────────────────────
+🧩 ENEMYSPAWNER
+──────────────────────────────
+Este script se encarga de generar (spawnear) enemigos en el juego de forma controlada y con lógica de tiempo y posición.
+
+🔹 VARIABLES PRINCIPALES
+- timeToSpawn: tiempo que debe pasar entre cada aparición de enemigos.
+- spawnCounter: contador que va disminuyendo con el tiempo.
+- minSpawn y maxSpawn: puntos que delimitan el área donde pueden aparecer los enemigos.
+- pool: referencia al ObjectPooler, que administra los enemigos.
+- playerObject y target: referencia al jugador y su posición.
+- playerHealth: controla si el jugador está vivo o no.
+
+🔹 FUNCIONAMIENTO
+1. Al iniciar (Start), el script busca al jugador en la escena, guarda su posición y su componente de salud.
+2. En cada frame (Update):
+   - Si el jugador ha muerto, no se genera nada.
+   - Se reduce el contador `spawnCounter` con el tiempo.
+   - Cuando el contador llega a 0:
+     - Se reinicia al valor original.
+     - Se pide un enemigo al ObjectPooler según la dificultad (`GetEnemyByDifficulty()`).
+     - Se coloca en una posición aleatoria generada por `SelectSpawnPoint()`.
+     - Si han pasado más de 7 minutos, se genera un enemigo adicional “extra easy”.
+   - El spawner se mueve junto con el jugador, manteniéndose en su posición.
+
+🔹 SELECTSPAWNPOINT()
+Genera una posición aleatoria en los bordes definidos por `minSpawn` y `maxSpawn`.
+Decide de forma aleatoria si el enemigo aparecerá en los lados verticales u horizontales del área.
+
+──────────────────────────────
+⚙️ OBJECTPOOLER
+──────────────────────────────
+Normalmente, en un juego los enemigos se destruyen con `Destroy()` cuando mueren.
+Este script administra el sistema de “pooling” (uso reutilizable de objetos). En lugar de crear y destruir enemigos constantemente (lo cual gasta rendimiento), los mantiene en memoria y los activa/desactiva según sea necesario.
+
+🔹 ESTRUCTURA
+- EnemyTier: clase que agrupa los prefabs por niveles de dificultad (por ejemplo, Easy, Normal, Hard), indicando cuántas copias (poolSizePerPrefab) habrá de cada uno.
+- enemyTiers: lista que guarda todos los tiers de enemigos.
+- poolDictionary: almacena una cola (Queue) con los objetos disponibles para cada prefab.
+
+🔹 FUNCIONAMIENTO EN AWAKE()
+1. Recorre todos los tiers definidos en el inspector.
+2. Por cada prefab, crea una cola con una cantidad de enemigos preinstanciados.
+3. Cada enemigo se desactiva y se guarda en la cola.
+4. Se asocia cada prefab con su cola dentro del diccionario principal.
+
+🔹 GETENEMYBYDIFFICULTY()
+Decide qué tipo de enemigo se obtiene según el tiempo jugado:
+- 0 a 3 min → solo enemigos fáciles.
+- 3 a 7 min → 70% fáciles, 30% normales.
+- 7 a 12 min → mezcla entre normales (60%) y difíciles (40%).
+- Más de 12 min → solo difíciles.
+
+🔹 GETEXTRAEASY()
+Devuelve un enemigo del tier fácil (usado por EnemySpawner al pasar 7 minutos).
+
+🔹 GETRANDOMPOOLEDOBJECT()
+Obtiene un enemigo aleatorio del tier indicado. Si no hay objetos libres, crea uno nuevo.
+
+🔹 GETSPECIFICPOOLEDOBJECT()
+Busca un objeto inactivo en la cola de un prefab específico. Si no encuentra ninguno, genera uno nuevo y lo añade a la cola.
+
+
+──────────────────────────────
+🧠 EN RESUMEN
+EnemySpawner controla cuándo y dónde aparecen los enemigos.
+ObjectPooler controla qué enemigos se usan y los gestiona para no desperdiciar recursos.
+
+Ambos trabajan juntos para mantener un flujo equilibrado y eficiente de enemigos en el juego.
