@@ -16,7 +16,7 @@ public class EnemyController : MonoBehaviour
     private Transform target;
     private PlayerHealthController healthController;
 
-    
+    public float health = 10f; //weaponds
 
     // Start is called before the first frame update
     void Start()
@@ -82,4 +82,15 @@ public class EnemyController : MonoBehaviour
             }
         }
     }
+
+    public void TakeDamage(float damageToTake) //weaponds
+    {
+        health -= damageToTake;
+
+        if(health <= 0)
+        {
+            Destroy(gameObject); //Aqui es donde marca el error de objectPooler xq se elimina el enemigo (lo mato)
+        }
+    }
+
 }
