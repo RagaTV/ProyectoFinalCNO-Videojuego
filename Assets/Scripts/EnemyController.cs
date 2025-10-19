@@ -89,7 +89,8 @@ public class EnemyController : MonoBehaviour
 
         if(health <= 0)
         {
-            Destroy(gameObject); //Aqui es donde marca el error de objectPooler xq se elimina el enemigo (lo mato)
+            //Destroy(gameObject); //Aqui es donde marca el error de objectPooler xq se elimina el enemigo (lo mato)
+            gameObject.SetActive(false);
         }
     }
 

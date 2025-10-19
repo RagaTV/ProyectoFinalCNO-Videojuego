@@ -17,7 +17,6 @@ public class EnemyDamager : MonoBehaviour //weaponds
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         transform.localScale = Vector3.MoveTowards(transform.localScale, targetSize, growSpeed * Time.deltaTime);
