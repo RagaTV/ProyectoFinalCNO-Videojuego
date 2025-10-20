@@ -159,3 +159,5 @@ MonoBehaviour:
   damageAmount: 6
   hitWaitTime: 1
   maxHealth: 12
+  knockBackTime: 0.5
+  expToGive: 10

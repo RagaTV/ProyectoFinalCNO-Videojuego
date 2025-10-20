@@ -52,7 +52,7 @@ TagManager:
   - name: Enemies
     uniqueID: 3329177273
     locked: 0
-  - name: Objetos
+  - name: Pickups
     uniqueID: 330619031
     locked: 0
   - name: Player

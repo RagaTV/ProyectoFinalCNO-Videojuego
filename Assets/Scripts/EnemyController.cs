@@ -18,6 +18,7 @@ public class EnemyController : MonoBehaviour
     private float currentHealth;
     public float knockBackTime = 0.5f;
     private float knockBackCounter;
+    public int expToGive = 1;
 
    
     void OnEnable()
@@ -103,6 +104,8 @@ public class EnemyController : MonoBehaviour
         if (currentHealth <= 0)
         {
             gameObject.SetActive(false);
+
+            ExperienceLevelController.instance.SpawnExp(transform.position, expToGive);
         }
 
         DamageNumberController.instance.SpawnDamage(damageToTake, transform.position);

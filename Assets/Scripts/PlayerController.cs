@@ -16,8 +16,8 @@ public class PlayerController : MonoBehaviour
     private bool canDash = true;
     private Vector3 moveInput;
     private Vector3 lastDirection;
-
     private PlayerHealthController healthController;
+    public float pickupRange = 0.5f;
 
     void Start()
     {
