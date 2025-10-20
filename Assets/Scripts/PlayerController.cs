@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
         transform.localScale = spriteOrientation;
 
         // Dash con Space
-        if (Input.GetKeyDown(KeyCode.Space) && canDash)
+        if (Input.GetButtonDown("Jump") && canDash)
         {
             StartCoroutine(Dash());
         }
