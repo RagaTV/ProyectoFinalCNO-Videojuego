@@ -104,6 +104,8 @@ public class EnemyController : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
+
+        DamageNumberController.instance.SpawnDamage(damageToTake, transform.position);
     }
     
     public void TakeDamage(float damageToTake, bool shouldKnockBack)

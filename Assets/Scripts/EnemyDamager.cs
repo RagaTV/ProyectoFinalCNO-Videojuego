@@ -8,6 +8,7 @@ public class EnemyDamager : MonoBehaviour //weaponds
     public float lifeTime, growSpeed = 4f;
     private Vector3 targetSize;
     public bool shouldKnockBack;
+    public bool destroyParent;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +30,10 @@ public class EnemyDamager : MonoBehaviour //weaponds
             if(transform.localScale.x == 0f)
             {
                 Destroy(gameObject);
+                if (destroyParent)
+                {
+                    Destroy(transform.parent.gameObject);
+                }
             }
         }
     }
