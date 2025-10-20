@@ -16,29 +16,31 @@ public class EnemyController : MonoBehaviour
     private Transform target;
     private PlayerHealthController healthController;
 
-    public float health = 10f; //weaponds
 
-    // Start is called before the first frame update
-    void Start()
+    public float maxHealth = 10f; 
+    private float currentHealth;
+
+   
+    void OnEnable()
     {
-        rB=GetComponent<Rigidbody2D>();
+        currentHealth = maxHealth;
+        if(anim != null)
+        {
+            anim.speed = 1;
+        }
+        rB = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
-
         if (playerObject != null)
         {
             target = playerObject.transform;
             healthController = playerObject.GetComponent<PlayerHealthController>();
         }
     }
-
-    // Update is called once per frame
     void FixedUpdate()
     { 
         if (target != null && healthController != null && !healthController.deathPlayer)
         {
-            // Si el jugador está vivo, lo seguimos.
             rB.velocity = (target.position - transform.position).normalized * moveSpeed;
 
             Vector3 spriteOrientation = transform.localScale;
@@ -52,11 +54,10 @@ public class EnemyController : MonoBehaviour
                 hitCounter-=Time.deltaTime;
             }
         }
-        else
+        else if (target != null) // Si el jugador murió pero el enemigo sigue vivo
         {
-            // Si el jugador está muerto o no existe, detenemos al enemigo.
             rB.velocity = Vector2.zero;
-            anim.speed = 0;
+            anim.speed = 0; // Congela la animación
         }
     }
 
@@ -68,7 +69,6 @@ public class EnemyController : MonoBehaviour
             {
                 if (healthController != null && !healthController.deathPlayer)
                 {
-                    // 1. Infligimos daño y aplicamos el knockback
                     healthController.TakeDamage(damageAmount);
                     Rigidbody2D playerRb = collision.gameObject.GetComponent<Rigidbody2D>();
                     if (playerRb != null)
@@ -83,14 +83,14 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float damageToTake) //weaponds
+   
+    public void TakeDamage(float damageToTake) 
     {
-        health -= damageToTake;
+        currentHealth -= damageToTake;
 
-        if(health <= 0)
+        if(currentHealth <= 0)
         {
-            Destroy(gameObject); //Aqui es donde marca el error de objectPooler xq se elimina el enemigo (lo mato)
+            gameObject.SetActive(false); 
         }
     }
-
 }
