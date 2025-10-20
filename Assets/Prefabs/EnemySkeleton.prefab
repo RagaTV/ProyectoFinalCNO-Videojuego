@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rB: {fileID: 0}
-  moveSpeed: 3.5
+  moveSpeed: 1.5
   damageAmount: 15
   hitWaitTime: 1
   maxHealth: 60

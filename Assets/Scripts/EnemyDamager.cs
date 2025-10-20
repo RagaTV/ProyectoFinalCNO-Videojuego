@@ -6,7 +6,8 @@ public class EnemyDamager : MonoBehaviour //weaponds
 {
     public float damageAmount;
     public float lifeTime, growSpeed = 4f;
-    private Vector3 targetSize; 
+    private Vector3 targetSize;
+    public bool shouldKnockBack;
 
     // Start is called before the first frame update
     void Start()
@@ -36,7 +37,7 @@ public class EnemyDamager : MonoBehaviour //weaponds
     {
         if(collision.tag == "Enemy")
         {
-            collision.GetComponent<EnemyController>().TakeDamage(damageAmount);
+            collision.GetComponent<EnemyController>().TakeDamage(damageAmount, shouldKnockBack);
             //collision.GetComponent<EnemyMovement>().TakeDamage(damageAmount); //en el video se llama diferente el script
         }
     }
