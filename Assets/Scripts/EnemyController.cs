@@ -16,7 +16,7 @@ public class EnemyController : MonoBehaviour
     private PlayerHealthController healthController;
     public float maxHealth = 10f;
     private float currentHealth;
-    public float knockBackTime = 0.5f;
+    private float knockBackTime = 0.25f;
     private float knockBackCounter;
     public int expToGive = 1;
 
