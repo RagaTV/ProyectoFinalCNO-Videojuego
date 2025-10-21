@@ -19,7 +19,6 @@ public class EnemyController : MonoBehaviour
     private float knockBackTime = 0.25f;
     private float knockBackCounter;
     public int expToGive = 1;
-
     private float auxExtra=1.2f;
     private int levelup=1;
 
