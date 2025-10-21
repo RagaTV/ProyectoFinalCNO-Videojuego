@@ -20,27 +20,31 @@ public class EnemyController : MonoBehaviour
     private float knockBackCounter;
     public int expToGive = 1;
 
-    public float extraHealth=20f;
-    public float extraDamage=5f;
-    public float auxExtra=1.5f;
+    private float auxExtra=1.2f;
     private int levelup=1;
 
+    void Update()
+    {
+        float minutes = Time.timeSinceLevelLoad / 60f;
 
+        for (int i = levelup; i <= minutes; i++)
+        {
+            float healthPercent = currentHealth / maxHealth;
+
+            maxHealth *= auxExtra;
+            damageAmount *= auxExtra;
+
+            // Ajusta la vida actual al mismo porcentaje de la nueva vida máxima
+            currentHealth = maxHealth * healthPercent;
+
+            levelup++;
+        }
+    }
    
     void OnEnable()
     {
-        float minutes= Time.timeSinceLevelLoad/60f;
-        
-        for(int i=levelup; i<=minutes; i++){
-            maxHealth *= auxExtra;
-            damageAmount *= auxExtra;
-            levelup++;
-            auxExtra+=0.5f;
-        }
-        Debug.Log("Nivel " +levelup );
         currentHealth = maxHealth;
-        Debug.Log("Vida: "+maxHealth);
-        Debug.Log("Daño "+damageAmount);
+        
         if(anim != null)
         {
             anim.speed = 1;
