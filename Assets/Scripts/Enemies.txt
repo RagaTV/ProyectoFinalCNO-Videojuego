@@ -1,0 +1,18 @@
+Enemy Easy
+
+- EnemySkull
+- EnemyRat
+- EnemyPebble
+- EnemyBat
+
+Enemy Normal
+
+- EnemySlime
+- EnemyGolemNoArmor
+- EnemyGolemArmored
+- EnemyCrab
+
+Enemy Hard
+
+- EnemySkeleton
+- EnemyWitchDoctor

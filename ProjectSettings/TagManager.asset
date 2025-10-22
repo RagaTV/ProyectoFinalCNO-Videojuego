@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - Boss
   layers:
   - Default
   - TransparentFX
@@ -40,4 +42,22 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Ground
+    uniqueID: 992170719
+    locked: 0
+  - name: Decoration
+    uniqueID: 2989990049
+    locked: 0
+  - name: Enemies
+    uniqueID: 3329177273
+    locked: 0
+  - name: Pickups
+    uniqueID: 330619031
+    locked: 0
+  - name: Player
+    uniqueID: 935879837
+    locked: 0
+  - name: UI
+    uniqueID: 663835965
     locked: 0
