@@ -43,7 +43,7 @@ public class ObjectPooler : MonoBehaviour
 
     public GameObject GetEnemyByDifficulty()
     {
-        float minutes = Time.timeSinceLevelLoad / 60f;
+        float minutes = UIController.instance.gameTimer / 60f;
         float randomValue = Random.value;
 
         // 0 - 3 min → Easy

@@ -14,6 +14,8 @@ public class GoldenSwordWeapon : Weapon
     void Start()
     {
         SetStats();
+
+        //UIController.instance.lvlUpButtons[0].UpdateButtonDisplay(this);
     }
 
     // Update is called once per frame

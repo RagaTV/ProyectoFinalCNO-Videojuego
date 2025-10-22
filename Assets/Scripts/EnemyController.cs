@@ -24,7 +24,7 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        float minutes = Time.timeSinceLevelLoad / 60f;
+        float minutes = UIController.instance.gameTimer / 60f;
 
         for (int i = levelup; i <= minutes; i++)
         {
