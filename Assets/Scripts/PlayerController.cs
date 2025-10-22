@@ -4,20 +4,25 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController instance;
+    private void Awake()
+    {
+        instance = this;
+    }
     public float speed;
     public float dashForce = 10f;       
     public float dashDuration = 0.5f;     
     public float dashCooldown = 0.5f;
-
     public Animator anim;
     private Rigidbody2D rb;
-
     private bool isDashing = false;
     private bool canDash = true;
     private Vector3 moveInput;
     private Vector3 lastDirection;
     private PlayerHealthController healthController;
     public float pickupRange = 0.5f;
+
+    public Weapon activeWeapon;
 
     void Start()
     {
