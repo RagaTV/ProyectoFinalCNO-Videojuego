@@ -9,6 +9,17 @@ public class LvlUpSelectionButton : MonoBehaviour
     public TMP_Text upgradeDescription, nameLvl;
     public Image weaponIcon;
     private Weapon assignedWeapon;
+    public Image buttonImage; 
+    public Color comunColor = new Color(0.8f, 0.8f, 0.8f); // Gris
+    public Color raraColor = new Color(0.2f, 0.5f, 1f);   // Azul
+    public Color epicaColor = new Color(0.7f, 0.2f, 1f);   // Morado
+    public Color legendariaColor = new Color(1f, 0.8f, 0f); // Dorado
+
+    private void Awake()
+    {
+        // Obtiene el componente Image de ESTE objeto (el botón)
+        buttonImage = GetComponent<Image>(); 
+    }
 
     public void UpdateButtonDisplay(Weapon theWeapon)
     {
@@ -25,8 +36,25 @@ public class LvlUpSelectionButton : MonoBehaviour
         {
             upgradeDescription.text = theWeapon.stats[nextLevel].upgradeText;
             weaponIcon.sprite = theWeapon.icon;
-            nameLvl.text = theWeapon.name + "\nNivel " + nextLevel; // Muestra el nivel al que subirá
+            nameLvl.text = theWeapon.name + "\nNivel " + nextLevel;
             assignedWeapon = theWeapon;
+
+            UpgradeRarity rarity = theWeapon.stats[nextLevel].rarity;
+            switch (rarity)
+            {
+                case UpgradeRarity.Comun:
+                    buttonImage.color = comunColor;
+                    break;
+                case UpgradeRarity.Rara:
+                    buttonImage.color = raraColor;
+                    break;
+                case UpgradeRarity.Epica: 
+                    buttonImage.color = epicaColor;
+                    break;
+                case UpgradeRarity.Legendaria:
+                    buttonImage.color = legendariaColor;
+                    break;
+            }
         }
 
         /*upgradeDescription.text = theWeapon.stats[theWeapon.weaponLvl].upgradeText;
@@ -39,22 +67,21 @@ public class LvlUpSelectionButton : MonoBehaviour
     public void SelectUpgrade()
     {
         if(assignedWeapon != null)
-    {
-        // 1. Revisa si el arma seleccionada está en la lista de 'unassigned'
-        if (PlayerController.instance.unassignedWeapons.Contains(assignedWeapon))
         {
-            // ¡Es un arma NUEVA! Llama a tu nueva función
-            PlayerController.instance.AddWeapon(assignedWeapon);
+            if (PlayerController.instance.unassignedWeapons.Contains(assignedWeapon))
+            {
+                // ¡Es un arma NUEVA! Llama a tu nueva función
+                PlayerController.instance.AddWeapon(assignedWeapon);
+            }
+            else
+            {
+                // Es un arma que ya teníamos. Solo súbela de nivel.
+                assignedWeapon.LevelUp();
+            }
+            
+            // Cierra el panel y reanuda el juego
+            UIController.instance.panelLvls.SetActive(false);
+            Time.timeScale = 1f;
         }
-        else
-        {
-            // Es un arma que ya teníamos. Solo súbela de nivel.
-            assignedWeapon.LevelUp();
-        }
-        
-        // Cierra el panel y reanuda el juego
-        UIController.instance.panelLvls.SetActive(false);
-        Time.timeScale = 1f;
-    }
     }
 }

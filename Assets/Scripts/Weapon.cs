@@ -2,6 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum UpgradeRarity
+{
+    Comun,    // 1 Mejora (Gris)
+    Rara,      // 2 Mejoras (Azul)
+    Epica,      // 3 Mejoras (Morado)
+    Legendaria  // 4 Mejoras (Amarillo)
+}
+
 public class Weapon : MonoBehaviour
 {
     public WeaponStats baseStats;
@@ -11,6 +19,10 @@ public class Weapon : MonoBehaviour
     public Sprite icon;
     public int maxLevels = 10;
     public int weaponLvl = 0;
+
+    private float rareChance = 0.3f;      // 30%
+    private float epicChance = 0.15f;      // 15%
+    private float legendaryChance = 0.05f;  // 5%
 
     public void LevelUp()
     {
@@ -30,55 +42,96 @@ public class Weapon : MonoBehaviour
 
         for (int i = 1; i < maxLevels; i++)
         {
-            // 1. Copia el nivel anterior
             WeaponStats prevStats = stats[i - 1];
-            WeaponStats newStats = new WeaponStats(prevStats); // ¡Usamos el constructor de copia!
+            WeaponStats newStats = new WeaponStats(prevStats); 
 
-            // 2. Elige UNA estadística para mejorar
-            // (0=Daño, 1=Velocidad, 2=Tamaño, 3=Cooldown, 4=Cantidad, 5=Duración)
-            int statToUpgrade = Random.Range(0, 6); 
+            // --- Lógica de Rareza ---
+            int upgradesToApply = 1;
+            float roll = Random.value; // Un número aleatorio entre 0.0 y 1.0
 
-            // 3. Aplica la mejora y crea el texto
-            switch (statToUpgrade)
+            if (roll < legendaryChance) // Ej. 0.05
             {
-                case 0: // Daño
-                    float damageIncrease = 0.2f; // 20%
-                    newStats.damage *= (1f + damageIncrease);
-                    newStats.upgradeText = $"+{damageIncrease:P0} Damage"; // P0 = formato porcentaje
-                    break;
-                
-                case 1: // Velocidad (de rotación/proyectil)
-                    float speedIncrease = 0.15f; // 15%
-                    newStats.speed *= (1f + speedIncrease);
-                    newStats.upgradeText = $"+{speedIncrease:P0} Speed";
-                    break;
-
-                case 2: // Tamaño
-                    float sizeIncrease = 0.1f; // 10%
-                    newStats.size *= (1f + sizeIncrease);
-                    newStats.upgradeText = $"+{sizeIncrease:P0} Area";
-                    break;
-
-                case 3: // Cooldown (Attack Delay)
-                    float cooldownReduction = 0.1f; // 10%
-                    newStats.attackDelay *= (1f - cooldownReduction); // ¡El Cooldown se REDUCE!
-                    newStats.upgradeText = $"-{cooldownReduction:P0} Cooldown";
-                    break;
-                
-                case 4: // Cantidad (Amount)
-                    int amountIncrease = 1;
-                    newStats.amount += amountIncrease;
-                    newStats.upgradeText = $"+{amountIncrease} Projectile";
-                    break;
-
-                case 5: // Duración
-                    float durationIncrease = 0.2f; // 20%
-                    newStats.duration *= (1f + durationIncrease);
-                    newStats.upgradeText = $"+{durationIncrease:P0} Duration";
-                    break;
+                newStats.rarity = UpgradeRarity.Legendaria;
+                upgradesToApply = 4;
+            }
+            // roll (0.05) < legendaryChance (0.05) + epicChance (0.15) = 0.20
+            else if (roll < legendaryChance + epicChance)
+            {
+                newStats.rarity = UpgradeRarity.Epica; 
+                upgradesToApply = 3;
+            }
+            // roll (0.20) < legendaryChance(0.05) + epicChance(0.15) + rareChance(0.30) = 0.50
+            else if (roll < legendaryChance + epicChance + rareChance)
+            {
+                newStats.rarity = UpgradeRarity.Rara;
+                upgradesToApply = 2;
+            }
+            else
+            {
+                newStats.rarity = UpgradeRarity.Comun;
+                upgradesToApply = 1;
             }
 
-            // 4. Añade el nivel recién creado a la lista
+
+            // --- Lógica de Múltiples Mejoras ---
+            List<string> upgradeTexts = new List<string>(); // Guarda los textos
+            List<int> statsAlreadyUpgraded = new List<int>(); // Evita repetir mejoras
+            int totalStatTypes = 6; // (0=Daño, 1=Vel, 2=Tamaño, 3=Cooldown, 4=Cant, 5=Dur)
+
+            // Este bucle se ejecutará 1, 2, 3 o 4 veces
+            for (int j = 0; j < upgradesToApply; j++)
+            {
+                // Si ya mejoramos las 6 stats, no podemos hacer más
+                if (statsAlreadyUpgraded.Count >= totalStatTypes) break; 
+                
+                int statToUpgrade;
+                
+                // Busca una estadística que NO hayamos mejorado AÚN en este nivel
+                do {
+                    statToUpgrade = Random.Range(0, totalStatTypes);
+                } while (statsAlreadyUpgraded.Contains(statToUpgrade));
+                
+                statsAlreadyUpgraded.Add(statToUpgrade); // Marca la stat como usada
+
+                // Aplica la mejora y guarda el texto
+                switch (statToUpgrade)
+                {
+                    case 0: // Daño
+                        float damageIncrease = 0.4f;
+                        newStats.damage *= (1f + damageIncrease);
+                        upgradeTexts.Add($"+{damageIncrease:P0} Daño");
+                        break;
+                    case 1: // Velocidad
+                        float speedIncrease = 0.15f;
+                        newStats.speed *= (1f + speedIncrease);
+                        upgradeTexts.Add($"+{speedIncrease:P0} Vel.");
+                        break;
+                    case 2: // Tamaño
+                        float sizeIncrease = 0.1f;
+                        newStats.size *= (1f + sizeIncrease);
+                        upgradeTexts.Add($"+{sizeIncrease:P0} Área");
+                        break;
+                    case 3: // Cooldown
+                        float cooldownReduction = 0.1f;
+                        newStats.attackDelay *= (1f - cooldownReduction);
+                        upgradeTexts.Add($"-{cooldownReduction:P0} Cooldown");
+                        break;
+                    case 4: // Cantidad
+                        int amountIncrease = 1;
+                        newStats.amount += amountIncrease;
+                        upgradeTexts.Add($"+{amountIncrease} Proyectil");
+                        break;
+                    case 5: // Duración
+                        float durationIncrease = 0.2f;
+                        newStats.duration *= (1f + durationIncrease);
+                        upgradeTexts.Add($"+{durationIncrease:P0} Duración");
+                        break;
+                }
+            }
+
+            newStats.upgradeText = string.Join(", ", upgradeTexts);
+
+            // Añade el nivel recién creado a la lista 'stats'
             stats.Add(newStats);
         }
     }
@@ -93,7 +146,11 @@ public class WeaponStats
     public float speed, damage, size, attackDelay, duration;
     public int amount;
     public string upgradeText;
-    public WeaponStats() { }
+    public UpgradeRarity rarity;
+    public WeaponStats()
+    {
+        this.rarity = UpgradeRarity.Comun;
+    }
 
     public WeaponStats(WeaponStats other)
     {

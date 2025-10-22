@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class UIController : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class UIController : MonoBehaviour
 
     public Slider expLvlSlider;
     public TMP_Text expLvlText;
+    public TMP_Text timer;
     public LvlUpSelectionButton[] lvlUpButtons;
     public GameObject panelLvls;
 
@@ -28,6 +30,9 @@ public class UIController : MonoBehaviour
     void Update()
     {
         gameTimer += Time.deltaTime;
+        TimeSpan time = TimeSpan.FromSeconds(gameTimer);
+
+        timer.text = time.ToString(@"mm\:ss");
     }
 
     public void UpdateExperience(int currentExperience, int levelExp, int currentLevel)
@@ -71,7 +76,7 @@ public class UIController : MonoBehaviour
             if (availableUpgrades.Count > 0)
             {
                 //Elige una opción aleatoria de la lista
-                int selectedOption = Random.Range(0, availableUpgrades.Count);
+                int selectedOption = UnityEngine.Random.Range(0, availableUpgrades.Count);
                 
                 //Asigna esa arma al botón
                 button.UpdateButtonDisplay(availableUpgrades[selectedOption]);
