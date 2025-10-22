@@ -185,6 +185,6 @@ MonoBehaviour:
   moveSpeed: 2.5
   damageAmount: 25
   hitWaitTime: 1
-  maxHealth: 100
+  maxHealth: 55
   knockBackTime: 0.5
   expToGive: 50

@@ -6,8 +6,6 @@ public class ExperienceLevelController : MonoBehaviour
 {
     public static ExperienceLevelController instance;
 
-    
-
     public int currentExperience;
     public ExpPickup pickup;
     public List<int> expLevels;
@@ -50,14 +48,22 @@ public class ExperienceLevelController : MonoBehaviour
     }
     
     void LevelUp()
+{
+    currentExperience -= expLevels[currentLevel];
+    currentLevel++;
+
+    if (currentLevel >= expLevels.Count)
     {
-        currentExperience -= expLevels[currentLevel];
-
-        currentLevel++;
-
-        if(currentLevel >= expLevels.Count)
-        {
-            currentLevel = expLevels.Count - 1;
-        }
+        currentLevel = expLevels.Count - 1;
     }
+
+    // UIController.instance.panelLvls.SetActive(true);
+    // Time.timeScale = 0;
+    // UIController.instance.lvlUpButtons[0].UpdateButtonDisplay(PlayerController.instance.assignedWeapons[0]); 
+    // UIController.instance.lvlUpButtons[1].UpdateButtonDisplay(PlayerController.instance.unassignedWeapons[0]); 
+    
+    
+    // --- AÑADE SOLO ESTA LÍNEA ---
+    UIController.instance.ShowLevelUpOptions();
+}
 }

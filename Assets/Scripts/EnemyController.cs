@@ -16,14 +16,34 @@ public class EnemyController : MonoBehaviour
     private PlayerHealthController healthController;
     public float maxHealth = 10f;
     private float currentHealth;
-    public float knockBackTime = 0.5f;
+    private float knockBackTime = 0.25f;
     private float knockBackCounter;
     public int expToGive = 1;
+    private float auxExtra=1.2f;
+    private int levelup=1;
 
+    void Update()
+    {
+        float minutes = UIController.instance.gameTimer / 60f;
+
+        for (int i = levelup; i <= minutes; i++)
+        {
+            float healthPercent = currentHealth / maxHealth;
+
+            maxHealth *= auxExtra;
+            damageAmount *= auxExtra;
+
+            // Ajusta la vida actual al mismo porcentaje de la nueva vida máxima
+            currentHealth = maxHealth * healthPercent;
+
+            levelup++;
+        }
+    }
    
     void OnEnable()
     {
         currentHealth = maxHealth;
+        
         if(anim != null)
         {
             anim.speed = 1;

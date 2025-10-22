@@ -22,8 +22,8 @@ public class PlayerHealthController : MonoBehaviour
 
         playerController = GetComponent<PlayerController>();
         healthSlider.maxValue = maxHealth;
-        healthSlider.value = currentHealth;
-        healthText.text = currentHealth + " / " + maxHealth;
+
+        UpdateHealthUI();
     }
 
     // Update is called once per frame
@@ -41,8 +41,8 @@ public class PlayerHealthController : MonoBehaviour
         {
             currentHealth = 0;
         }
-        healthSlider.value = currentHealth;
-        healthText.text = currentHealth + " / " + maxHealth;
+        
+        UpdateHealthUI();
 
         if (currentHealth <= 0)
         {
@@ -50,5 +50,15 @@ public class PlayerHealthController : MonoBehaviour
             anim.SetBool("isDeath", deathPlayer);
             playerController.Die();
         }
+    }
+
+    private void UpdateHealthUI()
+    {
+        healthSlider.value = currentHealth;
+
+        int currentHPForText = Mathf.CeilToInt(currentHealth);
+        int maxHPForText = Mathf.CeilToInt(maxHealth);
+
+        healthText.text = currentHPForText + " / " + maxHPForText;
     }
 }
