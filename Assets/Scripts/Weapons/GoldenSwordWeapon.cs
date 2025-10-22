@@ -9,6 +9,7 @@ public class GoldenSwordWeapon : Weapon
     public float timeBetweenSpawn;
     private float spawnCounter;
     public EnemyDamager damager;
+    private int currentAmount;
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +29,14 @@ public class GoldenSwordWeapon : Weapon
         if (spawnCounter <= 0)
         {
             spawnCounter = timeBetweenSpawn;
-            Instantiate(fireballToSpawn, fireballToSpawn.position, fireballToSpawn.rotation, holder).gameObject.SetActive(true);
+            for (int i = 0; i < currentAmount; i++)
+            {
+                float angle = (360f / currentAmount) * i;
+
+                Quaternion spawnRotation = holder.rotation * Quaternion.Euler(0, 0, angle);
+
+                Instantiate(fireballToSpawn, holder.position, spawnRotation, holder).gameObject.SetActive(true);
+            }
         }
 
         if(statsUpdated == true)
@@ -44,6 +52,8 @@ public class GoldenSwordWeapon : Weapon
         transform.localScale = Vector3.one * stats[weaponLvl].size;
         timeBetweenSpawn = stats[weaponLvl].attackDelay;
         damager.lifeTime = stats[weaponLvl].duration;
+
+        currentAmount = stats[weaponLvl].amount;
 
         spawnCounter = 0f; 
     }

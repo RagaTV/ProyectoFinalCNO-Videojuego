@@ -21,14 +21,29 @@ public class PlayerController : MonoBehaviour
     private Vector3 lastDirection;
     private PlayerHealthController healthController;
     public float pickupRange = 0.5f;
+    //public Weapon activeWeapon;
+    public List<Weapon> unassignedWeapons, assignedWeapons;
 
-    public Weapon activeWeapon;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         healthController = GetComponent<PlayerHealthController>();
+
+        foreach (Weapon w in assignedWeapons)
+        {
+            w.GenerateLevelPath();
+        }
+        foreach (Weapon w in unassignedWeapons)
+        {
+            w.GenerateLevelPath();
+        }
+        if (unassignedWeapons.Count > 0)
+        {
+            int randomWeaponIndex = Random.Range(0, unassignedWeapons.Count);
+            AddWeapon(unassignedWeapons[randomWeaponIndex]); 
+        }
     }
 
     void Update()
@@ -109,5 +124,20 @@ public class PlayerController : MonoBehaviour
         rb.velocity = Vector2.zero;
         // Desactiva este script para que Update() y FixedUpdate() dejen de ejecutarse
         this.enabled = false;
+    }
+
+    public void AddWeapon(Weapon weaponToAdd)
+    {
+        if (unassignedWeapons.Contains(weaponToAdd))
+        {
+            assignedWeapons.Add(weaponToAdd);
+
+            weaponToAdd.gameObject.SetActive(true);
+            
+            unassignedWeapons.Remove(weaponToAdd);
+
+            weaponToAdd.weaponLvl = 0;
+            weaponToAdd.statsUpdated = true;
+        }
     }
 }
