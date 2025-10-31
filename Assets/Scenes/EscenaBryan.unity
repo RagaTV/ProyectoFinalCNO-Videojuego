@@ -1341,7 +1341,7 @@ MonoBehaviour:
   weaponLvl: 0
   rotateSpeed: 120
   holder: {fileID: 1631681343}
-  fireballToSpawn: {fileID: 944071934}
+  weaponToSpawn: {fileID: 944071934}
   timeBetweenSpawn: 6
   damager: {fileID: 759259548}
 --- !u!1 &589462164
@@ -1890,6 +1890,7 @@ GameObject:
   - component: {fileID: 786157245}
   - component: {fileID: 786157246}
   - component: {fileID: 786157247}
+  - component: {fileID: 786157248}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1909,17 +1910,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27030576b3a884744851b12eb2a0b1ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
   dashForce: 8
   dashDuration: 0.5
   dashCooldown: 0.5
   anim: {fileID: 0}
-  pickupRange: 1
   unassignedWeapons:
   - {fileID: 568534513}
   - {fileID: 1078523226}
   - {fileID: 1328867176}
   assignedWeapons: []
+  unassignedPassives:
+  - {fileID: 11400000, guid: cc72d20b9eb662443b8ca49ccecf0e1a, type: 2}
+  - {fileID: 11400000, guid: 94477399d35b4064ab4a476748340501, type: 2}
+  - {fileID: 11400000, guid: cf0c2b58ca2102d4c84f009eb09b0863, type: 2}
+  - {fileID: 11400000, guid: 9aec0d054b55aeb4e98dd2a2270366b5, type: 2}
+  - {fileID: 11400000, guid: e19c68e90670be14fb0743d5912c42dd, type: 2}
+  - {fileID: 11400000, guid: f72d49251cacf0b4ab9ae2df9ca5fd1f, type: 2}
+  - {fileID: 11400000, guid: 458e14ce4bd72c04d8b4365e5bd591ba, type: 2}
+  assignedPassives: []
 --- !u!4 &786157242
 Transform:
   m_ObjectHideFlags: 0
@@ -2037,7 +2045,6 @@ MonoBehaviour:
   anim: {fileID: 0}
   deathPlayer: 0
   currentHealth: 0
-  maxHealth: 100
   healthSlider: {fileID: 377553843}
   healthText: {fileID: 2086936334}
 --- !u!50 &786157247
@@ -2061,6 +2068,25 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &786157248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 786157240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e04c53ee568a9fd478ec8581a863cb8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseMoveSpeed: 2
+  baseMaxHealth: 100
+  baseHealthRegen: 0
+  baseDamage: 1
+  basePickupRange: 1.5
+  baseProjectileSize: 1
+  baseArmor: 0
 --- !u!1 &842295234
 GameObject:
   m_ObjectHideFlags: 0
@@ -2434,7 +2460,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentExperience: 0
   pickup: {fileID: 3684649090531299047, guid: 075cf3811a998b84aa37792c384531ba, type: 3}
-  expLevels: 0000000014000000
+  expLevels: 000000000a000000
   currentLevel: 1
   maxLevel: 100
   baseExperience: 5
@@ -40656,9 +40682,9 @@ MonoBehaviour:
   icon: {fileID: 2013392749217791901, guid: 796f8a64c78cdd24e95cb3244e43135a, type: 3}
   maxLevels: 20
   weaponLvl: 0
-  rotateSpeed: 70
+  rotateSpeed: 100
   holder: {fileID: 1440611142}
-  fireballToSpawn: {fileID: 304930370}
+  weaponToSpawn: {fileID: 304930370}
   timeBetweenSpawn: 6
   damager: {fileID: 894488258}
 --- !u!4 &1078523227
@@ -41196,9 +41222,9 @@ MonoBehaviour:
   icon: {fileID: -5936106868037138262, guid: 796f8a64c78cdd24e95cb3244e43135a, type: 3}
   maxLevels: 20
   weaponLvl: 0
-  rotateSpeed: 130
+  rotateSpeed: 200
   holder: {fileID: 442206403}
-  fireballToSpawn: {fileID: 1775098804}
+  weaponToSpawn: {fileID: 1775098804}
   timeBetweenSpawn: 6
   damager: {fileID: 512301522}
 --- !u!1 &1371012105

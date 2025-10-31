@@ -42,8 +42,11 @@ public class EnemyDamager : MonoBehaviour //weaponds
     {
         if(collision.tag == "Enemy")
         {
-            collision.GetComponent<EnemyController>().TakeDamage(damageAmount, shouldKnockBack);
-            //collision.GetComponent<EnemyMovement>().TakeDamage(damageAmount); //en el video se llama diferente el script
+            float finalDamage = damageAmount * PlayerStats.instance.damageMultiplier;
+
+            collision.GetComponent<EnemyController>().TakeDamage(finalDamage, shouldKnockBack);
+            //collision.GetComponent<EnemyController>().TakeDamage(damageAmount, shouldKnockBack);
+            //collision.GetComponent<EnemyMovement>().TakeDamage(damageAmount); 
         }
     }
 }

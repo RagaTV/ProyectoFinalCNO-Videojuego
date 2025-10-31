@@ -5,7 +5,7 @@ using UnityEngine;
 public class GoldenSwordWeapon : Weapon
 {
     public float rotateSpeed;
-    public Transform holder, fireballToSpawn;
+    public Transform holder, weaponToSpawn;
     public float timeBetweenSpawn;
     private float spawnCounter;
     public EnemyDamager damager;
@@ -15,8 +15,6 @@ public class GoldenSwordWeapon : Weapon
     void Start()
     {
         SetStats();
-
-        //UIController.instance.lvlUpButtons[0].UpdateButtonDisplay(this);
     }
 
     // Update is called once per frame
@@ -35,7 +33,7 @@ public class GoldenSwordWeapon : Weapon
 
                 Quaternion spawnRotation = holder.rotation * Quaternion.Euler(0, 0, angle);
 
-                Instantiate(fireballToSpawn, holder.position, spawnRotation, holder).gameObject.SetActive(true);
+                Instantiate(weaponToSpawn, holder.position, spawnRotation, holder).gameObject.SetActive(true);
             }
         }
 
@@ -49,7 +47,7 @@ public class GoldenSwordWeapon : Weapon
     public void SetStats()
     {
         damager.damageAmount = stats[weaponLvl].damage;
-        transform.localScale = Vector3.one * stats[weaponLvl].size;
+        transform.localScale = Vector3.one * stats[weaponLvl].size * PlayerStats.instance.projectileSizeMultiplier;
         timeBetweenSpawn = stats[weaponLvl].attackDelay;
         damager.lifeTime = stats[weaponLvl].duration;
 
