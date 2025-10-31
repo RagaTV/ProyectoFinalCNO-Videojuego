@@ -49,6 +49,7 @@ public class UIController : MonoBehaviour
 
         List<Weapon> upgradableWeapons = new List<Weapon>();
         List<object> generalPool = new List<object>();
+        List<object> availableUpgrades = new List<object>();
 
         if (PlayerController.instance.assignedWeapons.Count > 0)
         {
@@ -61,25 +62,33 @@ public class UIController : MonoBehaviour
             }
         }
 
-        if (PlayerController.instance.unassignedWeapons.Count > 0)
+        if (PlayerController.instance.assignedWeapons.Count < 4)
         {
-            generalPool.AddRange(PlayerController.instance.unassignedWeapons);
+            if (PlayerController.instance.unassignedWeapons.Count > 0)
+            {
+                availableUpgrades.AddRange(PlayerController.instance.unassignedWeapons);
+            }
         }
+
         if (PlayerController.instance.assignedPassives.Count > 0)
         {
             foreach (PassiveItem passive in PlayerController.instance.assignedPassives)
             {
                 int currentLevelIndex = PlayerController.instance.passiveLevels[passive];
-                
+
                 if (currentLevelIndex < passive.levels.Count - 1)
                 {
                     generalPool.Add(passive);
                 }
             }
         }
-        if (PlayerController.instance.unassignedPassives.Count > 0)
+        
+        if (PlayerController.instance.assignedPassives.Count < 4)
         {
-            generalPool.AddRange(PlayerController.instance.unassignedPassives);
+            if (PlayerController.instance.unassignedPassives.Count > 0)
+            {
+                availableUpgrades.AddRange(PlayerController.instance.unassignedPassives);
+            }
         }
 
         List<object> optionsToShow = new List<object>();
