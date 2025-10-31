@@ -12,7 +12,7 @@ public class CameraControl : MonoBehaviour
     
     [Header("Efecto de Muerte")]
     public Image fadePanel; 
-    public float deathZoomDuration = 2f; 
+    public float deathZoomDuration = 1f; 
     public float targetOrthographicSize = 2f; 
     public float targetFade = 0.7f; 
 

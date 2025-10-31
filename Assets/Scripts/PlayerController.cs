@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     {
         instance = this;
     }
-    public float speed;
     public float dashForce = 10f;       
     public float dashDuration = 0.5f;     
     public float dashCooldown = 0.5f;
@@ -20,16 +19,18 @@ public class PlayerController : MonoBehaviour
     private Vector3 moveInput;
     private Vector3 lastDirection;
     private PlayerHealthController healthController;
-    public float pickupRange = 0.5f;
     //public Weapon activeWeapon;
     public List<Weapon> unassignedWeapons, assignedWeapons;
-
+    public List<PassiveItem> unassignedPassives, assignedPassives;
+    public Dictionary<PassiveItem, int> passiveLevels;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         healthController = GetComponent<PlayerHealthController>();
+
+        passiveLevels = new Dictionary<PassiveItem, int>();
 
         foreach (Weapon w in assignedWeapons)
         {
@@ -42,7 +43,11 @@ public class PlayerController : MonoBehaviour
         if (unassignedWeapons.Count > 0)
         {
             int randomWeaponIndex = Random.Range(0, unassignedWeapons.Count);
-            AddWeapon(unassignedWeapons[randomWeaponIndex]); 
+            AddWeapon(unassignedWeapons[randomWeaponIndex]);
+        }
+        foreach (PassiveItem p in unassignedPassives)
+        {
+            p.GenerateLevelPath();
         }
     }
 
@@ -83,7 +88,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate(){
         if (!isDashing) {
-            rb.velocity = moveInput * speed;
+            rb.velocity = moveInput * PlayerStats.instance.moveSpeed;
         }
     }
     
@@ -133,11 +138,32 @@ public class PlayerController : MonoBehaviour
             assignedWeapons.Add(weaponToAdd);
 
             weaponToAdd.gameObject.SetActive(true);
-            
+
             unassignedWeapons.Remove(weaponToAdd);
 
             weaponToAdd.weaponLvl = 0;
             weaponToAdd.statsUpdated = true;
         }
+    }
+    
+    public void UpgradePassive(PassiveItem passiveToUpgrade)
+    {
+        int currentLevel = 0; 
+
+        if (unassignedPassives.Contains(passiveToUpgrade))
+        {
+            unassignedPassives.Remove(passiveToUpgrade);
+            assignedPassives.Add(passiveToUpgrade);
+            
+            passiveLevels[passiveToUpgrade] = 0; 
+            currentLevel = 0;
+        }
+        else
+        {
+            passiveLevels[passiveToUpgrade]++;
+            currentLevel = passiveLevels[passiveToUpgrade];
+        }
+
+        PlayerStats.instance.ApplyStatsForPassive(passiveToUpgrade, currentLevel);
     }
 }

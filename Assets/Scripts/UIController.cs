@@ -44,51 +44,91 @@ public class UIController : MonoBehaviour
     
     public void ShowLevelUpOptions()
     {
-        //Pausa el juego y muestra el panel
         panelLvls.SetActive(true);
         Time.timeScale = 0f;
 
-        //Crea una lista de opciones posibles
-        List<Weapon> availableUpgrades = new List<Weapon>();
+        List<Weapon> upgradableWeapons = new List<Weapon>();
+        List<object> generalPool = new List<object>();
 
-        //Revisa las armas que YA TIENES (assignedWeapons)
         if (PlayerController.instance.assignedWeapons.Count > 0)
         {
             foreach (Weapon weapon in PlayerController.instance.assignedWeapons)
             {
-                // Solo la añade si NO está al nivel máximo
                 if (weapon.weaponLvl < weapon.stats.Count - 1)
                 {
-                    availableUpgrades.Add(weapon);
+                    upgradableWeapons.Add(weapon);
                 }
             }
         }
 
-        //Revisa las armas que NO TIENES (unassignedWeapons)
         if (PlayerController.instance.unassignedWeapons.Count > 0)
         {
-            availableUpgrades.AddRange(PlayerController.instance.unassignedWeapons);
+            generalPool.AddRange(PlayerController.instance.unassignedWeapons);
+        }
+        if (PlayerController.instance.assignedPassives.Count > 0)
+        {
+            foreach (PassiveItem passive in PlayerController.instance.assignedPassives)
+            {
+                int currentLevelIndex = PlayerController.instance.passiveLevels[passive];
+                
+                if (currentLevelIndex < passive.levels.Count - 1)
+                {
+                    generalPool.Add(passive);
+                }
+            }
+        }
+        if (PlayerController.instance.unassignedPassives.Count > 0)
+        {
+            generalPool.AddRange(PlayerController.instance.unassignedPassives);
         }
 
-        //Asigna las opciones a los botones
-        foreach (LvlUpSelectionButton button in lvlUpButtons)
+        List<object> optionsToShow = new List<object>();
+
+        if (upgradableWeapons.Count > 0)
         {
-            if (availableUpgrades.Count > 0)
+            int selectedIndex = UnityEngine.Random.Range(0, upgradableWeapons.Count);
+            optionsToShow.Add(upgradableWeapons[selectedIndex]);
+            
+            upgradableWeapons.RemoveAt(selectedIndex); 
+        }
+
+        generalPool.AddRange(upgradableWeapons);
+
+        int slotsToFill = lvlUpButtons.Length - optionsToShow.Count;
+        for(int i = 0; i < slotsToFill; i++)
+        {
+            if (generalPool.Count == 0) break; // Salir si no hay más opciones
+
+            int selectedIndex = UnityEngine.Random.Range(0, generalPool.Count);
+            optionsToShow.Add(generalPool[selectedIndex]);
+            generalPool.RemoveAt(selectedIndex); // Quitar para no repetirla
+        }
+
+        ShuffleList(optionsToShow);
+
+        for(int i = 0; i < lvlUpButtons.Length; i++)
+        {
+            lvlUpButtons[i].gameObject.SetActive(true); // Activar botón
+
+            if (i < optionsToShow.Count)
             {
-                //Elige una opción aleatoria de la lista
-                int selectedOption = UnityEngine.Random.Range(0, availableUpgrades.Count);
-                
-                //Asigna esa arma al botón
-                button.UpdateButtonDisplay(availableUpgrades[selectedOption]);
-                
-                //Quita esa arma de la lista para que no se repita
-                availableUpgrades.RemoveAt(selectedOption);
+                lvlUpButtons[i].UpdateButtonDisplay(optionsToShow[i]);
             }
             else
             {
-                //Si no hay más opciones, esconde el botón
-                button.gameObject.SetActive(false);
+                lvlUpButtons[i].gameObject.SetActive(false); // Ocultar si no hay opción
             }
+        }
+    }
+
+    private void ShuffleList<T>(List<T> list)
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+            T temp = list[i];
+            int randomIndex = UnityEngine.Random.Range(i, list.Count);
+            list[i] = list[randomIndex];
+            list[randomIndex] = temp;
         }
     }
 }

@@ -9,29 +9,23 @@ public class ExpPickup : MonoBehaviour
     public float moveSpeed;
     public float timeBetweenChecks = .2f;
     private float checkCounter;
-    private PlayerController player;
-    // Start is called before the first frame update
-    void Start()
-    {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-    }
-
+    
     // Update is called once per frame
     void Update()
     {
         if (movingToPlayer == true)
         {
-            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, moveSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, PlayerController.instance.transform.position, moveSpeed * Time.deltaTime);
         } else
         {
             checkCounter -= Time.deltaTime;
             if(checkCounter <= 0)
             {
                 checkCounter = timeBetweenChecks;
-                if(Vector3.Distance(transform.position, player.transform.position) < player.pickupRange)
+                if(Vector3.Distance(transform.position, PlayerController.instance.transform.position) < PlayerStats.instance.pickupRange)
                 {
                     movingToPlayer = true;
-                    moveSpeed += player.speed;
+                    moveSpeed += PlayerStats.instance.moveSpeed + 1;
                 }
             }
         }

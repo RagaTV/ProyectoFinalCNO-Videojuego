@@ -6,9 +6,15 @@ using TMPro;
 
 public class PlayerHealthController : MonoBehaviour
 {
+    public static PlayerHealthController instance;
+    private void Awake()
+    {
+        instance = this;
+    }
     public Animator anim;
     public bool deathPlayer;
-    public float currentHealth, maxHealth;
+    public float currentHealth;
+    private float maxHealth;
     public Slider healthSlider;
     public TextMeshProUGUI healthText;
     private PlayerController playerController;
@@ -18,6 +24,7 @@ public class PlayerHealthController : MonoBehaviour
     void Start()
     {
         anim = GetComponent<Animator>();
+        maxHealth = PlayerStats.instance.maxHealth;
         currentHealth = maxHealth;
 
         playerController = GetComponent<PlayerController>();
@@ -32,14 +39,30 @@ public class PlayerHealthController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (PlayerStats.instance.healthRegen > 0 && currentHealth < maxHealth && !deathPlayer)
+        {
+            currentHealth += PlayerStats.instance.healthRegen * Time.deltaTime;
+            
+            if (currentHealth > maxHealth)
+            {
+                currentHealth = maxHealth;
+            }
+
+            UpdateHealthUI();
+        }
     }
 
     public void TakeDamage(float damageReceived)
     {
         if (deathPlayer) return;
 
-        currentHealth -= damageReceived;
+        float actualDamageTaken = damageReceived - PlayerStats.instance.armor;
+        if (actualDamageTaken < 1f)
+        {
+            actualDamageTaken = 1f;
+        }
+
+        currentHealth -= actualDamageTaken;
         StartCoroutine(FlashDamage());
 
         if (currentHealth < 0)
@@ -75,11 +98,23 @@ public class PlayerHealthController : MonoBehaviour
     {
         sprite.color = Color.red;
 
-        yield return new WaitForSeconds(0.1f); 
+        yield return new WaitForSeconds(0.1f);
 
         if (!deathPlayer)
         {
             sprite.color = originalColor;
         }
+    }
+    
+    public void UpdateMaxHealth()
+    {
+        float healthPercent = currentHealth / maxHealth;
+        
+        maxHealth = PlayerStats.instance.maxHealth;
+        
+        currentHealth = maxHealth * healthPercent;
+        
+        healthSlider.maxValue = maxHealth;
+        UpdateHealthUI();
     }
 }
