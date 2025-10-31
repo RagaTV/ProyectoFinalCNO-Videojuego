@@ -48,7 +48,8 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (isDashing){
+        if (isDashing)
+        {
             return;
         } 
 
@@ -56,8 +57,6 @@ public class PlayerController : MonoBehaviour
         moveInput.x = Input.GetAxisRaw("Horizontal");
         moveInput.y = Input.GetAxisRaw("Vertical");
         moveInput.Normalize();
-
-        
 
         if (moveInput != Vector3.zero)
         {
@@ -76,7 +75,6 @@ public class PlayerController : MonoBehaviour
             spriteOrientation.x = -Mathf.Abs(spriteOrientation.x);
         transform.localScale = spriteOrientation;
 
-        // Dash con Space
         if (Input.GetButtonDown("Jump") && canDash)
         {
             StartCoroutine(Dash());
@@ -118,9 +116,7 @@ public class PlayerController : MonoBehaviour
 
     public void Die()
     {
-        // Detiene TODAS las coroutines activas(el Dash)
         StopAllCoroutines();
-        // Detiene inmediatamente todo el movimiento físico
         rb.velocity = Vector2.zero;
         // Desactiva este script para que Update() y FixedUpdate() dejen de ejecutarse
         this.enabled = false;

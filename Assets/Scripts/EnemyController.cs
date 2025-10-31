@@ -6,7 +6,8 @@ public class EnemyController : MonoBehaviour
 {
     public Rigidbody2D rB;
     private Animator anim;
-
+    private SpriteRenderer spriteEnemy;
+    private Color originalColor;
     public float moveSpeed;
     public float damageAmount;
     public float hitWaitTime = 1f;
@@ -14,6 +15,7 @@ public class EnemyController : MonoBehaviour
     private float knockbackForce = 5f;
     private Transform target;
     private PlayerHealthController healthController;
+    private GameObject playerObject;
     public float maxHealth = 10f;
     private float currentHealth;
     private float knockBackTime = 0.25f;
@@ -21,6 +23,28 @@ public class EnemyController : MonoBehaviour
     public int expToGive = 1;
     private float auxExtra=1.2f;
     private int levelup=1;
+
+
+    void OnEnable()
+    {
+        currentHealth = maxHealth;
+
+        if (anim != null)
+        {
+            anim.speed = 1;
+        }
+        rB = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+        spriteEnemy = GetComponent<SpriteRenderer>();
+        originalColor = spriteEnemy.color;
+        playerObject = GameObject.FindGameObjectWithTag("Player");
+        if (playerObject != null)
+        {
+            target = playerObject.transform;
+            healthController = playerObject.GetComponent<PlayerHealthController>();
+        }
+    }
+
 
     void Update()
     {
@@ -38,25 +62,13 @@ public class EnemyController : MonoBehaviour
 
             levelup++;
         }
-    }
-   
-    void OnEnable()
-    {
-        currentHealth = maxHealth;
-        
-        if(anim != null)
+
+        if (healthController != null && healthController.deathPlayer)
         {
-            anim.speed = 1;
-        }
-        rB = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
-        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
-        if (playerObject != null)
-        {
-            target = playerObject.transform;
-            healthController = playerObject.GetComponent<PlayerHealthController>();
+            gameObject.SetActive(false);
         }
     }
+    
     void FixedUpdate()
     { 
         if(knockBackCounter > 0)
@@ -64,7 +76,7 @@ public class EnemyController : MonoBehaviour
             knockBackCounter -= Time.fixedDeltaTime;
             if (moveSpeed > 0)
             {
-                moveSpeed = -moveSpeed * 2f;
+                moveSpeed = -moveSpeed * 1.5f;
             }
             if(knockBackCounter <= 0)
             {
@@ -118,19 +130,28 @@ public class EnemyController : MonoBehaviour
 
 
     public void TakeDamage(float damageToTake)
+{
+    if (currentHealth <= 0)
     {
-        currentHealth -= damageToTake;
-
-        if (currentHealth <= 0)
-        {
-            gameObject.SetActive(false);
-
-            ExperienceLevelController.instance.SpawnExp(transform.position, expToGive);
-        }
-
-        DamageNumberController.instance.SpawnDamage(damageToTake, transform.position);
+        return;
     }
+
+    currentHealth -= damageToTake;
     
+    if (currentHealth <= 0)
+    {
+        spriteEnemy.color = originalColor;
+        gameObject.SetActive(false);
+        ExperienceLevelController.instance.SpawnExp(transform.position, expToGive);
+    }
+    else
+    {
+        StartCoroutine(FlashDamage());
+    }
+
+    DamageNumberController.instance.SpawnDamage(damageToTake, transform.position);
+}
+
     public void TakeDamage(float damageToTake, bool shouldKnockBack)
     {
         TakeDamage(damageToTake);
@@ -139,5 +160,16 @@ public class EnemyController : MonoBehaviour
         {
             knockBackCounter = knockBackTime;
         }
+    }
+    
+    private IEnumerator FlashDamage()
+    {
+        spriteEnemy.color = Color.red;
+
+        // new Color(1.5f, 1.5f, 1.5f)
+
+        yield return new WaitForSeconds(0.1f); 
+
+        spriteEnemy.color = originalColor;
     }
 }

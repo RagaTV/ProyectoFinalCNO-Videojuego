@@ -8,12 +8,12 @@ public class PlayerHealthController : MonoBehaviour
 {
     public Animator anim;
     public bool deathPlayer;
-
     public float currentHealth, maxHealth;
     public Slider healthSlider;
     public TextMeshProUGUI healthText;
-
     private PlayerController playerController;
+    private SpriteRenderer sprite; 
+    private Color originalColor;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +22,9 @@ public class PlayerHealthController : MonoBehaviour
 
         playerController = GetComponent<PlayerController>();
         healthSlider.maxValue = maxHealth;
+
+        sprite = GetComponent<SpriteRenderer>();
+        originalColor = sprite.color;
 
         UpdateHealthUI();
     }
@@ -37,6 +40,8 @@ public class PlayerHealthController : MonoBehaviour
         if (deathPlayer) return;
 
         currentHealth -= damageReceived;
+        StartCoroutine(FlashDamage());
+
         if (currentHealth < 0)
         {
             currentHealth = 0;
@@ -48,6 +53,9 @@ public class PlayerHealthController : MonoBehaviour
         {
             deathPlayer = true;
             anim.SetBool("isDeath", deathPlayer);
+
+            StopAllCoroutines(); 
+            sprite.color = originalColor; 
             playerController.Die();
         }
     }
@@ -60,5 +68,17 @@ public class PlayerHealthController : MonoBehaviour
         int maxHPForText = Mathf.CeilToInt(maxHealth);
 
         healthText.text = currentHPForText + " / " + maxHPForText;
+    }
+
+    private IEnumerator FlashDamage()
+    {
+        sprite.color = Color.red;
+
+        yield return new WaitForSeconds(0.1f); 
+
+        if (!deathPlayer)
+        {
+            sprite.color = originalColor;
+        }
     }
 }
