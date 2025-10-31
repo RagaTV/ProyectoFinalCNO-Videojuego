@@ -118,7 +118,11 @@ public class PlayerController : MonoBehaviour
     {
         StopAllCoroutines();
         rb.velocity = Vector2.zero;
-        // Desactiva este script para que Update() y FixedUpdate() dejen de ejecutarse
+        rb.isKinematic = true;
+        foreach (Weapon w in assignedWeapons)
+        {
+            w.gameObject.SetActive(false);
+        }
         this.enabled = false;
     }
 
