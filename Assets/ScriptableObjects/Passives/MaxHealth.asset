@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 936a2a55411880e4aa622e40295ac226, type: 3}
+  m_Name: MaxHealth
+  m_EditorClassIdentifier: 
+  icon: {fileID: -3910047226253410081, guid: 1a7b7b77e907b1e4bb7e602872b1f30a, type: 3}
+  passiveName: Tonico Poderoso
+  type: 1
+  maxLevels: 20
+  baseStats:
+    multiplier: 0.2
+    upgradeText: "+20% Vida M\xE1xima"
+    rarity: 0
+  levels:
+  - multiplier: 0.2
+    upgradeText: "+20% Vida M\xE1xima"
+    rarity: 0
+  - multiplier: 0.25
+    upgradeText: "+25 % Vida M\xE1xima"
+    rarity: 0
+  - multiplier: 0.3
+    upgradeText: "+30 % Vida M\xE1xima"
+    rarity: 0
+  - multiplier: 0.35000002
+    upgradeText: "+35 % Vida M\xE1xima"
+    rarity: 0
+  - multiplier: 0.40000004
+    upgradeText: "+40 % Vida M\xE1xima"
+    rarity: 0
+  - multiplier: 0.45000005
+    upgradeText: "+45 % Vida M\xE1xima"
+    rarity: 0
+  - multiplier: 0.50000006
+    upgradeText: "+50 % Vida M\xE1xima"
+    rarity: 0
+  - multiplier: 0.6000001
+    upgradeText: "+60 % Vida M\xE1xima"
+    rarity: 1
+  - multiplier: 0.6500001
+    upgradeText: "+65 % Vida M\xE1xima"
+    rarity: 0
+  - multiplier: 0.7500001
+    upgradeText: "+75 % Vida M\xE1xima"
+    rarity: 1
+  - multiplier: 0.80000013
+    upgradeText: "+80 % Vida M\xE1xima"
+    rarity: 0
+  - multiplier: 0.90000015
+    upgradeText: "+90 % Vida M\xE1xima"
+    rarity: 1
+  - multiplier: 0.95000017
+    upgradeText: "+95 % Vida M\xE1xima"
+    rarity: 0
+  - multiplier: 1.0500002
+    upgradeText: "+105 % Vida M\xE1xima"
+    rarity: 1
+  - multiplier: 1.1500002
+    upgradeText: "+115 % Vida M\xE1xima"
+    rarity: 1
+  - multiplier: 1.2500002
+    upgradeText: "+125 % Vida M\xE1xima"
+    rarity: 1
+  - multiplier: 1.3500003
+    upgradeText: "+135 % Vida M\xE1xima"
+    rarity: 1
+  - multiplier: 1.4000002
+    upgradeText: "+140 % Vida M\xE1xima"
+    rarity: 0
+  - multiplier: 1.5500002
+    upgradeText: "+155 % Vida M\xE1xima"
+    rarity: 2
+  - multiplier: 1.6000001
+    upgradeText: "+160 % Vida M\xE1xima"
+    rarity: 0
