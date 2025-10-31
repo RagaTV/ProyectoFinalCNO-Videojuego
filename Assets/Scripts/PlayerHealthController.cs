@@ -55,8 +55,9 @@ public class PlayerHealthController : MonoBehaviour
             anim.SetBool("isDeath", deathPlayer);
 
             StopAllCoroutines(); 
-            sprite.color = originalColor; 
+            sprite.color = originalColor;
             playerController.Die();
+            CameraControl.instance.StartDeathSequence();
         }
     }
 
