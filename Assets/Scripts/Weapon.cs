@@ -20,9 +20,9 @@ public class Weapon : MonoBehaviour
     public int maxLevels = 10;
     public int weaponLvl = 0;
 
-    private float rareChance = 0.3f;      // 30%
+    private float rareChance = 0.32f;      // 30%
     private float epicChance = 0.15f;      // 15%
-    private float legendaryChance = 0.05f;  // 5%
+    private float legendaryChance = 0.03f;  // 3%
 
     public void LevelUp()
     {
@@ -38,7 +38,7 @@ public class Weapon : MonoBehaviour
         if (stats != null && stats.Count > 0) return;
 
         stats = new List<WeaponStats>();
-        stats.Add(baseStats); // El Nivel 0 es lo que pusiste en el Inspector
+        stats.Add(baseStats);
 
         for (int i = 1; i < maxLevels; i++)
         {
@@ -49,18 +49,18 @@ public class Weapon : MonoBehaviour
             int upgradesToApply = 1;
             float roll = Random.value; // Un número aleatorio entre 0.0 y 1.0
 
-            if (roll < legendaryChance) // Ej. 0.05
+            if (roll < legendaryChance) //0.03
             {
                 newStats.rarity = UpgradeRarity.Legendaria;
                 upgradesToApply = 4;
             }
-            // roll (0.05) < legendaryChance (0.05) + epicChance (0.15) = 0.20
+            // roll (0.03) < (0.03) + (0.15) = 0.18
             else if (roll < legendaryChance + epicChance)
             {
                 newStats.rarity = UpgradeRarity.Epica; 
                 upgradesToApply = 3;
             }
-            // roll (0.20) < legendaryChance(0.05) + epicChance(0.15) + rareChance(0.30) = 0.50
+            // roll (0.18) < (0.03) + (0.15) + (0.32) = 0.50
             else if (roll < legendaryChance + epicChance + rareChance)
             {
                 newStats.rarity = UpgradeRarity.Rara;
@@ -78,7 +78,6 @@ public class Weapon : MonoBehaviour
             List<int> statsAlreadyUpgraded = new List<int>(); // Evita repetir mejoras
             int totalStatTypes = 6; // (0=Daño, 1=Vel, 2=Tamaño, 3=Cooldown, 4=Cant, 5=Dur)
 
-            // Este bucle se ejecutará 1, 2, 3 o 4 veces
             for (int j = 0; j < upgradesToApply; j++)
             {
                 // Si ya mejoramos las 6 stats, no podemos hacer más
@@ -86,7 +85,6 @@ public class Weapon : MonoBehaviour
                 
                 int statToUpgrade;
                 
-                // Busca una estadística que NO hayamos mejorado AÚN en este nivel
                 do {
                     statToUpgrade = Random.Range(0, totalStatTypes);
                 } while (statsAlreadyUpgraded.Contains(statToUpgrade));
@@ -97,7 +95,7 @@ public class Weapon : MonoBehaviour
                 switch (statToUpgrade)
                 {
                     case 0: // Daño
-                        float damageIncrease = 0.4f;
+                        float damageIncrease = 0.15f;
                         newStats.damage *= (1f + damageIncrease);
                         upgradeTexts.Add($"+{damageIncrease:P0} Daño");
                         break;

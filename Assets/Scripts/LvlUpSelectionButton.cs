@@ -23,23 +23,40 @@ public class LvlUpSelectionButton : MonoBehaviour
 
     public void UpdateButtonDisplay(Weapon theWeapon)
     {
-        int nextLevel = theWeapon.weaponLvl + 1;
+        assignedWeapon = theWeapon;
+        bool isNewWeapon = PlayerController.instance.unassignedWeapons.Contains(theWeapon);
 
-        if (nextLevel >= theWeapon.stats.Count)
+        int statIndexToShow; 
+        int levelNumToShow;  
+
+        if (isNewWeapon)
         {
-            upgradeDescription.text = "MAX LEVEL";
-            weaponIcon.sprite = theWeapon.icon;
-            nameLvl.text = theWeapon.name + "\nNivel " + theWeapon.weaponLvl; // Muestra el nivel actual
-            assignedWeapon = null; 
+            statIndexToShow = 0;
+            levelNumToShow = 1;
         }
         else
         {
-            upgradeDescription.text = theWeapon.stats[nextLevel].upgradeText;
-            weaponIcon.sprite = theWeapon.icon;
-            nameLvl.text = theWeapon.name + "\nNivel " + nextLevel;
-            assignedWeapon = theWeapon;
+            statIndexToShow = theWeapon.weaponLvl + 1;
+            levelNumToShow = theWeapon.weaponLvl + 2; 
+        }
 
-            UpgradeRarity rarity = theWeapon.stats[nextLevel].rarity;
+        if (statIndexToShow >= theWeapon.stats.Count)
+        {
+            upgradeDescription.text = "MAX LEVEL";
+            weaponIcon.sprite = theWeapon.icon;
+            nameLvl.text = theWeapon.name + "\nNivel " + (theWeapon.weaponLvl + 1); 
+            
+            GetComponent<Button>().interactable = false;
+        }
+        else
+        {
+            GetComponent<Button>().interactable = true;
+
+            upgradeDescription.text = theWeapon.stats[statIndexToShow].upgradeText;
+            weaponIcon.sprite = theWeapon.icon;
+            nameLvl.text = theWeapon.name + "\nNivel " + levelNumToShow;
+
+            UpgradeRarity rarity = theWeapon.stats[statIndexToShow].rarity;
             switch (rarity)
             {
                 case UpgradeRarity.Comun:
@@ -56,12 +73,6 @@ public class LvlUpSelectionButton : MonoBehaviour
                     break;
             }
         }
-
-        /*upgradeDescription.text = theWeapon.stats[theWeapon.weaponLvl].upgradeText;
-        weaponIcon.sprite = theWeapon.icon;
-        nameLvl.text = theWeapon.name + "\nNivel " + theWeapon.weaponLvl;
-
-        assignedWeapon = theWeapon;*/
     }
      
     public void SelectUpgrade()

@@ -809,6 +809,81 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &417582371
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 417582372}
+  - component: {fileID: 417582374}
+  - component: {fileID: 417582373}
+  m_Layer: 5
+  m_Name: PanelOscuro
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &417582372
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 417582371}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 842295238}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &417582373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 417582371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &417582374
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 417582371}
+  m_CullTransparentMesh: 1
 --- !u!1 &442206402
 GameObject:
   m_ObjectHideFlags: 0
@@ -936,7 +1011,7 @@ MonoBehaviour:
   damageAmount: 2
   lifeTime: 5
   growSpeed: 4
-  shouldKnockBack: 1
+  shouldKnockBack: 0
   destroyParent: 1
 --- !u!58 &512301523
 CircleCollider2D:
@@ -1044,6 +1119,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67ae0b61bcc9ae54d96ee060b5cf4ed3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fadePanel: {fileID: 417582373}
+  deathZoomDuration: 2
+  targetOrthographicSize: 2
+  targetFade: 0.7
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -1260,7 +1339,7 @@ MonoBehaviour:
   icon: {fileID: 2874757548108518462, guid: 796f8a64c78cdd24e95cb3244e43135a, type: 3}
   maxLevels: 20
   weaponLvl: 0
-  rotateSpeed: 180
+  rotateSpeed: 120
   holder: {fileID: 1631681343}
   fireballToSpawn: {fileID: 944071934}
   timeBetweenSpawn: 6
@@ -1512,7 +1591,7 @@ MonoBehaviour:
   damageAmount: 2
   lifeTime: 5
   growSpeed: 4
-  shouldKnockBack: 1
+  shouldKnockBack: 0
   destroyParent: 1
 --- !u!58 &759259549
 CircleCollider2D:
@@ -1973,7 +2052,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 3
+  m_Mass: 70
   m_LinearDrag: 1
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -2077,6 +2156,7 @@ RectTransform:
   - {fileID: 1961848824}
   - {fileID: 727081735}
   - {fileID: 362045516}
+  - {fileID: 417582372}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2354,7 +2434,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentExperience: 0
   pickup: {fileID: 3684649090531299047, guid: 075cf3811a998b84aa37792c384531ba, type: 3}
-  expLevels: 000000000f000000
+  expLevels: 0000000014000000
   currentLevel: 1
   maxLevel: 100
   baseExperience: 5
@@ -40576,7 +40656,7 @@ MonoBehaviour:
   icon: {fileID: 2013392749217791901, guid: 796f8a64c78cdd24e95cb3244e43135a, type: 3}
   maxLevels: 20
   weaponLvl: 0
-  rotateSpeed: 100
+  rotateSpeed: 70
   holder: {fileID: 1440611142}
   fireballToSpawn: {fileID: 304930370}
   timeBetweenSpawn: 6
@@ -41116,7 +41196,7 @@ MonoBehaviour:
   icon: {fileID: -5936106868037138262, guid: 796f8a64c78cdd24e95cb3244e43135a, type: 3}
   maxLevels: 20
   weaponLvl: 0
-  rotateSpeed: 250
+  rotateSpeed: 130
   holder: {fileID: 442206403}
   fireballToSpawn: {fileID: 1775098804}
   timeBetweenSpawn: 6
