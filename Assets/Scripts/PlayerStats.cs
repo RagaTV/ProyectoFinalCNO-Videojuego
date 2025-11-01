@@ -25,10 +25,7 @@ public class PlayerStats : MonoBehaviour
     private void Awake()
     {
         instance = this;
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
+
         moveSpeed = baseMoveSpeed;
         maxHealth = baseMaxHealth;
         healthRegen = baseHealthRegen;
@@ -36,6 +33,11 @@ public class PlayerStats : MonoBehaviour
         pickupRange = basePickupRange;
         projectileSizeMultiplier = baseProjectileSize;
         armor = baseArmor;
+    }
+    // Start is called before the first frame update
+    void Start()
+    {
+        
     }
 
     public void ApplyStatsForPassive(PassiveItem passive, int level)

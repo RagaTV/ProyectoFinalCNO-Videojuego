@@ -136,13 +136,12 @@ public class PlayerController : MonoBehaviour
         if (unassignedWeapons.Contains(weaponToAdd))
         {
             assignedWeapons.Add(weaponToAdd);
-
             weaponToAdd.gameObject.SetActive(true);
-
             unassignedWeapons.Remove(weaponToAdd);
-
             weaponToAdd.weaponLvl = 0;
             weaponToAdd.statsUpdated = true;
+
+            UIController.instance.UpdateInventoryUI();
         }
     }
     
@@ -165,5 +164,6 @@ public class PlayerController : MonoBehaviour
         }
 
         PlayerStats.instance.ApplyStatsForPassive(passiveToUpgrade, currentLevel);
+        UIController.instance.UpdateInventoryUI();
     }
 }

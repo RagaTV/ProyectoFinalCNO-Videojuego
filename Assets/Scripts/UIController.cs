@@ -19,6 +19,9 @@ public class UIController : MonoBehaviour
     public LvlUpSelectionButton[] lvlUpButtons;
     public GameObject panelLvls;
 
+    public ItemSlotUI[] weaponSlots;
+    public ItemSlotUI[] passiveSlots;
+
    public float gameTimer = 0f;
     // Start is called before the first frame update
     void Start()
@@ -41,7 +44,37 @@ public class UIController : MonoBehaviour
         expLvlSlider.value = currentExperience;
         expLvlText.text = "Nivel: " + currentLevel;
     }
+
+    public void UpdateInventoryUI()
+    {
+        List<Weapon> assignedWeapons = PlayerController.instance.assignedWeapons;
+        for(int i = 0; i < weaponSlots.Length; i++)
+        {
+            if(i < assignedWeapons.Count)
+            {
+                weaponSlots[i].SetWeapon(assignedWeapons[i]);
+            }
+            else
+            {
+                weaponSlots[i].ClearSlot();
+            }
+        }
+
+        List<PassiveItem> assignedPassives = PlayerController.instance.assignedPassives;
+        for(int i = 0; i < passiveSlots.Length; i++)
+        {
+            if(i < assignedPassives.Count)
+            {
+                passiveSlots[i].SetPassive(assignedPassives[i]);
+            }
+            else
+            {
+                passiveSlots[i].ClearSlot();
+            }
+        }
+    }
     
+    // --- REEMPLAZA ESTE MÉTODO COMPLETO ---
     public void ShowLevelUpOptions()
     {
         panelLvls.SetActive(true);
@@ -49,8 +82,7 @@ public class UIController : MonoBehaviour
 
         List<Weapon> upgradableWeapons = new List<Weapon>();
         List<object> generalPool = new List<object>();
-        List<object> availableUpgrades = new List<object>();
-
+        
         if (PlayerController.instance.assignedWeapons.Count > 0)
         {
             foreach (Weapon weapon in PlayerController.instance.assignedWeapons)
@@ -62,11 +94,11 @@ public class UIController : MonoBehaviour
             }
         }
 
-        if (PlayerController.instance.assignedWeapons.Count < 4)
+        if (PlayerController.instance.assignedWeapons.Count < 4) 
         {
             if (PlayerController.instance.unassignedWeapons.Count > 0)
             {
-                availableUpgrades.AddRange(PlayerController.instance.unassignedWeapons);
+                generalPool.AddRange(PlayerController.instance.unassignedWeapons);
             }
         }
 
@@ -75,7 +107,6 @@ public class UIController : MonoBehaviour
             foreach (PassiveItem passive in PlayerController.instance.assignedPassives)
             {
                 int currentLevelIndex = PlayerController.instance.passiveLevels[passive];
-
                 if (currentLevelIndex < passive.levels.Count - 1)
                 {
                     generalPool.Add(passive);
@@ -83,11 +114,11 @@ public class UIController : MonoBehaviour
             }
         }
         
-        if (PlayerController.instance.assignedPassives.Count < 4)
+        if (PlayerController.instance.assignedPassives.Count < 4) 
         {
             if (PlayerController.instance.unassignedPassives.Count > 0)
             {
-                availableUpgrades.AddRange(PlayerController.instance.unassignedPassives);
+                generalPool.AddRange(PlayerController.instance.unassignedPassives);
             }
         }
 
@@ -97,27 +128,26 @@ public class UIController : MonoBehaviour
         {
             int selectedIndex = UnityEngine.Random.Range(0, upgradableWeapons.Count);
             optionsToShow.Add(upgradableWeapons[selectedIndex]);
-            
             upgradableWeapons.RemoveAt(selectedIndex); 
         }
 
-        generalPool.AddRange(upgradableWeapons);
+        generalPool.AddRange(upgradableWeapons); // Añadir las mejoras de armas restantes
 
         int slotsToFill = lvlUpButtons.Length - optionsToShow.Count;
         for(int i = 0; i < slotsToFill; i++)
         {
-            if (generalPool.Count == 0) break; // Salir si no hay más opciones
+            if (generalPool.Count == 0) break; 
 
             int selectedIndex = UnityEngine.Random.Range(0, generalPool.Count);
             optionsToShow.Add(generalPool[selectedIndex]);
-            generalPool.RemoveAt(selectedIndex); // Quitar para no repetirla
+            generalPool.RemoveAt(selectedIndex);
         }
 
         ShuffleList(optionsToShow);
 
         for(int i = 0; i < lvlUpButtons.Length; i++)
         {
-            lvlUpButtons[i].gameObject.SetActive(true); // Activar botón
+            lvlUpButtons[i].gameObject.SetActive(true); 
 
             if (i < optionsToShow.Count)
             {
@@ -125,7 +155,7 @@ public class UIController : MonoBehaviour
             }
             else
             {
-                lvlUpButtons[i].gameObject.SetActive(false); // Ocultar si no hay opción
+                lvlUpButtons[i].gameObject.SetActive(false); 
             }
         }
     }

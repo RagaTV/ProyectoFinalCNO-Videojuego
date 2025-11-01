@@ -30,6 +30,8 @@ public class Weapon : MonoBehaviour
         {
             weaponLvl++;
             statsUpdated = true;
+
+            UIController.instance.UpdateInventoryUI();
         }
     }
 
