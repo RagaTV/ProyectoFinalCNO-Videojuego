@@ -38,8 +38,8 @@ public class EnemySpawner : MonoBehaviour
             spawnedObject.transform.position = SelectSpawnPoint();
             spawnedObject.SetActive(true);
 
-            float minutes = Time.timeSinceLevelLoad / 60f;
-            if (minutes >= 7f)
+            float minutes = UIController.instance.gameTimer / 60f;
+            if (minutes >= 5f)
             {
                 GameObject extra = pool.GetExtraEasy();
                 extra.transform.position = SelectSpawnPoint();

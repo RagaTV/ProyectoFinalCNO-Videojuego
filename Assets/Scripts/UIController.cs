@@ -32,9 +32,13 @@ public class UIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PlayerHealthController.instance.deathPlayer)
+        {
+            return;
+        }
         gameTimer += Time.deltaTime;
         TimeSpan time = TimeSpan.FromSeconds(gameTimer);
-
+        
         timer.text = time.ToString(@"mm\:ss");
     }
 
