@@ -133,11 +133,12 @@ public class PlayerController : MonoBehaviour
 
     public void AddWeapon(Weapon weaponToAdd)
     {
-        if (unassignedWeapons.Contains(weaponToAdd))
+        if (!assignedWeapons.Contains(weaponToAdd) && unassignedWeapons.Contains(weaponToAdd))
         {
-            assignedWeapons.Add(weaponToAdd);
-            weaponToAdd.gameObject.SetActive(true);
             unassignedWeapons.Remove(weaponToAdd);
+            assignedWeapons.Add(weaponToAdd);
+
+            weaponToAdd.gameObject.SetActive(true);
             weaponToAdd.weaponLvl = 0;
             weaponToAdd.statsUpdated = true;
 

@@ -11,7 +11,7 @@ public class ExpPickup : MonoBehaviour
     private float checkCounter;
     
     // Update is called once per frame
-    void Update()
+    void Update() 
     {
         if (movingToPlayer == true)
         {

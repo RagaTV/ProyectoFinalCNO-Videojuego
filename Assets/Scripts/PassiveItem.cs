@@ -9,22 +9,27 @@ public class PassiveItem : ScriptableObject
     public string passiveName;
     public PassiveType type; 
     public int maxLevels = 20;
-    public PassiveStatLevel baseStats; 
-    
-    [HideInInspector] 
+    public PassiveStatLevel baseStats;
+
+    [HideInInspector]
     public List<PassiveStatLevel> levels;
+    private float bonusAmount;
 
     // --- Tus probabilidades ---
     private float rareChance = 0.25f;
     private float epicChance = 0.12f;
     private float legendaryChance = 0.03f;
 
+    [ContextMenu("Forzar Regeneración de Niveles")]
     public void GenerateLevelPath()
     {
-        if (levels != null && levels.Count > 0) return;
-
-        levels = new List<PassiveStatLevel>();
-        levels.Add(baseStats); // Nivel 1 (índice 0)
+        if (levels == null)
+        {
+            levels = new List<PassiveStatLevel>();
+        }
+        
+        levels.Clear(); // ¡Esta es la línea clave! Borra los datos viejos.
+        levels.Add(baseStats); // Añade los nuevos baseStats
 
         for (int i = 1; i < maxLevels; i++)
         {
@@ -32,7 +37,7 @@ public class PassiveItem : ScriptableObject
             PassiveStatLevel newLevel = new PassiveStatLevel(prevLevel);
 
             float roll = Random.value;
-            float bonusAmount = 0f;
+            bonusAmount = 0f;
 
             bool isFlatStat = (type == PassiveType.Armor || type == PassiveType.HealthRegen);
 
@@ -40,7 +45,7 @@ public class PassiveItem : ScriptableObject
             {
                 newLevel.rarity = UpgradeRarity.Legendaria;
                 // Si es plano, da +1. Si es %, da +20%.
-                bonusAmount = isFlatStat ? 1.5f : 0.20f; 
+                bonusAmount = isFlatStat ? 1.5f : 0.20f;
             }
             else if (roll < legendaryChance + epicChance) // 12%
             {
@@ -61,19 +66,19 @@ public class PassiveItem : ScriptableObject
                 bonusAmount = isFlatStat ? 0.25f : 0.05f;
             }
 
-            newLevel.multiplier += bonusAmount;
+            newLevel.multiplier = prevLevel.multiplier + bonusAmount;
 
             string spanName = GetSpanish(type);
-            
+
             if (isFlatStat)
             {
-                // Muestra el número plano, ej: "+0.5 Armadura"
-                newLevel.upgradeText = $"+{bonusAmount:F1} {spanName}";
+                newLevel.upgradeText =
+                    $"+{bonusAmount:F1} {spanName} (Total: {newLevel.multiplier:F1})";
             }
             else
             {
-                // Muestra el porcentaje, ej: "+5% Daño"
-                newLevel.upgradeText = $"+{bonusAmount:P0} {spanName}";
+                newLevel.upgradeText =
+                    $"+{bonusAmount:P0} {spanName} (Total: {newLevel.multiplier:P0})";
             }
 
             levels.Add(newLevel);

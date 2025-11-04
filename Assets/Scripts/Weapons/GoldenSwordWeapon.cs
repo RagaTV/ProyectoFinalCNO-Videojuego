@@ -48,11 +48,9 @@ public class GoldenSwordWeapon : Weapon
     {
         damager.damageAmount = stats[weaponLvl].damage;
         transform.localScale = Vector3.one * stats[weaponLvl].size * PlayerStats.instance.projectileSizeMultiplier;
-        timeBetweenSpawn = stats[weaponLvl].attackDelay;
         damager.lifeTime = stats[weaponLvl].duration;
-
+        timeBetweenSpawn = damager.lifeTime + 1f;
         currentAmount = stats[weaponLvl].amount;
-
         spawnCounter = 0f; 
     }
 }

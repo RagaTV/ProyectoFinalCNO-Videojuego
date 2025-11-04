@@ -17,8 +17,8 @@ MonoBehaviour:
   type: 3
   maxLevels: 20
   baseStats:
-    multiplier: 0.1
-    upgradeText: "+10% Da\xF1o"
+    multiplier: 0.05
+    upgradeText: "+5% Da\xF1o"
     rarity: 0
   levels:
   - multiplier: 0.1

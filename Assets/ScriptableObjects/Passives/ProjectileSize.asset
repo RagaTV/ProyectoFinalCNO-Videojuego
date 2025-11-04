@@ -17,8 +17,8 @@ MonoBehaviour:
   type: 5
   maxLevels: 20
   baseStats:
-    multiplier: 0.1
-    upgradeText: "+10% Tama\xF1o Proyectil"
+    multiplier: 0.05
+    upgradeText: "+5% Tama\xF1o Proyectil"
     rarity: 0
   levels:
   - multiplier: 0.1

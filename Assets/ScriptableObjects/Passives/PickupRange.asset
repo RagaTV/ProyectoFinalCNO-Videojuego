@@ -17,8 +17,8 @@ MonoBehaviour:
   type: 4
   maxLevels: 20
   baseStats:
-    multiplier: 0.25
-    upgradeText: "+25% Rango de Recolecci\xF3n de Experiencia"
+    multiplier: 0.05
+    upgradeText: "+5% Rango de Recolecci\xF3n de Experiencia"
     rarity: 0
   levels:
   - multiplier: 0.25
