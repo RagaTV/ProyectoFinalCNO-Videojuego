@@ -8,80 +8,101 @@ public class EnemyController : MonoBehaviour
     private Animator anim;
     private SpriteRenderer spriteEnemy;
     private Color originalColor;
+    
+    // Stats Actuales
     public float moveSpeed;
     public float damageAmount;
+    public float maxHealth;
+    private float currentHealth;
+    
+    // Stats Base (Almacenados)
+    private float baseSpeed;
+    private float baseMaxHealth;
+    private float baseDamageAmount;
+
     public float hitWaitTime = 1f;
     private float hitCounter;
     private float knockbackForce = 5f;
     private Transform target;
     private PlayerHealthController healthController;
     private GameObject playerObject;
-    public float maxHealth = 10f;
-    private float currentHealth;
+    
     private float knockBackTime = 0.25f;
     private float knockBackCounter;
     public int expToGive = 1;
-    private float auxExtra=1.25f;
-    private int levelup=1;
+    
+    // Escalado
+    private float auxExtra = 1.25f;
+    private int levelup;
 
-
-    void OnEnable()
+    void Awake()
     {
-        currentHealth = maxHealth;
-
-        if (anim != null)
-        {
-            anim.speed = 1;
-        }
         rB = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         spriteEnemy = GetComponent<SpriteRenderer>();
         originalColor = spriteEnemy.color;
-        playerObject = GameObject.FindGameObjectWithTag("Player");
-        if (playerObject != null)
+    }
+
+    void OnEnable()
+    {
+        baseMaxHealth = maxHealth;
+        currentHealth = baseMaxHealth;
+        baseSpeed = moveSpeed;
+        baseDamageAmount = damageAmount;
+        
+        levelup = 1;
+        knockBackCounter = 0;
+        hitCounter = 0; 
+
+        if (rB != null)
         {
-            target = playerObject.transform;
-            healthController = playerObject.GetComponent<PlayerHealthController>();
+            rB.velocity = Vector2.zero;
+        }
+        if (anim != null)
+        {
+            anim.speed = 1;
+        }
+        if (PlayerController.instance != null)
+        {
+            target = PlayerController.instance.transform;
+            healthController = PlayerController.instance.GetComponent<PlayerHealthController>();
         }
     }
 
+    void Start()
+    {
+        baseSpeed = moveSpeed;
+        baseMaxHealth = maxHealth;
+        baseDamageAmount = damageAmount;
+    }
 
     void Update()
     {
-        float minutes = UIController.instance.gameTimer / 60f;
-
-        for (int i = levelup; i <= minutes; i++)
-        {
-            float healthPercent = currentHealth / maxHealth;
-
-            maxHealth *= auxExtra;
-            damageAmount *= auxExtra;
-
-            // Ajusta la vida actual al mismo porcentaje de la nueva vida máxima
-            currentHealth = maxHealth * healthPercent;
-
-            levelup++;
-        }
-
-        if (healthController != null && healthController.deathPlayer)
+        if (healthController.deathPlayer)
         {
             gameObject.SetActive(false);
+            return;
+        }
+
+        int currentMinute = Mathf.FloorToInt(UIController.instance.gameTimer / 60f);
+        if (currentMinute >= levelup)
+        {
+            float multiplier = Mathf.Pow(auxExtra, currentMinute);
+            maxHealth = baseMaxHealth * multiplier;
+            damageAmount = baseDamageAmount * multiplier;
+            levelup = currentMinute + 1;
         }
     }
     
     void FixedUpdate()
-    { 
-        if(knockBackCounter > 0)
+    {
+        if (healthController.deathPlayer) return;
+        
+        if (knockBackCounter > 0)
         {
             knockBackCounter -= Time.fixedDeltaTime;
-            if (moveSpeed > 0)
-            {
-                moveSpeed = -moveSpeed * 1.5f;
-            }
-            if(knockBackCounter <= 0)
-            {
-                moveSpeed = Mathf.Abs(moveSpeed * .5f);
-            }
+            rB.velocity = -rB.velocity.normalized * knockbackForce;
+            return;
         }
 
         if (target != null && healthController != null && !healthController.deathPlayer)
@@ -96,13 +117,8 @@ public class EnemyController : MonoBehaviour
             transform.localScale = spriteOrientation;
 
             if(hitCounter > 0){
-                hitCounter-=Time.deltaTime;
+                hitCounter-=Time.fixedDeltaTime;
             }
-        }
-        else if (target != null) // Si el jugador murió pero el enemigo sigue vivo
-        {
-            rB.velocity = Vector2.zero;
-            anim.speed = 0; // Congela la animación
         }
     }
 
@@ -130,32 +146,27 @@ public class EnemyController : MonoBehaviour
 
 
     public void TakeDamage(float damageToTake)
-{
-    if (currentHealth <= 0)
     {
-        return;
+        if (currentHealth <= 0)
+        {
+            return;
+        }
+        currentHealth -= damageToTake;
+        if (currentHealth <= 0)
+        {
+            spriteEnemy.color = originalColor;
+            if (ExperienceLevelController.instance != null)
+                ExperienceLevelController.instance.SpawnExp(transform.position, expToGive);
+            gameObject.SetActive(false);
+        } else {
+            StartCoroutine(FlashDamage());
+        }
+        DamageNumberController.instance.SpawnDamage(damageToTake, transform.position);
     }
-
-    currentHealth -= damageToTake;
-    
-    if (currentHealth <= 0)
-    {
-        spriteEnemy.color = originalColor;
-        gameObject.SetActive(false);
-        ExperienceLevelController.instance.SpawnExp(transform.position, expToGive);
-    }
-    else
-    {
-        StartCoroutine(FlashDamage());
-    }
-
-    DamageNumberController.instance.SpawnDamage(damageToTake, transform.position);
-}
 
     public void TakeDamage(float damageToTake, bool shouldKnockBack)
     {
         TakeDamage(damageToTake);
-
         if (shouldKnockBack)
         {
             knockBackCounter = knockBackTime;
@@ -165,11 +176,7 @@ public class EnemyController : MonoBehaviour
     private IEnumerator FlashDamage()
     {
         spriteEnemy.color = Color.red;
-
-        // new Color(1.5f, 1.5f, 1.5f)
-
         yield return new WaitForSeconds(0.1f); 
-
         spriteEnemy.color = originalColor;
     }
 }
