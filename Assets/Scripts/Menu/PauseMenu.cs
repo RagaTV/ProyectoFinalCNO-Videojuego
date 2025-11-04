@@ -10,7 +10,7 @@ public class PauseMenu : MonoBehaviour
 
     void Start() 
     {
-    	
+    	menuPausa.SetActive(false);
     }
 
     void Update() 
@@ -30,8 +30,15 @@ public class PauseMenu : MonoBehaviour
 
     public void Reanudar(){ 
     	menuPausa.SetActive(false); // Oculta el objeto de la interfaz de pausa.
-    	Time.timeScale = 1.0f; // Establece la escala de tiempo a 1.0 (el tiempo fluye normalmente).
-    	juegoPausado = false; // Actualiza el estado del juego a 'no pausado'.
+		juegoPausado = false; // Actualiza el estado del juego a 'no pausado'.
+		// 1. Revisamos si  el panel de niveles está activo.
+        if (UIController.instance.panelLvls.activeSelf)
+        {
+            //    Si el panel de niveles SÍ está abierto, no reanudamos el tiempo.
+            //    Simplemente dejamos que siga en 0.
+            return;
+        }
+		Time.timeScale = 1.0f; // Establece la escala de tiempo a 1.0 (el tiempo fluye normalmente).
     }
 
     public void Pausar(){ 

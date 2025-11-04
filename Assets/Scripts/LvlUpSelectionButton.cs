@@ -116,8 +116,9 @@ public class LvlUpSelectionButton : MonoBehaviour
             // Llama a la nueva función que creamos en PlayerController
             PlayerController.instance.UpgradePassive(passive);
         }
-        
+
         UIController.instance.panelLvls.SetActive(false);
+        UIController.instance.panelActive = false;
         Time.timeScale = 1f;
     }
     

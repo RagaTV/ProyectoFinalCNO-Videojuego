@@ -18,9 +18,9 @@ public class UIController : MonoBehaviour
     public TMP_Text timer;
     public LvlUpSelectionButton[] lvlUpButtons;
     public GameObject panelLvls;
-
     public ItemSlotUI[] weaponSlots;
     public ItemSlotUI[] passiveSlots;
+    public bool panelActive = false;
 
    public float gameTimer = 0f;
     // Start is called before the first frame update
@@ -74,10 +74,10 @@ public class UIController : MonoBehaviour
         }
     }
     
-    // --- REEMPLAZA ESTE MÉTODO COMPLETO ---
     public void ShowLevelUpOptions()
     {
         panelLvls.SetActive(true);
+        panelActive = true;
         Time.timeScale = 0f;
 
         List<Weapon> upgradableWeapons = new List<Weapon>();
