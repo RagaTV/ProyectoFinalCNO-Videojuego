@@ -52,14 +52,16 @@ public class ExperienceLevelController : MonoBehaviour
     }
     
     void LevelUp()
-{
-    currentExperience -= expLevels[currentLevel];
-    currentLevel++;
-
-    if (currentLevel >= expLevels.Count)
     {
-        currentLevel = expLevels.Count - 1;
+        SFXManager.instance.PlaySFX(SoundEffect.LevelUp);
+        
+        currentExperience -= expLevels[currentLevel];
+        currentLevel++;
+
+        if (currentLevel >= expLevels.Count)
+        {
+            currentLevel = expLevels.Count - 1;
+        }
+        UIController.instance.ShowLevelUpOptions();
     }
-    UIController.instance.ShowLevelUpOptions();
-}
-}
+    }
