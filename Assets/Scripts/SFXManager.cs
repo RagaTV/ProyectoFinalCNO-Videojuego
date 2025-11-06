@@ -4,12 +4,14 @@ using UnityEngine;
 
 public enum SoundEffect
 {
+    None,
     DeathSound,
-    HitSound,
     LevelUp,
     UIClick,
-    PlayerDamage,
-    SwordSwing
+    ExpPickup,
+    SwordsCircle,
+    ShieldSound,
+    BrightZone
     // ...añadir todos los necesarios
 }
 
