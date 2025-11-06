@@ -76,6 +76,7 @@ public class PlayerHealthController : MonoBehaviour
         {
             deathPlayer = true;
             anim.SetBool("isDeath", deathPlayer);
+            SFXManager.instance.PlaySFX(SoundEffect.DeathSound);
 
             StopAllCoroutines(); 
             sprite.color = originalColor;
