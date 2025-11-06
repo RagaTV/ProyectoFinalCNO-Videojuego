@@ -27,6 +27,7 @@ public class GoldenSwordWeapon : Weapon
         if (spawnCounter <= 0)
         {
             spawnCounter = timeBetweenSpawn;
+
             for (int i = 0; i < currentAmount; i++)
             {
                 float angle = (360f / currentAmount) * i;
