@@ -47,11 +47,11 @@ public class PlayerStats : MonoBehaviour
         switch (passive.type)
         {
             case PassiveType.MoveSpeed:
-                moveSpeed *= (1f + stats.multiplier);
+                moveSpeed = baseMoveSpeed * (1f + stats.multiplier);
                 break;
 
             case PassiveType.MaxHealth:
-                maxHealth *= (1f + stats.multiplier);
+                maxHealth = baseMaxHealth * (1f + stats.multiplier);
                 if (PlayerHealthController.instance != null)
                 {
                     PlayerHealthController.instance.UpdateMaxHealth();
@@ -59,23 +59,23 @@ public class PlayerStats : MonoBehaviour
                 break;
 
             case PassiveType.HealthRegen:
-                healthRegen += stats.multiplier;
+                healthRegen = baseHealthRegen + stats.multiplier;
                 break;
 
             case PassiveType.Damage:
-                damageMultiplier *= (1f + stats.multiplier);
+                damageMultiplier = baseDamage * (1f + stats.multiplier);
                 break;
 
             case PassiveType.PickupRange:
-                pickupRange *= (1f + stats.multiplier);
+                pickupRange = basePickupRange * (1f + stats.multiplier);
                 break;
 
             case PassiveType.ProjectileSize:
-                projectileSizeMultiplier *= (1f + stats.multiplier);
+                projectileSizeMultiplier = baseProjectileSize * (1f + stats.multiplier);
                 break;
 
             case PassiveType.Armor:
-                armor += stats.multiplier;
+                armor = baseArmor + stats.multiplier;
                 break;
         }
 }
