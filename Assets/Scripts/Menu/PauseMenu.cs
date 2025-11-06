@@ -29,6 +29,7 @@ public class PauseMenu : MonoBehaviour
     }
 
     public void Reanudar(){ 
+		SFXManager.instance.PlaySFX(SoundEffect.UIClick);
     	menuPausa.SetActive(false); // Oculta el objeto de la interfaz de pausa.
 		juegoPausado = false; // Actualiza el estado del juego a 'no pausado'.
 		// 1. Revisamos si  el panel de niveles está activo.
@@ -42,12 +43,14 @@ public class PauseMenu : MonoBehaviour
     }
 
     public void Pausar(){ 
+		SFXManager.instance.PlaySFX(SoundEffect.UIClick);
     	menuPausa.SetActive(true); // Muestra el objeto de la interfaz de pausa.
     	Time.timeScale = 0.0f; // detiene el movimiento, físicas, animaciones basadas en tiempo
     	juegoPausado = true; // Actualiza el estado del juego a 'pausado'.
     }
 
     public void ReiniciarNivel(){ 
+		SFXManager.instance.PlaySFX(SoundEffect.UIClick);
     	Time.timeScale = 1.0f; // el tiempo corre normal de nuevo
     	juegoPausado = false; // Restablece el estado de pausa 
     	// Obtiene el índice (número de orden en Build Settings) de la escena activa actualmente.
@@ -56,12 +59,18 @@ public class PauseMenu : MonoBehaviour
     	SceneManager.LoadScene(escenaActual); 
     }
 
-	public void MenuPrincipal(){ 
-    	Time.timeScale = 1.0f; // Asegura que el tiempo corra antes de cargar la nueva escena.
-    	juegoPausado = false; // Restablece el estado de pausa.
+	public void MenuPrincipal()
+	{
+		SFXManager.instance.PlaySFX(SoundEffect.UIClick);
+		Time.timeScale = 1.0f; // Asegura que el tiempo corra antes de cargar la nueva escena.
+		juegoPausado = false; // Restablece el estado de pausa.
 
-    	// Carga la escena con el nombre "Menu"
-    	SceneManager.LoadScene("Menu"); 
+		// Carga la escena con el nombre "Menu"
+		SceneManager.LoadScene("Menu");
+	}
+	
+	public void Configuracion(){
+        SFXManager.instance.PlaySFX(SoundEffect.UIClick);
     }
 
 }
