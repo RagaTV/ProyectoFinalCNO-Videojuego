@@ -37,8 +37,15 @@ public class ZoneWeapon : Weapon
             {
                 SFXManager.instance.PlaySFXPitched(spawnSound);
             }
+
+            GameObject newZone = Instantiate(damager, transform.position, Quaternion.identity, transform).gameObject;
+            newZone.SetActive(true);
+            EnemyDamager damagerScript = newZone.GetComponent<EnemyDamager>();
             
-            Instantiate(damager, transform.position, Quaternion.identity, transform).gameObject.SetActive(true);
+            if (damagerScript != null)
+            {
+                damagerScript.weaponID = this;
+            }
         }
     }
 

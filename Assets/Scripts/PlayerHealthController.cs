@@ -82,6 +82,7 @@ public class PlayerHealthController : MonoBehaviour
             sprite.color = originalColor;
             playerController.Die();
             CameraControl.instance.StartDeathSequence();
+            PlayerStats.instance.PrintWeaponDamageStats();
         }
     }
 

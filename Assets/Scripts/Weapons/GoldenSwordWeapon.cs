@@ -34,7 +34,14 @@ public class GoldenSwordWeapon : Weapon
 
                 Quaternion spawnRotation = holder.rotation * Quaternion.Euler(0, 0, angle);
 
-                Instantiate(weaponToSpawn, holder.position, spawnRotation, holder).gameObject.SetActive(true);
+                GameObject newProjectile = Instantiate(weaponToSpawn, holder.position, spawnRotation, holder).gameObject;
+                EnemyDamager damagerScript = newProjectile.GetComponent<EnemyDamager>();
+                
+                if (damagerScript != null)
+                {
+                    damagerScript.weaponID = this;
+                }
+                newProjectile.SetActive(true);
             }
         }
 

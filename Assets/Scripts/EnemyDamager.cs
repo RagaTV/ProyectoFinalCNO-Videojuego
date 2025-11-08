@@ -16,6 +16,8 @@ public class EnemyDamager : MonoBehaviour //weaponds
     private float damageCounter;
     private List<EnemyController> enemiesInrange = new List<EnemyController>();
     public int damageAmountMultiplier = 1;
+    public Weapon weaponID;
+
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +26,11 @@ public class EnemyDamager : MonoBehaviour //weaponds
         targetSize = transform.localScale;
         transform.localScale = Vector3.zero;
 
+        if (weaponID == null)
+        {
+            // Busca en mis padres hasta encontrar el script "Weapon"
+            weaponID = GetComponentInParent<Weapon>();
+        }
     }
 
     // Update is called once per frame
@@ -57,6 +64,7 @@ public class EnemyDamager : MonoBehaviour //weaponds
                     {
                         float finalDamage = (damageAmount * damageAmountMultiplier) * PlayerStats.instance.damageMultiplier;
                         enemiesInrange[i].TakeDamage(finalDamage, shouldKnockBack);
+                        PlayerStats.instance.AddDamageForWeapon(weaponID, finalDamage);
                     } 
                     else
                     {
@@ -82,6 +90,7 @@ public class EnemyDamager : MonoBehaviour //weaponds
 
                 float finalDamage = (damageAmount * damageAmountMultiplier) * PlayerStats.instance.damageMultiplier;
                 collision.GetComponent<EnemyController>().TakeDamage(finalDamage, shouldKnockBack);
+                PlayerStats.instance.AddDamageForWeapon(weaponID, finalDamage);
             }
         }
         else

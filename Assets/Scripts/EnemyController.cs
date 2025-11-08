@@ -157,12 +157,16 @@ public class EnemyController : MonoBehaviour
         {
             spriteEnemy.color = originalColor;
             if (ExperienceLevelController.instance != null)
+            {
                 ExperienceLevelController.instance.SpawnExp(transform.position, expToGive);
+            }
 
             if (Random.value <= coinDropChance)
             {
                 CoinController.instance.SpawnCoin(transform.position, coinValue);
             }
+
+            PlayerStats.instance.AddKill();
             gameObject.SetActive(false);
         } else {
             StartCoroutine(FlashDamage());
