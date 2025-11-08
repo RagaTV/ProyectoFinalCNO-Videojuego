@@ -157,7 +157,8 @@ MonoBehaviour:
   rB: {fileID: 0}
   moveSpeed: 1.5
   damageAmount: 8
-  hitWaitTime: 1
   maxHealth: 15
-  knockBackTime: 0.5
+  hitWaitTime: 1
+  coinDropChance: 0.25
+  coinValue: 5
   expToGive: 10

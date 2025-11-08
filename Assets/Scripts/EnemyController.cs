@@ -26,7 +26,8 @@ public class EnemyController : MonoBehaviour
     private Transform target;
     private PlayerHealthController healthController;
     private GameObject playerObject;
-    
+    public float coinDropChance = 0.25f; // 25% de probabilidad
+    public int coinValue = 1;
     private float knockBackTime = 0.25f;
     private float knockBackCounter;
     public int expToGive = 1;
@@ -157,6 +158,11 @@ public class EnemyController : MonoBehaviour
             spriteEnemy.color = originalColor;
             if (ExperienceLevelController.instance != null)
                 ExperienceLevelController.instance.SpawnExp(transform.position, expToGive);
+
+            if (Random.value <= coinDropChance)
+            {
+                CoinController.instance.SpawnCoin(transform.position, coinValue);
+            }
             gameObject.SetActive(false);
         } else {
             StartCoroutine(FlashDamage());

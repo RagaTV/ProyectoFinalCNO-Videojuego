@@ -22,7 +22,7 @@ public class ExperienceLevelController : MonoBehaviour
         healthController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthController>();
         while (expLevels.Count < maxLevel)
         {
-            expLevels.Add(Mathf.CeilToInt(expLevels[expLevels.Count - 1] * 1.1f));
+            expLevels.Add(Mathf.CeilToInt(expLevels[expLevels.Count - 1] * 1.05f));
         }
     }
 

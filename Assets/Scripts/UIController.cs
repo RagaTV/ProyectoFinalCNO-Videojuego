@@ -21,12 +21,23 @@ public class UIController : MonoBehaviour
     public ItemSlotUI[] weaponSlots;
     public ItemSlotUI[] passiveSlots;
     public bool panelActive = false;
+    public TMP_Text coinText;
+    public Button rerollButton;
+    public TMP_Text rerollCostText;
+    public int rerollCost = 10;
+    private Color rerollOriginalColor; // Para guardar el color original del texto
+    private bool isFlashingReroll = false;
 
    public float gameTimer = 0f;
     // Start is called before the first frame update
     void Start()
     {
         expLvlSlider.value = 0;
+
+        if (rerollCostText != null)
+        {
+            rerollOriginalColor = rerollCostText.color;
+        }
     }
 
     // Update is called once per frame
@@ -47,6 +58,13 @@ public class UIController : MonoBehaviour
         expLvlSlider.maxValue = levelExp;
         expLvlSlider.value = currentExperience;
         expLvlText.text = "Nivel: " + currentLevel;
+    }
+
+    public void UpdateCoinCount(int currentCoins)
+    {
+        // Actualiza el texto con el nuevo total de monedas
+        // El "D" es para formatear el número (ej. "1,234")
+        coinText.text = "Monedas: " + currentCoins.ToString("D"); 
     }
 
     public void UpdateInventoryUI()
@@ -83,6 +101,17 @@ public class UIController : MonoBehaviour
         panelLvls.SetActive(true);
         panelActive = true;
         Time.timeScale = 0f;
+
+        rerollCostText.text = "Cambiar opciones: " + rerollCost.ToString("D");
+        
+        if (CoinController.instance.currentCoins >= rerollCost)
+        {
+            rerollButton.interactable = true; // Activa el botón
+        }
+        else
+        {
+            rerollButton.interactable = false; // Desactiva el botón
+        }
 
         List<Weapon> upgradableWeapons = new List<Weapon>();
         List<object> generalPool = new List<object>();
@@ -173,5 +202,39 @@ public class UIController : MonoBehaviour
             list[i] = list[randomIndex];
             list[randomIndex] = temp;
         }
+    }
+
+    public void RerollOptions()
+    {
+        // Intenta gastar las monedas
+        if (CoinController.instance.SpendCoins(rerollCost))
+        {
+            // ¡ÉXITO!
+            SFXManager.instance.PlaySFX(SoundEffect.UIClick);
+            
+            rerollCost += 5;
+
+            ShowLevelUpOptions();
+        }
+        else
+        {
+            if (!isFlashingReroll)
+            {
+                StartCoroutine(FlashRerollTextRed());
+            }
+        }
+    }
+
+    private IEnumerator FlashRerollTextRed()
+    {
+        isFlashingReroll = true;
+
+        rerollCostText.color = Color.red;
+
+        yield return new WaitForSecondsRealtime(0.3f); 
+
+        rerollCostText.color = rerollOriginalColor;
+
+        isFlashingReroll = false;
     }
 }
