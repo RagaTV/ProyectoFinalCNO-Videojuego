@@ -8,6 +8,10 @@ public class PauseMenu : MonoBehaviour
 	public GameObject menuPausa; // asignar el objeto de la interfaz de pausa 
 	public bool juegoPausado = false; // estado actual del juego (true = pausado, false = jugando).
 
+	public static bool AbiertoDesdePausa = false;
+
+	public ConfigurationManager configManager;
+
     void Start() 
     {
     	menuPausa.SetActive(false);
@@ -64,13 +68,21 @@ public class PauseMenu : MonoBehaviour
 		SFXManager.instance.PlaySFX(SoundEffect.UIClick);
 		Time.timeScale = 1.0f; // Asegura que el tiempo corra antes de cargar la nueva escena.
 		juegoPausado = false; // Restablece el estado de pausa.
-
-		// Carga la escena con el nombre "Menu"
 		SceneManager.LoadScene("Menu");
 	}
 	
 	public void Configuracion(){
         SFXManager.instance.PlaySFX(SoundEffect.UIClick);
+
+	    // 1. OCULTA el menú principal de pausa
+	    menuPausa.SetActive(false); 
+	    
+	    // 2. REGISTRA que se abrió desde la Pausa
+	    AbiertoDesdePausa = true; 
+	    
+		if (configManager != null){
+	    	configManager.AbrirConfiguracion(); 
+	    }
     }
 
 }
