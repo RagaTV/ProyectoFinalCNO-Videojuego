@@ -2,50 +2,98 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI; // Necesario para Button y Color
-using TMPro; // NECESARIO para usar TextMeshProUGUI
+using UnityEngine.UI; 
+using UnityEngine.Audio; // NECESARIO para AudioMixer
+using TMPro; 
 
 public class ConfigurationManager : MonoBehaviour
 {
-
-	// --- REFERENCIAS DE PANELES DE REGRESO (ASIGNAR EN AMBAS ESCENAS) ---
-    // En EscenaMenu, asignar MenuPrincipalPanel y dejar MenuPausaPanel en NULL.
-    // En EscenaBryan, asignar MenuPausaPanel y dejar MenuPrincipalPanel en NULL.
+    // REFERENCIAS DE PANELES DE REGRESO
     public GameObject MenuPausaPanel;      
     public GameObject MenuPrincipalPanel; 
     
-    // --- REFERENCIAS DE LA INTERFAZ DE CONFIGURACIÓN (ASIGNAR EN AMBAS ESCENAS) ---
+    // REFERENCIAS DE LA INTERFAZ DE CONFIGURACIÓN
     public GameObject menuConfiguracionPanel; 
     
-    // Paneles de Contenido (Las pestañas)
+    // Paneles de Contenido
     public GameObject panelAjustes;      
     public GameObject panelControles;    
     public GameObject panelEnciclopedia;
 
-    // --- REFERENCIAS DE BOTONES (PESTAÑAS) ---
+    // BOTONES
     public Button ajustesButton;
     public Button controlesButton;
     public Button enciclopediaButton;
 
-    // --- REFERENCIAS DEL TEXTO (¡TMPro!) ---
-    // Usa TMPro.TextMeshProUGUI en lugar de Text
+    // REFERENCIAS DEL TEXTO (TMPro)
     public TextMeshProUGUI ajustesText;
     public TextMeshProUGUI controlesText;
     public TextMeshProUGUI enciclopediaText;
 
-    // --- PROPIEDADES DE COLOR ---
-    // Color de la IMAGEN del botón
-    public Color colorActivo = new Color32(29, 23, 23, 255); // Gris Oscuro (Opaco)
-    public Color colorInactivo = new Color(0.7f, 0.7f, 0.7f, 1f); // Gris Claro
-    
-    // Color del TEXTO del botón
-    public Color colorTextoActivo = Color.black; // Texto negro para el botón activo
-    public Color colorTextoInactivo = Color.white; // Texto blanco para los inactivos
+    // --- COMPONENTES DE AUDIO Y SLIDERS (Solo Música y SFX) ---
+    public AudioMixer mainMixer;       // Tu Mixer principal
+    public Slider musicSlider;         // Slider para la música
+    public Slider sfxSlider;           // Slider para los efectos de sonido
 
+    // PROPIEDADES DE COLOR
+    public Color colorActivo = new Color32(29, 23, 23, 255); 
+    public Color colorInactivo = new Color(0.7f, 0.7f, 0.7f, 1f); 
+    public Color colorTextoActivo = Color.black; 
+    public Color colorTextoInactivo = Color.white; 
+
+    private const string MUSIC_PARAM = "MusicVolume";     // Nombre del parámetro expuesto en el Mixer
+    private const string SFX_PARAM = "SFXVolume";         // Nombre del parámetro expuesto en el Mixer
+
+
+    void Start()
+    {
+        // Inicializa solo los sliders de Música y SFX al cargar la escena
+        if (mainMixer != null)
+        {
+            InitializeSlider(musicSlider, MUSIC_PARAM);
+            InitializeSlider(sfxSlider, SFX_PARAM);
+        }
+    }
+
+    // Función auxiliar para inicializar sliders
+    private void InitializeSlider(Slider slider, string paramName)
+    {
+        if (slider != null && mainMixer.GetFloat(paramName, out float volume))
+        {
+            // Convierte de Decibelios a valor lineal (0 a 1)
+            slider.value = Mathf.Pow(10, volume / 20);
+        }
+    }
+
+    // --- FUNCIONES DE CONTROL DE VOLUMEN (Asignar a cada Slider) ---
+
+    // Controla el volumen de la Música
+    public void SetMusicVolume(float volume)
+    {
+        SetMixerVolume(MUSIC_PARAM, volume);
+    }
+
+    // Controla el volumen de los SFX
+    public void SetSFXVolume(float volume)
+    {
+        SetMixerVolume(SFX_PARAM, volume);
+    }
+
+    // Función central que realiza la conversión logarítmica
+    private void SetMixerVolume(string parameterName, float volume)
+    {
+        if (mainMixer == null) return;
+
+        // Convierte el valor lineal del slider (0.0001 a 1) a Decibelios (-80dB a 0dB)
+        float dB = Mathf.Log10(volume) * 20;
+
+        // Establece el parámetro en el AudioMixer
+        mainMixer.SetFloat(parameterName, dB);
+    }
+    
     // --- FUNCIÓN PRIVADA PARA RESALTAR EL BOTÓN ACTIVO ---
     private void ResaltarBoton(Button botonActivo, TextMeshProUGUI textoActivo)
     {
-        // 1. Resetear IMAGEN y TEXTO a color inactivo
         // Reseteo de IMAGEN
         if (ajustesButton != null && ajustesButton.image != null) ajustesButton.image.color = colorInactivo;
         if (controlesButton != null && controlesButton.image != null) controlesButton.image.color = colorInactivo;
@@ -56,50 +104,40 @@ public class ConfigurationManager : MonoBehaviour
         if (controlesText != null) controlesText.color = colorTextoInactivo;
         if (enciclopediaText != null) enciclopediaText.color = colorTextoInactivo;
 
-
-        // 2. Aplicar color ACTIVO al botón y al texto seleccionado
+        // Aplicar color ACTIVO
         if (botonActivo != null && botonActivo.image != null)
         {
-            botonActivo.image.color = colorActivo; // Cambia la IMAGEN a gris oscuro
+            botonActivo.image.color = colorActivo; 
         }
         
         if (textoActivo != null)
         {
-            textoActivo.color = colorTextoActivo; // Cambia el TEXTO a negro
+            textoActivo.color = colorTextoActivo; 
         }
     }
 
-
-    // --- FUNCIONES DE APERTURA ---
 
     public void AbrirConfiguracion(){
         if (menuConfiguracionPanel != null)
         {
             menuConfiguracionPanel.SetActive(true);
         }
-        // Muestra por defecto la primera sección y resalta su botón
         AbrirPanelAjustes();
     }
 
-    // --- FUNCIÓN DE REGRESO ---
-
     public void Regresar()
     {
-        // 1. Oculta la interfaz de configuración.
         if (menuConfiguracionPanel != null)
         {
             menuConfiguracionPanel.SetActive(false);
         }
         
-        // 2. Decide a dónde volver basándose en la bandera estática (AbiertoDesdePausa).
         if (PauseMenu.AbiertoDesdePausa) 
         {
-            // Volver al menú de pausa (Escena de Juego - EscenaBryan)
             if (MenuPausaPanel != null)
             {
                 MenuPausaPanel.SetActive(true);
                 
-                // Asegura que el tiempo se detenga si volvemos al menú de Pausa
                 PauseMenu pauseMenu = FindObjectOfType<PauseMenu>();
                 if (pauseMenu != null)
                 {
@@ -109,7 +147,6 @@ public class ConfigurationManager : MonoBehaviour
         }
         else 
         {
-            // Volver al menú principal (Escena de Menú)
             if (MenuPrincipalPanel != null)
             {
                 MenuPrincipalPanel.SetActive(true);
@@ -117,35 +154,25 @@ public class ConfigurationManager : MonoBehaviour
         }
     }
     
-    // --- LÓGICA DE NAVEGACIÓN ENTRE PESTAÑAS Y RESALTE ---
 
     public void AbrirPanelAjustes(){
-        // Activar/Desactivar Paneles de Contenido
         if (panelAjustes != null) panelAjustes.SetActive(true);
         if (panelControles != null) panelControles.SetActive(false);
         if (panelEnciclopedia != null) panelEnciclopedia.SetActive(false);
-
-        // Resaltar el botón activo
         ResaltarBoton(ajustesButton, ajustesText); 
     }
 
     public void AbrirPanelControles(){
-        // Activar/Desactivar Paneles de Contenido
         if (panelAjustes != null) panelAjustes.SetActive(false);
         if (panelControles != null) panelControles.SetActive(true);
         if (panelEnciclopedia != null) panelEnciclopedia.SetActive(false);
-
-        // Resaltar el botón activo
         ResaltarBoton(controlesButton, controlesText); 
     }
 
     public void AbrirPanelEnciclopedia(){
-        // Activar/Desactivar Paneles de Contenido
         if (panelAjustes != null) panelAjustes.SetActive(false);
         if (panelControles != null) panelControles.SetActive(false);
         if (panelEnciclopedia != null) panelEnciclopedia.SetActive(true);
-
-        // Resaltar el botón activo
         ResaltarBoton(enciclopediaButton, enciclopediaText); 
     }
 }
