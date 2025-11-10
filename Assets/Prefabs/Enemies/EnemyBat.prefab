@@ -161,4 +161,4 @@ MonoBehaviour:
   hitWaitTime: 1
   coinDropChance: 0.25
   coinValue: 1
-  expToGive: 1
+  expToGive: 2

@@ -71,6 +71,5 @@ public class ZoneWeapon : Weapon
             spawnTime = stats[weaponLvl].attackDelay;
         }
         
-        spawnTime = stats[weaponLvl].attackDelay;
     }
 }

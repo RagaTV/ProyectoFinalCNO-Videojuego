@@ -33,7 +33,7 @@ public class EnemyController : MonoBehaviour
     public int expToGive = 1;
     
     // Escalado
-    private float auxExtra = 0.5f;
+    private float auxExtra = 0.2f;
     private int levelup;
 
     void Awake()
