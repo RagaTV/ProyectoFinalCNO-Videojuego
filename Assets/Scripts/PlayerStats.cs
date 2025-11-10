@@ -14,6 +14,9 @@ public class PlayerStats : MonoBehaviour
     public float armor { get; private set; } 
     public int enemiesKilled { get; private set; }
     public float totalDamageDone { get; private set; }
+    public float luck { get; private set; }
+    public float xpMultiplier { get; private set; }
+    public float coinMultiplier { get; private set; }
     public Dictionary<Weapon, float> weaponDamageStats { get; private set; }
 
 
@@ -24,6 +27,9 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private float basePickupRange = 0.5f;
     [SerializeField] private float baseProjectileSize = 1f;
     [SerializeField] private float baseArmor = 0f;
+    [SerializeField] private float baseLuck = 1f; // 1f = 100%
+    [SerializeField] private float baseXP = 1f;   // 1f = 100%
+    [SerializeField] private float baseCoins = 1f; // 1f = 100%
     
     
 
@@ -38,6 +44,9 @@ public class PlayerStats : MonoBehaviour
         pickupRange = basePickupRange;
         projectileSizeMultiplier = baseProjectileSize;
         armor = baseArmor;
+        luck = baseLuck;
+        xpMultiplier = baseXP;
+        coinMultiplier = baseCoins;
 
         enemiesKilled = 0;
         totalDamageDone = 0f;
@@ -86,6 +95,15 @@ public class PlayerStats : MonoBehaviour
 
             case PassiveType.Armor:
                 armor = baseArmor + stats.multiplier;
+                break;
+            case PassiveType.Luck:
+                luck = baseLuck + stats.multiplier; 
+                break;
+            case PassiveType.XPMultiplier:
+                xpMultiplier = baseXP * (1f + stats.multiplier);
+                break;
+            case PassiveType.CoinMultiplier:
+                coinMultiplier = baseCoins * (1f + stats.multiplier);
                 break;
         }
     }

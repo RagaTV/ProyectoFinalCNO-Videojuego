@@ -2333,7 +2333,7 @@ GameObject:
   - component: {fileID: 253526952}
   m_Layer: 0
   m_Name: Zone Weapon Effect
-  m_TagString: Untagged
+  m_TagString: WeaponProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4212,7 +4212,7 @@ GameObject:
   - component: {fileID: 512301522}
   m_Layer: 0
   m_Name: Espada Oscura
-  m_TagString: Untagged
+  m_TagString: WeaponProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6280,7 +6280,7 @@ GameObject:
   - component: {fileID: 759259548}
   m_Layer: 0
   m_Name: GoldenSword
-  m_TagString: Untagged
+  m_TagString: WeaponProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6858,6 +6858,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9aec0d054b55aeb4e98dd2a2270366b5, type: 2}
   - {fileID: 11400000, guid: f72d49251cacf0b4ab9ae2df9ca5fd1f, type: 2}
   - {fileID: 11400000, guid: 458e14ce4bd72c04d8b4365e5bd591ba, type: 2}
+  - {fileID: 11400000, guid: a8e5a73e168f5c44e928ae50ea3a2ed1, type: 2}
+  - {fileID: 11400000, guid: 22f4711e2a80df04c94cc15bb5a57cd0, type: 2}
+  - {fileID: 11400000, guid: 4f18e05a523d2ac47816345c355bac7a, type: 2}
   assignedPassives: []
 --- !u!4 &786157242
 Transform:
@@ -7018,6 +7021,9 @@ MonoBehaviour:
   basePickupRange: 1.5
   baseProjectileSize: 1
   baseArmor: 0
+  baseLuck: 1
+  baseXP: 1
+  baseCoins: 1
 --- !u!1 &805403585
 GameObject:
   m_ObjectHideFlags: 0
@@ -7900,7 +7906,7 @@ GameObject:
   - component: {fileID: 894488258}
   m_Layer: 0
   m_Name: Escudo de Oro
-  m_TagString: Untagged
+  m_TagString: WeaponProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

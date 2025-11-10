@@ -33,7 +33,8 @@ public class ExperienceLevelController : MonoBehaviour
 
     public void GetExp(int amountToGet)
     {
-        currentExperience += amountToGet;
+        float finalExp = amountToGet * PlayerStats.instance.xpMultiplier;
+        currentExperience += Mathf.CeilToInt(finalExp);
 
         if (currentExperience >= expLevels[currentLevel])
         {

@@ -161,7 +161,8 @@ public class EnemyController : MonoBehaviour
                 ExperienceLevelController.instance.SpawnExp(transform.position, expToGive);
             }
 
-            if (Random.value <= coinDropChance)
+            float finalCoinDropChance = coinDropChance * PlayerStats.instance.luck;
+            if (Random.value <= Mathf.Min(finalCoinDropChance, 1f))
             {
                 CoinController.instance.SpawnCoin(transform.position, coinValue);
             }

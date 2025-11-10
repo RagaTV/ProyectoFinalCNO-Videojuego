@@ -14,109 +14,73 @@ public class LvlUpSelectionButton : MonoBehaviour
     public Color raraColor = new Color(0.2f, 0.5f, 1f);   // Azul
     public Color epicaColor = new Color(0.7f, 0.2f, 1f);   // Morado
     public Color legendariaColor = new Color(1f, 0.8f, 0f); // Dorado
-    private object assignedUpgrade;
+    private UpgradeOption assignedOption;
 
     private void Awake()
     {
         buttonImage = GetComponent<Image>();
     }
 
-    public void UpdateButtonDisplay(object upgradeObject)
+    public void UpdateButtonDisplay(UpgradeOption option)
     {
-        assignedUpgrade = upgradeObject;
+        assignedOption = option;
         GetComponent<Button>().interactable = true;
-
-        // REVISA SI ES UN ARMA
-        if (upgradeObject is Weapon)
+        
+        if (option.item is Weapon)
         {
-            Weapon theWeapon = (Weapon)upgradeObject;
+            Weapon weapon = (Weapon)option.item;
+            WeaponStats stats = (WeaponStats)option.generatedStats;
             
-            bool isNewWeapon = PlayerController.instance.unassignedWeapons.Contains(theWeapon);
-            int statIndexToShow; 
-            int levelNumToShow;  
-
-            if (isNewWeapon)
-            {
-                statIndexToShow = 0; // Muestra info de Nivel 1 (índice 0)
-                levelNumToShow = 1;
-            }
-            else
-            {
-                statIndexToShow = theWeapon.weaponLvl + 1; // Muestra info del sig. nivel
-                levelNumToShow = theWeapon.weaponLvl + 2; 
-            }
-
-            if (statIndexToShow >= theWeapon.stats.Count)
-            {
-                upgradeDescription.text = "MAX LEVEL";
-                weaponIcon.sprite = theWeapon.icon;
-                nameLvl.text = theWeapon.name + "\nNivel " + (theWeapon.weaponLvl + 1); 
-                GetComponent<Button>().interactable = false; // Desactiva el botón
-            }
-            else
-            {
-                upgradeDescription.text = theWeapon.stats[statIndexToShow].upgradeText;
-                weaponIcon.sprite = theWeapon.icon;
-                nameLvl.text = theWeapon.name + "\nNivel " + levelNumToShow;
-                SetRarityColor(theWeapon.stats[statIndexToShow].rarity);
-            }
+            upgradeDescription.text = stats.upgradeText;
+            weaponIcon.sprite = weapon.icon;
+            nameLvl.text = weapon.name + "\nNivel " + option.levelNum;
+            SetRarityColor(stats.rarity);
         }
-        // REVISA SI ES UN PASIVO
-        else if (upgradeObject is PassiveItem)
+        else if (option.item is PassiveItem)
         {
-            PassiveItem thePassive = (PassiveItem)upgradeObject;
-            
-            int currentLevelIndex = -1;
-            // Revisa si ya tenemos este pasivo
-            if (PlayerController.instance.passiveLevels.ContainsKey(thePassive))
-            {
-                currentLevelIndex = PlayerController.instance.passiveLevels[thePassive];
-            }
+            PassiveItem passive = (PassiveItem)option.item;
+            PassiveStatLevel stats = (PassiveStatLevel)option.generatedStats;
 
-            int nextLevelIndex = currentLevelIndex + 1;
-            int nextLevelNum = nextLevelIndex + 1; // Nivel 1, 2, 3...
-
-            if (nextLevelIndex >= thePassive.levels.Count)
-            {
-                upgradeDescription.text = "MAX LEVEL";
-                weaponIcon.sprite = thePassive.icon;
-                nameLvl.text = thePassive.passiveName + "\nNivel " + (currentLevelIndex + 1); 
-                GetComponent<Button>().interactable = false; // Desactiva el botón
-            }
-            else
-            {
-                upgradeDescription.text = thePassive.levels[nextLevelIndex].upgradeText;
-                weaponIcon.sprite = thePassive.icon;
-                nameLvl.text = thePassive.passiveName + "\nNivel " + nextLevelNum;
-                SetRarityColor(thePassive.levels[nextLevelIndex].rarity);
-            }
+            upgradeDescription.text = stats.upgradeText;
+            weaponIcon.sprite = passive.icon;
+            nameLvl.text = passive.passiveName + "\nNivel " + option.levelNum;
+            SetRarityColor(stats.rarity);
         }
     }
     
     public void SelectUpgrade()
     {
-        if(assignedUpgrade == null) return;
+        if(assignedOption == null) return;
 
-        if (assignedUpgrade is Weapon)
+        SFXManager.instance.PlaySFX(SoundEffect.UIClick); // (Lo muevo aquí)
+
+        if (assignedOption.item is Weapon)
         {
-            Weapon weapon = (Weapon)assignedUpgrade;
+            Weapon weapon = (Weapon)assignedOption.item;
+            WeaponStats stats = (WeaponStats)assignedOption.generatedStats;
+
             if (PlayerController.instance.unassignedWeapons.Contains(weapon))
             {
+                // Es un arma nueva, la añade y LUEGO aplica el Nivel 1
+                // (AddWeapon ya añade el Nivel 1 (baseStats))
                 PlayerController.instance.AddWeapon(weapon);
             }
             else
             {
-                weapon.LevelUp();
+                // Es un arma existente, solo aplica el nivel generado
+                weapon.ApplyLevel(stats);
             }
         }
-        // REVISA SI ES UN PASIVO
-        else if (assignedUpgrade is PassiveItem)
+        else if (assignedOption.item is PassiveItem)
         {
-            PassiveItem passive = (PassiveItem)assignedUpgrade;
-            // Llama a la nueva función que creamos en PlayerController
-            PlayerController.instance.UpgradePassive(passive);
+            PassiveItem passive = (PassiveItem)assignedOption.item;
+            PassiveStatLevel stats = (PassiveStatLevel)assignedOption.generatedStats;
+            
+            // Llama a la función de Upgrade, que se encarga de todo
+            PlayerController.instance.UpgradePassive(passive, stats);
         }
-
+        
+        // Cierra el panel y reanuda el juego
         UIController.instance.panelLvls.SetActive(false);
         UIController.instance.panelActive = false;
         Time.timeScale = 1f;

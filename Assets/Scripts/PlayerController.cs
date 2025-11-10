@@ -32,22 +32,10 @@ public class PlayerController : MonoBehaviour
 
         passiveLevels = new Dictionary<PassiveItem, int>();
 
-        foreach (Weapon w in assignedWeapons)
-        {
-            w.GenerateLevelPath();
-        }
-        foreach (Weapon w in unassignedWeapons)
-        {
-            w.GenerateLevelPath();
-        }
         if (unassignedWeapons.Count > 0)
         {
             int randomWeaponIndex = Random.Range(0, unassignedWeapons.Count);
             AddWeapon(unassignedWeapons[randomWeaponIndex]);
-        }
-        foreach (PassiveItem p in unassignedPassives)
-        {
-            p.GenerateLevelPath();
         }
     }
 
@@ -138,6 +126,9 @@ public class PlayerController : MonoBehaviour
             unassignedWeapons.Remove(weaponToAdd);
             assignedWeapons.Add(weaponToAdd);
 
+            weaponToAdd.stats = new List<WeaponStats>();
+            weaponToAdd.stats.Add(weaponToAdd.baseStats);
+
             weaponToAdd.gameObject.SetActive(true);
             weaponToAdd.weaponLvl = 0;
             weaponToAdd.statsUpdated = true;
@@ -146,9 +137,9 @@ public class PlayerController : MonoBehaviour
         }
     }
     
-    public void UpgradePassive(PassiveItem passiveToUpgrade)
+    public void UpgradePassive(PassiveItem passiveToUpgrade, PassiveStatLevel statsToApply)
     {
-        int currentLevel = 0; 
+        int currentLevelIndex = 0; 
 
         if (unassignedPassives.Contains(passiveToUpgrade))
         {
@@ -156,15 +147,17 @@ public class PlayerController : MonoBehaviour
             assignedPassives.Add(passiveToUpgrade);
             
             passiveLevels[passiveToUpgrade] = 0; 
-            currentLevel = 0;
+            currentLevelIndex = 0;
+            
+            passiveToUpgrade.InitializeStats();
         }
         else
         {
             passiveLevels[passiveToUpgrade]++;
-            currentLevel = passiveLevels[passiveToUpgrade];
+            currentLevelIndex = passiveLevels[passiveToUpgrade];
         }
 
-        PlayerStats.instance.ApplyStatsForPassive(passiveToUpgrade, currentLevel);
-        UIController.instance.UpdateInventoryUI();
+        passiveToUpgrade.ApplyLevel(statsToApply);
+        
     }
 }

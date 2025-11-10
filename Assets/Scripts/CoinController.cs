@@ -16,7 +16,8 @@ public class CoinController : MonoBehaviour
 
     public void AddCoins(int coinsToAdd)
     {
-        currentCoins += coinsToAdd;
+        float finalCoins = coinsToAdd * PlayerStats.instance.coinMultiplier;
+        currentCoins += Mathf.CeilToInt(finalCoins);
 
         UIController.instance.UpdateCoinCount(currentCoins);
     }

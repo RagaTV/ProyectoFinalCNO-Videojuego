@@ -20,30 +20,34 @@ public class PassiveItem : ScriptableObject
     private float epicChance = 0.12f;
     private float legendaryChance = 0.03f;
 
-    [ContextMenu("Forzar Regeneración de Niveles")]
-    public void GenerateLevelPath()
+    public void InitializeStats()
     {
-        if (levels == null)
-        {
-            levels = new List<PassiveStatLevel>();
-        }
+        levels = new List<PassiveStatLevel>();
+        levels.Add(baseStats);
+    }
+
+    public PassiveStatLevel GenerateNextLevelStats()
+    {
+        PassiveStatLevel prevLevel = levels[levels.Count - 1];
+        PassiveStatLevel newLevel = new PassiveStatLevel(prevLevel);
+
+        // 1. Obtiene la suerte actual (con seguridad)
+        float playerLuck = 1f;
+        try { playerLuck = PlayerStats.instance.luck; }
+        catch { playerLuck = 1f; }
         
-        levels.Clear(); // Borra los datos viejos
-        levels.Add(baseStats); // Añade los nuevos baseStats
+        // 2. Calcula las probabilidades
+        float finalLegendaryChance = legendaryChance * playerLuck;
+        float finalEpicChance = epicChance * playerLuck;
+        float finalRareChance = rareChance * playerLuck;
+        
+        float roll = Random.value;
+        bonusAmount = 0f;
 
-        for (int i = 1; i < maxLevels; i++)
-        {
-            PassiveStatLevel prevLevel = levels[i - 1];
-            PassiveStatLevel newLevel = new PassiveStatLevel(prevLevel);
-
-            float roll = Random.value;
-            bonusAmount = 0f;
-
-            
-            //  Definimos los tipos de stats
+        //  Definimos los tipos de stats
             bool isFlatStat = type == PassiveType.Armor || type == PassiveType.HealthRegen;
             bool isHealthStat = type == PassiveType.MaxHealth;
-            bool isDamageStat = type == PassiveType.Damage;
+            bool isDamageStat = type == PassiveType.Damage || type == PassiveType.XPMultiplier || type == PassiveType.CoinMultiplier;
             // (Si no es ninguno de esos, es 'Utility')
 
             //  Aplicamos bonos diferentes basados en el tipo
@@ -79,10 +83,10 @@ public class PassiveItem : ScriptableObject
                 else if (isDamageStat) { bonusAmount = 0.10f; } // Daño (+10%)
                 else { bonusAmount = 0.05f; }                   // Utilidad (+5%)
             }
-
-            newLevel.multiplier = prevLevel.multiplier + bonusAmount;
-
-            string spanName = GetSpanish(type);
+        
+        newLevel.multiplier = prevLevel.multiplier + bonusAmount;
+        
+        string spanName = GetSpanish(type);
 
             if (isFlatStat)
             {
@@ -94,9 +98,21 @@ public class PassiveItem : ScriptableObject
                 newLevel.upgradeText =
                     $"+{bonusAmount:P0} {spanName} (Total: {newLevel.multiplier:P0})";
             }
+        
+        // 3. DEVUELVE el nivel generado (¡no lo añade a la lista!)
+        return newLevel;
+    }
 
-            levels.Add(newLevel);
-        }
+    // "Confirma" y aplica la mejora
+    public void ApplyLevel(PassiveStatLevel statsToApply)
+    {
+        levels.Add(statsToApply);
+        
+        // Aplica el stat (¡el pasivo se aplica a sí mismo!)
+        int currentLevelIndex = levels.Count - 1;
+        PlayerStats.instance.ApplyStatsForPassive(this, currentLevelIndex);
+        
+        UIController.instance.UpdateInventoryUI();
     }
     
     public string GetSpanish(PassiveType type)
@@ -112,11 +128,17 @@ public class PassiveItem : ScriptableObject
             case PassiveType.Damage:
                 return "Daño";
             case PassiveType.PickupRange:
-                return "Rango de Recolección de Experiencia";
+                return "Rango de Recolección";
             case PassiveType.ProjectileSize:
                 return "Tamaño de Proyectil";
             case PassiveType.Armor:
                 return "Armadura";
+            case PassiveType.Luck:
+                return "Suerte";
+            case PassiveType.XPMultiplier:
+                return "Multiplicador de EXP";
+            case PassiveType.CoinMultiplier:
+                return "Multiplicador de Monedas";
             default:
                 return type.ToString();
         }
@@ -130,5 +152,8 @@ public enum PassiveType
     Damage,
     PickupRange,
     ProjectileSize,
-    Armor
+    Armor,
+    Luck,
+    XPMultiplier,
+    CoinMultiplier
 }

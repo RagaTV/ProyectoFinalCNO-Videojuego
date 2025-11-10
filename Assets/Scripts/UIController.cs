@@ -27,6 +27,7 @@ public class UIController : MonoBehaviour
     public int rerollCost = 10;
     private Color rerollOriginalColor; // Para guardar el color original del texto
     private bool isFlashingReroll = false;
+    private List<UpgradeOption> generatedOptions = new List<UpgradeOption>();
 
    public float gameTimer = 0f;
     // Start is called before the first frame update
@@ -103,7 +104,7 @@ public class UIController : MonoBehaviour
         Time.timeScale = 0f;
 
         rerollCostText.text = "Cambiar opciones: " + rerollCost.ToString("D");
-        
+
         if (CoinController.instance.currentCoins >= rerollCost)
         {
             rerollButton.interactable = true; // Activa el botón
@@ -112,6 +113,8 @@ public class UIController : MonoBehaviour
         {
             rerollButton.interactable = false; // Desactiva el botón
         }
+        
+        generatedOptions.Clear();
 
         List<Weapon> upgradableWeapons = new List<Weapon>();
         List<object> generalPool = new List<object>();
@@ -120,7 +123,7 @@ public class UIController : MonoBehaviour
         {
             foreach (Weapon weapon in PlayerController.instance.assignedWeapons)
             {
-                if (weapon.weaponLvl < weapon.stats.Count - 1)
+                if (weapon.weaponLvl < weapon.maxLevels - 1)
                 {
                     upgradableWeapons.Add(weapon);
                 }
@@ -140,7 +143,7 @@ public class UIController : MonoBehaviour
             foreach (PassiveItem passive in PlayerController.instance.assignedPassives)
             {
                 int currentLevelIndex = PlayerController.instance.passiveLevels[passive];
-                if (currentLevelIndex < passive.levels.Count - 1)
+                if (currentLevelIndex < passive.maxLevels - 1)
                 {
                     generalPool.Add(passive);
                 }
@@ -184,7 +187,59 @@ public class UIController : MonoBehaviour
 
             if (i < optionsToShow.Count)
             {
-                lvlUpButtons[i].UpdateButtonDisplay(optionsToShow[i]);
+                // GENERAMOS LA MEJORA
+                object item = optionsToShow[i];
+                object generatedStats = null;
+                int levelNum = 0;
+                
+                if (item is Weapon)
+                {
+                    Weapon weapon = (Weapon)item;
+                    bool isNew = PlayerController.instance.unassignedWeapons.Contains(weapon);
+                    
+                    if(isNew)
+                    {
+                        // ARMA NUEVA: Muestra Nivel 1
+                        generatedStats = weapon.baseStats;
+                        levelNum = 1;
+                    }
+                    else
+                    {
+                        // ARMA EXISTENTE: Genera el siguiente nivel
+                        generatedStats = weapon.GenerateNextLevelStats();
+                        levelNum = weapon.weaponLvl + 2;
+                    }
+                }
+                else if (item is PassiveItem)
+                {
+                    PassiveItem passive = (PassiveItem)item;
+                    bool isNew = PlayerController.instance.unassignedPassives.Contains(passive);
+
+                    if(isNew)
+                    {
+                        // PASIVO NUEVO: Muestra Nivel 1
+                        generatedStats = passive.baseStats;
+                        levelNum = 1;
+                    }
+                    else
+                    {
+                        // PASIVO EXISTENTE: Genera el siguiente nivel
+                        generatedStats = passive.GenerateNextLevelStats();
+                        levelNum = PlayerController.instance.passiveLevels[passive] + 2;
+                    }
+                }
+
+                // Creamos el "paquete" de mejora
+                UpgradeOption option = new UpgradeOption
+                {
+                    item = item,
+                    generatedStats = generatedStats,
+                    levelNum = levelNum
+                };
+                
+                generatedOptions.Add(option);
+
+                lvlUpButtons[i].UpdateButtonDisplay(option);
             }
             else
             {
