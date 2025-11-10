@@ -42,7 +42,7 @@ public class PlayerHealthController : MonoBehaviour
         if (PlayerStats.instance.healthRegen > 0 && currentHealth < maxHealth && !deathPlayer)
         {
             currentHealth += PlayerStats.instance.healthRegen * Time.deltaTime;
-            
+
             if (currentHealth > maxHealth)
             {
                 currentHealth = maxHealth;
@@ -50,6 +50,7 @@ public class PlayerHealthController : MonoBehaviour
 
             UpdateHealthUI();
         }
+        
     }
 
     public void TakeDamage(float damageReceived)
