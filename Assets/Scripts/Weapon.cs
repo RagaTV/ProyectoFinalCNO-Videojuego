@@ -99,7 +99,7 @@ public class Weapon : MonoBehaviour
             switch (statToUpgrade)
             {
                 case 0: // Daño
-                    float damageIncrease = 0.25f;
+                    float damageIncrease = 0.40f;
                     newStats.damage *= (1f + damageIncrease);
                     upgradeTexts.Add($"+{damageIncrease:P0} Daño");
                     break;

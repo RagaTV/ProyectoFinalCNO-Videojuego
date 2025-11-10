@@ -29,7 +29,15 @@ public class UIController : MonoBehaviour
     private bool isFlashingReroll = false;
     private List<UpgradeOption> generatedOptions = new List<UpgradeOption>();
 
-   public float gameTimer = 0f;
+    [Header("UI Ruleta Inicial")]
+    public GameObject roulettePanel; // Tu panel principal de ruleta
+    public Transform roulettePivot; // <--- El objeto que gira
+    public GameObject iconTemplatePrefab; // <--- El prefab del ícono
+    public float iconRadius = 150f; // Radio del círculo
+    public float spinDuration = 3.0f; // Duración de la animación
+    public float spinVelocity = 1080f;
+
+    public float gameTimer = 0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -286,10 +294,115 @@ public class UIController : MonoBehaviour
 
         rerollCostText.color = Color.red;
 
-        yield return new WaitForSecondsRealtime(0.3f); 
+        yield return new WaitForSecondsRealtime(0.3f);
 
         rerollCostText.color = rerollOriginalColor;
 
         isFlashingReroll = false;
+    }
+
+    
+    public void GenerateRoulette()
+    {
+        // La lista de armas disponibles son las NO ASIGNADAS
+        List<Weapon> availableWeapons = PlayerController.instance.unassignedWeapons;
+        int totalWeapons = availableWeapons.Count;
+
+        if (totalWeapons == 0 || roulettePivot == null) return;
+
+        // Limpiar iconos anteriores
+        foreach (Transform child in roulettePivot)
+        {
+            Destroy(child.gameObject);
+        }
+
+        float angleStep = 360f / totalWeapons;
+
+        for (int i = 0; i < totalWeapons; i++)
+        {
+            // 1. Calcular ángulo y posición (Matemáticas circulares)
+            float angle = i * angleStep;
+            float radians = angle * Mathf.Deg2Rad;
+
+            Vector3 position = new Vector3(
+                iconRadius * Mathf.Cos(radians),
+                iconRadius * Mathf.Sin(radians),
+                0f
+            );
+
+            // 2. Crear el icono e Instanciar
+            GameObject iconObj = Instantiate(iconTemplatePrefab, roulettePivot);
+            iconObj.GetComponent<RectTransform>().anchoredPosition = position;
+
+            // 3. Asignar el sprite
+            iconObj.GetComponent<Image>().sprite = availableWeapons[i].icon;
+        }
+    }
+    
+    public void StartInitialWeaponRoulette()
+    {
+        // ... (Comprobación de nulls) ...
+
+        // 1. Genera el círculo de íconos
+        GenerateRoulette();
+        
+        // 2. Pausa el juego
+        Time.timeScale = 0f;
+        roulettePanel.SetActive(true);
+
+        // 3. Inicia la animación
+        StartCoroutine(SpinAndReveal());
+    }
+
+    private IEnumerator SpinAndReveal()
+    {
+        float time = 0f;
+        float startAngle = roulettePivot.localEulerAngles.z; 
+        
+        // Gira al menos dos vueltas completas
+        float extraSpins = 360f * 2; 
+        
+        // Elige el arma ganadora
+        List<Weapon> availableWeapons = PlayerController.instance.unassignedWeapons;
+        int randomIndex = UnityEngine.Random.Range(0, availableWeapons.Count);
+        Weapon chosenWeapon = availableWeapons[randomIndex];
+
+        // 1. Calcula el ángulo final donde se debe detener el ganador
+        float angleStep = 360f / availableWeapons.Count;
+        float winningAngle = randomIndex * angleStep;
+        
+        // Queremos que el ganador quede en la parte superior/frontal del pivote (ej. 90 grados si miras al centro)
+        float targetAngle = (extraSpins + winningAngle) - 90f; 
+        
+        // Asegura que el giro ocurra en la dirección correcta
+        float finalAngle = startAngle - targetAngle;
+        
+        // --- GIRO RÁPIDO Y DESACELERACIÓN (EASING) ---
+        while (time < spinDuration)
+        {
+            float t = time / spinDuration;
+            
+            // Utilizamos una curva de desaceleración (SmoothStep)
+            float easedFactor = Mathf.SmoothStep(0f, 1f, t); 
+            float currentAngle = Mathf.Lerp(startAngle, finalAngle, easedFactor);
+
+            roulettePivot.localEulerAngles = new Vector3(0f, 0f, currentAngle);
+            
+            time += Time.unscaledDeltaTime; 
+            yield return null;
+        }
+        
+        // 4. Asegurar la posición final exacta
+        roulettePivot.localEulerAngles = new Vector3(0f, 0f, finalAngle);
+
+        // Espera un momento para que el jugador vea el resultado
+        yield return new WaitForSecondsRealtime(1.5f); 
+
+        // 5. Aplica el arma al Player
+        PlayerController.instance.SetStartingWeapon(chosenWeapon);
+
+        // 6. Quita la pausa
+        roulettePanel.SetActive(false);
+        Time.timeScale = 1f;
     }
 }

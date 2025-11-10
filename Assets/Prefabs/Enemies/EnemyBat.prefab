@@ -156,6 +156,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rB: {fileID: 0}
   moveSpeed: 2.5
-  damageAmount: 5
-  hitWaitTime: 1
+  damageAmount: 3
   maxHealth: 1
+  hitWaitTime: 1
+  coinDropChance: 0.25
+  coinValue: 1
+  expToGive: 1

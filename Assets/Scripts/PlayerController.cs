@@ -32,10 +32,24 @@ public class PlayerController : MonoBehaviour
 
         passiveLevels = new Dictionary<PassiveItem, int>();
 
-        if (unassignedWeapons.Count > 0)
+        /*if (unassignedWeapons.Count > 0)
         {
             int randomWeaponIndex = Random.Range(0, unassignedWeapons.Count);
             AddWeapon(unassignedWeapons[randomWeaponIndex]);
+        }*/
+
+        if (UIController.instance != null)
+        {
+            UIController.instance.StartInitialWeaponRoulette();
+        }
+    }
+
+    public void SetStartingWeapon(Weapon chosenWeapon)
+    {
+        if (unassignedWeapons.Contains(chosenWeapon))
+        {
+            // La lógica de AddWeapon ya hace el resto (mueve, activa, pone lvl=0)
+            AddWeapon(chosenWeapon);
         }
     }
 
