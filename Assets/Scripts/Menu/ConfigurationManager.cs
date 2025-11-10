@@ -119,6 +119,7 @@ public class ConfigurationManager : MonoBehaviour
 
 
     public void AbrirConfiguracion(){
+        SFXManager.instance.PlaySFX(SoundEffect.UIClick);
         if (menuConfiguracionPanel != null)
         {
             menuConfiguracionPanel.SetActive(true);
@@ -128,6 +129,7 @@ public class ConfigurationManager : MonoBehaviour
 
     public void Regresar()
     {
+        SFXManager.instance.PlaySFX(SoundEffect.UIClick);
         if (menuConfiguracionPanel != null)
         {
             menuConfiguracionPanel.SetActive(false);
@@ -157,6 +159,7 @@ public class ConfigurationManager : MonoBehaviour
     
 
     public void AbrirPanelAjustes(){
+        SFXManager.instance.PlaySFX(SoundEffect.UIClick);
         if (panelAjustes != null) panelAjustes.SetActive(true);
         if (panelControles != null) panelControles.SetActive(false);
         if (panelEnciclopedia != null) panelEnciclopedia.SetActive(false);
@@ -164,6 +167,7 @@ public class ConfigurationManager : MonoBehaviour
     }
 
     public void AbrirPanelControles(){
+        SFXManager.instance.PlaySFX(SoundEffect.UIClick);
         if (panelAjustes != null) panelAjustes.SetActive(false);
         if (panelControles != null) panelControles.SetActive(true);
         if (panelEnciclopedia != null) panelEnciclopedia.SetActive(false);
@@ -171,6 +175,7 @@ public class ConfigurationManager : MonoBehaviour
     }
 
     public void AbrirPanelEnciclopedia(){
+        SFXManager.instance.PlaySFX(SoundEffect.UIClick);
         if (panelAjustes != null) panelAjustes.SetActive(false);
         if (panelControles != null) panelControles.SetActive(false);
         if (panelEnciclopedia != null) panelEnciclopedia.SetActive(true);

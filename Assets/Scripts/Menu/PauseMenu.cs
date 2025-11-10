@@ -21,12 +21,25 @@ public class PauseMenu : MonoBehaviour
     {
     	// Comprueba si la tecla 'esc' ha sido presionada en este frame.
     	if(Input.GetKeyDown(KeyCode.Escape)){ 
-    		// Comprueba el estado actual del juego.
-    		if(juegoPausado){ 
-    			// Si juegoPausado es true, llama a la función para reanudar el juego.
+    		
+            // PRIMERO, revisa si el panel de Configuración está abierto
+            if (configManager != null && configManager.menuConfiguracionPanel.activeSelf)
+            {
+                // Si SÍ está abierto, "Escape" actúa como el botón "Regresar"
+                configManager.Regresar();
+                
+                // Y nos aseguramos de que el juego SEPA que sigue pausado
+                juegoPausado = true; 
+                Time.timeScale = 0.0f;
+            }
+
+            // Si NINGÚN panel especial está abierto, haz la lógica normal
+    		else if(juegoPausado)
+            { 
     			Reanudar(); 
-    		} else { 
-    			// Si juegoPausado es false, llama a la función para pausar el juego.
+    		} 
+            else 
+            { 
     			Pausar(); 
     		}
     	}
@@ -47,6 +60,13 @@ public class PauseMenu : MonoBehaviour
     }
 
     public void Pausar(){ 
+		if (configManager != null && configManager.menuConfiguracionPanel.activeSelf)
+        {
+            //    Si cualquiera de los dos está abierto, NO HAGAS NADA.
+            //    Simplemente ignora el clic en el botón de pausa.
+            return;
+        }
+		
 		SFXManager.instance.PlaySFX(SoundEffect.UIClick);
     	menuPausa.SetActive(true); // Muestra el objeto de la interfaz de pausa.
     	Time.timeScale = 0.0f; // detiene el movimiento, físicas, animaciones basadas en tiempo
