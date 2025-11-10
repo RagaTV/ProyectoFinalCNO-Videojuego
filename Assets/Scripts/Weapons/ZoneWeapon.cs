@@ -9,11 +9,10 @@ public class ZoneWeapon : Weapon
     public SoundEffect spawnSound;
 
     private float spawnTime, spawnCounter;
-    private int currentAmount;
 
     void Start()
     {
-        SetStats(); 
+        spawnCounter = 0f;
     }
 
     void Update()
@@ -23,6 +22,7 @@ public class ZoneWeapon : Weapon
             statsUpdated = false;
             SetStats();
         }
+
         if (stats.Count == 0)
         {
             return; // Espera a que los stats se carguen
@@ -51,14 +51,26 @@ public class ZoneWeapon : Weapon
 
     void SetStats()
     {
+        WeaponStats currentStats = stats[weaponLvl];
+        
+        float duration = currentStats.duration;
+        float attackDelay = currentStats.attackDelay;
+
         damager.damageAmount = stats[weaponLvl].damage;
         damager.lifeTime = stats[weaponLvl].duration;
         damager.timeBetweenDamage = 1f / stats[weaponLvl].speed;
         damager.damageAmountMultiplier = stats[weaponLvl].amount;
         damager.transform.localScale = Vector3.one * stats[weaponLvl].size * PlayerStats.instance.projectileSizeMultiplier;
 
+        if (attackDelay < damager.lifeTime)
+        {
+            spawnTime = damager.lifeTime + 0.5f;
+        }
+        else
+        {
+            spawnTime = stats[weaponLvl].attackDelay;
+        }
+        
         spawnTime = stats[weaponLvl].attackDelay;
-                    
-        spawnCounter = 0f;
     }
 }

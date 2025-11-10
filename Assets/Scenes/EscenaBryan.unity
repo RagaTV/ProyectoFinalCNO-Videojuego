@@ -2109,7 +2109,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Bloquea da\xF1o y puede repeler proyectiles."
+  m_text: "Bloquea da\xF1o y puede repeler enemigos"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f69b4f11c687d344bba878f6c65aa8f8, type: 2}
   m_sharedMaterial: {fileID: -1466323227042049529, guid: f69b4f11c687d344bba878f6c65aa8f8, type: 2}
@@ -50529,7 +50529,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Golpe lento. Roba vida al enemigo al impactar.
+  m_text: Giro rapido, pero poca duracion, arma muy letal
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f69b4f11c687d344bba878f6c65aa8f8, type: 2}
   m_sharedMaterial: {fileID: -1466323227042049529, guid: f69b4f11c687d344bba878f6c65aa8f8, type: 2}
