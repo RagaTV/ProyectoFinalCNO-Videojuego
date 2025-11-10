@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI; 
 using UnityEngine.Audio; // NECESARIO para AudioMixer
-using TMPro; 
+using TMPro; // NECESARIO para usar TextMeshProUGUI
 
 public class ConfigurationManager : MonoBehaviour
 {
@@ -36,8 +36,8 @@ public class ConfigurationManager : MonoBehaviour
     public Slider sfxSlider;           // Slider para los efectos de sonido
 
     // PROPIEDADES DE COLOR
-    public Color colorActivo = new Color32(29, 23, 23, 255); 
-    public Color colorInactivo = new Color(0.7f, 0.7f, 0.7f, 1f); 
+    public Color colorActivo = new Color32(29, 23, 23, 255); // Gris Oscuro (Opaco)
+    public Color colorInactivo = new Color(0.7f, 0.7f, 0.7f, 1f); // Gris Claro
     public Color colorTextoActivo = Color.black; 
     public Color colorTextoInactivo = Color.white; 
 
@@ -67,25 +67,26 @@ public class ConfigurationManager : MonoBehaviour
 
     // --- FUNCIONES DE CONTROL DE VOLUMEN (Asignar a cada Slider) ---
 
-    // Controla el volumen de la Música
     public void SetMusicVolume(float volume)
     {
         SetMixerVolume(MUSIC_PARAM, volume);
     }
 
-    // Controla el volumen de los SFX
     public void SetSFXVolume(float volume)
     {
         SetMixerVolume(SFX_PARAM, volume);
     }
 
-    // Función central que realiza la conversión logarítmica
+    // Función central que realiza la conversión logarítmica (con FIX de volumen mínimo)
     private void SetMixerVolume(string parameterName, float volume)
     {
         if (mainMixer == null) return;
 
+        // FIX: Asegura que el volumen nunca es 0 para evitar errores logarítmicos, usando 0.0001f como mínimo.
+        float clampedVolume = Mathf.Max(0.0001f, volume); 
+        
         // Convierte el valor lineal del slider (0.0001 a 1) a Decibelios (-80dB a 0dB)
-        float dB = Mathf.Log10(volume) * 20;
+        float dB = Mathf.Log10(clampedVolume) * 20;
 
         // Establece el parámetro en el AudioMixer
         mainMixer.SetFloat(parameterName, dB);
