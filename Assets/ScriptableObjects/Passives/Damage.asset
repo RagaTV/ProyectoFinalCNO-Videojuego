@@ -17,67 +17,19 @@ MonoBehaviour:
   type: 3
   maxLevels: 20
   baseStats:
-    multiplier: 0.05
-    upgradeText: "+5% Da\xF1o"
+    multiplier: 0.25
+    upgradeText: "+25% Da\xF1o"
     rarity: 0
   levels:
-  - multiplier: 0.1
-    upgradeText: "+10% Da\xF1o"
+  - multiplier: 0.25
+    upgradeText: "+25% Da\xF1o"
     rarity: 0
   - multiplier: 0.25
-    upgradeText: "+25 % Da\xF1o"
-    rarity: 2
-  - multiplier: 0.3
-    upgradeText: "+30 % Da\xF1o"
+    upgradeText: "+25% Da\xF1o"
     rarity: 0
   - multiplier: 0.4
-    upgradeText: "+40 % Da\xF1o"
+    upgradeText: "+15 % Da\xF1o (Total: 40 %)"
     rarity: 1
-  - multiplier: 0.45000002
-    upgradeText: "+45 % Da\xF1o"
-    rarity: 0
   - multiplier: 0.5
-    upgradeText: "+50 % Da\xF1o"
+    upgradeText: "+10 % Da\xF1o (Total: 50 %)"
     rarity: 0
-  - multiplier: 0.55
-    upgradeText: "+55 % Da\xF1o"
-    rarity: 0
-  - multiplier: 0.6
-    upgradeText: "+60 % Da\xF1o"
-    rarity: 0
-  - multiplier: 0.65000004
-    upgradeText: "+65 % Da\xF1o"
-    rarity: 0
-  - multiplier: 0.75000006
-    upgradeText: "+75 % Da\xF1o"
-    rarity: 1
-  - multiplier: 0.8500001
-    upgradeText: "+85 % Da\xF1o"
-    rarity: 1
-  - multiplier: 0.9000001
-    upgradeText: "+90 % Da\xF1o"
-    rarity: 0
-  - multiplier: 1.0000001
-    upgradeText: "+100 % Da\xF1o"
-    rarity: 1
-  - multiplier: 1.0500001
-    upgradeText: "+105 % Da\xF1o"
-    rarity: 0
-  - multiplier: 1.1
-    upgradeText: "+110 % Da\xF1o"
-    rarity: 0
-  - multiplier: 1.15
-    upgradeText: "+115 % Da\xF1o"
-    rarity: 0
-  - multiplier: 1.35
-    upgradeText: "+135 % Da\xF1o"
-    rarity: 3
-  - multiplier: 1.4
-    upgradeText: "+140 % Da\xF1o"
-    rarity: 0
-  - multiplier: 1.55
-    upgradeText: "+155 % Da\xF1o"
-    rarity: 2
-  - multiplier: 1.65
-    upgradeText: "+165 % Da\xF1o"
-    rarity: 1
