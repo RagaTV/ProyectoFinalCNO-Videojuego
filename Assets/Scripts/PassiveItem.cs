@@ -9,7 +9,7 @@ public class PassiveItem : ScriptableObject
     public string passiveName;
     public PassiveType type; 
     public int maxLevels = 20;
-    public PassiveStatLevel baseStats;
+    public PassiveStatLevel baseStats = new PassiveStatLevel();
 
     [HideInInspector]
     public List<PassiveStatLevel> levels;
@@ -28,7 +28,7 @@ public class PassiveItem : ScriptableObject
             levels = new List<PassiveStatLevel>();
         }
         
-        levels.Clear(); // ¡Esta es la línea clave! Borra los datos viejos.
+        levels.Clear(); // Borra los datos viejos
         levels.Add(baseStats); // Añade los nuevos baseStats
 
         for (int i = 1; i < maxLevels; i++)
@@ -39,31 +39,45 @@ public class PassiveItem : ScriptableObject
             float roll = Random.value;
             bonusAmount = 0f;
 
-            bool isFlatStat = (type == PassiveType.Armor || type == PassiveType.HealthRegen);
+            
+            //  Definimos los tipos de stats
+            bool isFlatStat = type == PassiveType.Armor || type == PassiveType.HealthRegen;
+            bool isHealthStat = type == PassiveType.MaxHealth;
+            bool isDamageStat = type == PassiveType.Damage;
+            // (Si no es ninguno de esos, es 'Utility')
 
+            //  Aplicamos bonos diferentes basados en el tipo
             if (roll < legendaryChance) // 3%
             {
                 newLevel.rarity = UpgradeRarity.Legendaria;
-                // Si es plano, da +1. Si es %, da +20%.
-                bonusAmount = isFlatStat ? 1.5f : 0.20f;
+                if (isFlatStat) { bonusAmount = 1.5f; }        // Plano
+                else if (isHealthStat) { bonusAmount = 0.75f; } // Vida (+75%)
+                else if (isDamageStat) { bonusAmount = 0.30f; } // Daño (+30%)
+                else { bonusAmount = 0.20f; }                   // Utilidad (+20%)
             }
             else if (roll < legendaryChance + epicChance) // 12%
             {
                 newLevel.rarity = UpgradeRarity.Epica;
-                // Si es plano, da +1. Si es %, da +15%.
-                bonusAmount = isFlatStat ? 1f : 0.15f;
+                if (isFlatStat) { bonusAmount = 1f; }
+                else if (isHealthStat) { bonusAmount = 0.60f; } // Vida (+60%)
+                else if (isDamageStat) { bonusAmount = 0.20f; } // Daño (+20%)
+                else { bonusAmount = 0.15f; }                   // Utilidad (+15%)
             }
             else if (roll < legendaryChance + epicChance + rareChance) // 25%
             {
                 newLevel.rarity = UpgradeRarity.Rara;
-                // Si es plano, da +0.5. Si es %, da +10%.
-                bonusAmount = isFlatStat ? 0.5f : 0.10f;
+                if (isFlatStat) { bonusAmount = 0.5f; }
+                else if (isHealthStat) { bonusAmount = 0.40f; } // Vida (+40%)
+                else if (isDamageStat) { bonusAmount = 0.15f; } // Daño (+15%)
+                else { bonusAmount = 0.10f; }                   // Utilidad (+10%)
             }
             else // 60%
             {
                 newLevel.rarity = UpgradeRarity.Comun;
-                // Si es plano, da +0.25. Si es %, da +5%.
-                bonusAmount = isFlatStat ? 0.25f : 0.05f;
+                if (isFlatStat) { bonusAmount = 0.25f; }
+                else if (isHealthStat) { bonusAmount = 0.25f; } // Vida (+25%)
+                else if (isDamageStat) { bonusAmount = 0.10f; } // Daño (+10%)
+                else { bonusAmount = 0.05f; }                   // Utilidad (+5%)
             }
 
             newLevel.multiplier = prevLevel.multiplier + bonusAmount;

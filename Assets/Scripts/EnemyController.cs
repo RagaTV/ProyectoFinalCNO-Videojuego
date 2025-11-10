@@ -33,7 +33,7 @@ public class EnemyController : MonoBehaviour
     public int expToGive = 1;
     
     // Escalado
-    private float auxExtra = 1.25f;
+    private float auxExtra = 0.5f;
     private int levelup;
 
     void Awake()
@@ -88,7 +88,7 @@ public class EnemyController : MonoBehaviour
         int currentMinute = Mathf.FloorToInt(UIController.instance.gameTimer / 60f);
         if (currentMinute >= levelup)
         {
-            float multiplier = Mathf.Pow(auxExtra, currentMinute);
+            float multiplier = 1f + (currentMinute * auxExtra);
             maxHealth = baseMaxHealth * multiplier;
             damageAmount = baseDamageAmount * multiplier;
             levelup = currentMinute + 1;
