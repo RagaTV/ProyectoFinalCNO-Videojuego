@@ -52,10 +52,10 @@ public class ObjectPooler : MonoBehaviour
             return GetRandomPooledObject(0); // Easy = Tier 0
         }
 
-        // 3 - 7 min → Easy (70%) o Normal (30%)
+        // 3 - 7 min → Easy (50%) o Normal (50%)
         else if (minutes < 7f)
         {
-            if (randomValue < 0.7f)
+            if (randomValue < 0.5f)
                 return GetRandomPooledObject(0); // Easy
             else
                 return GetRandomPooledObject(1); // Normal
