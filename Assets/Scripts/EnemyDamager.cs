@@ -21,7 +21,7 @@ public class EnemyDamager : MonoBehaviour //weaponds
 
     // Start is called before the first frame update
     void Start()
-    {
+    { 
         //Destroy(gameObject, lifeTime);
         targetSize = transform.localScale;
         transform.localScale = Vector3.zero;

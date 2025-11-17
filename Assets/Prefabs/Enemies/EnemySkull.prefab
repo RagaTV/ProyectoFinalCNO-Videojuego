@@ -73,7 +73,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -965790023
-  m_SortingLayer: 3
+  m_SortingLayer: 8
   m_SortingOrder: 1
   m_Sprite: {fileID: 4058254702925930087, guid: d9437b5de7fec924eafc02460d412014, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -155,9 +155,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rB: {fileID: 0}
-  moveSpeed: 2
-  damageAmount: 2
-  hitWaitTime: 1
-  maxHealth: 3
-  knockBackTime: 0.5
+  baseMoveSpeed: 1.5
+  baseDamageAmount: 3
+  baseMaxHealth: 3
+  coinDropChance: 0.25
+  coinValue: 1
   expToGive: 2
+  hitWaitTime: 1
