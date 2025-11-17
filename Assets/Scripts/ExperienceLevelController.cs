@@ -9,7 +9,7 @@ public class ExperienceLevelController : MonoBehaviour
     public ExpPickup pickup;
     public List<int> expLevels;
     public int currentLevel = 1; 
-    public int maxLevel = 100;
+    public int levelCapForCurve = 100;
     public int baseExperience = 5;
     private PlayerHealthController healthController;
     private void Awake()
@@ -20,7 +20,9 @@ public class ExperienceLevelController : MonoBehaviour
     void Start()
     {
         healthController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthController>();
-        while (expLevels.Count < maxLevel)
+        
+        // Asumiendo que 'expLevels' tiene al menos un valor inicial desde el Inspector
+        while (expLevels.Count < levelCapForCurve) 
         {
             expLevels.Add(Mathf.CeilToInt(expLevels[expLevels.Count - 1] * 1.05f));
         }
@@ -28,7 +30,18 @@ public class ExperienceLevelController : MonoBehaviour
 
     void Update()
     {
+
+    }
+    
+    public int GetRequiredExp(int level)
+    {
+        if (level >= expLevels.Count)
+        {
+            // Si el nivel es 100 o más (índice 99), siempre usa el requisito de XP para el nivel 100
+            return expLevels[expLevels.Count - 1]; 
+        }
         
+        return expLevels[level];
     }
 
     public void GetExp(int amountToGet)
@@ -36,15 +49,20 @@ public class ExperienceLevelController : MonoBehaviour
         float finalExp = amountToGet * PlayerStats.instance.xpMultiplier;
         currentExperience += Mathf.CeilToInt(finalExp);
 
-        if (currentExperience >= expLevels[currentLevel])
+        // Usamos un 'while' por si el jugador gana suficiente XP para subir varios niveles
+        int expForNextLevel = GetRequiredExp(currentLevel); // <-- Usa la nueva función
+        
+        while (currentExperience >= expForNextLevel)
         {
-            LevelUp();
+            LevelUp(expForNextLevel); // <-- Pasa el valor para restar
+            expForNextLevel = GetRequiredExp(currentLevel); // <-- Obtiene el requisito para el *nuevo* nivel
         }
+
         if (healthController != null && !healthController.deathPlayer)
         {
-            UIController.instance.UpdateExperience(currentExperience, expLevels[currentLevel], currentLevel);
+            // Actualiza la UI con el requisito de XP correcto
+            UIController.instance.UpdateExperience(currentExperience, expForNextLevel, currentLevel);
         }
-        
     }
 
     public void SpawnExp(Vector3 position, int expValue)
@@ -52,17 +70,13 @@ public class ExperienceLevelController : MonoBehaviour
         Instantiate(pickup, position, Quaternion.identity).expValue = expValue;
     }
     
-    void LevelUp()
+    void LevelUp(int expToNext) // <-- Modificado para aceptar la XP
     {
         SFXManager.instance.PlaySFX(SoundEffect.LevelUp);
         
-        currentExperience -= expLevels[currentLevel];
+        currentExperience -= expToNext; // <-- Resta la cantidad exacta
         currentLevel++;
 
-        if (currentLevel >= expLevels.Count)
-        {
-            currentLevel = expLevels.Count - 1;
-        }
         UIController.instance.ShowLevelUpOptions();
     }
-    }
+}
