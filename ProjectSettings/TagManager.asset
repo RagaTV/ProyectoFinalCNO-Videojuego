@@ -74,3 +74,6 @@ TagManager:
   - name: UI
     uniqueID: 663835965
     locked: 0
+  - name: Chests
+    uniqueID: 1547999265
+    locked: 0
