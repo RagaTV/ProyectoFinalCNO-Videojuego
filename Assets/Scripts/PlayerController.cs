@@ -4,31 +4,59 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed;
+    public static PlayerController instance;
+    private void Awake()
+    {
+        instance = this;
+    }
     public float dashForce = 10f;       
     public float dashDuration = 0.5f;     
     public float dashCooldown = 0.5f;
-
     public Animator anim;
     private Rigidbody2D rb;
-
     private bool isDashing = false;
     private bool canDash = true;
     private Vector3 moveInput;
     private Vector3 lastDirection;
-
     private PlayerHealthController healthController;
+    //public Weapon activeWeapon;
+    public List<Weapon> unassignedWeapons, assignedWeapons;
+    public List<PassiveItem> unassignedPassives, assignedPassives;
+    public Dictionary<PassiveItem, int> passiveLevels;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         healthController = GetComponent<PlayerHealthController>();
+
+        passiveLevels = new Dictionary<PassiveItem, int>();
+
+        /*if (unassignedWeapons.Count > 0)
+        {
+            int randomWeaponIndex = Random.Range(0, unassignedWeapons.Count);
+            AddWeapon(unassignedWeapons[randomWeaponIndex]);
+        }*/
+
+        if (UIController.instance != null)
+        {
+            UIController.instance.StartInitialWeaponRoulette();
+        }
+    }
+
+    public void SetStartingWeapon(Weapon chosenWeapon)
+    {
+        if (unassignedWeapons.Contains(chosenWeapon))
+        {
+            // La lógica de AddWeapon ya hace el resto (mueve, activa, pone lvl=0)
+            AddWeapon(chosenWeapon);
+        }
     }
 
     void Update()
     {
-        if (isDashing){
+        if (isDashing)
+        {
             return;
         } 
 
@@ -36,8 +64,6 @@ public class PlayerController : MonoBehaviour
         moveInput.x = Input.GetAxisRaw("Horizontal");
         moveInput.y = Input.GetAxisRaw("Vertical");
         moveInput.Normalize();
-
-        
 
         if (moveInput != Vector3.zero)
         {
@@ -56,8 +82,7 @@ public class PlayerController : MonoBehaviour
             spriteOrientation.x = -Mathf.Abs(spriteOrientation.x);
         transform.localScale = spriteOrientation;
 
-        // Dash con Space
-        if (Input.GetKeyDown(KeyCode.Space) && canDash)
+        if (Input.GetButtonDown("Jump") && canDash)
         {
             StartCoroutine(Dash());
         }
@@ -65,7 +90,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate(){
         if (!isDashing) {
-            rb.velocity = moveInput * speed;
+            rb.velocity = moveInput * PlayerStats.instance.moveSpeed;
         }
     }
     
@@ -98,11 +123,55 @@ public class PlayerController : MonoBehaviour
 
     public void Die()
     {
-        // Detiene TODAS las coroutines activas(el Dash)
         StopAllCoroutines();
-        // Detiene inmediatamente todo el movimiento físico
         rb.velocity = Vector2.zero;
-        // Desactiva este script para que Update() y FixedUpdate() dejen de ejecutarse
+        rb.isKinematic = true;
+        foreach (Weapon w in assignedWeapons)
+        {
+            w.gameObject.SetActive(false);
+        }
         this.enabled = false;
+    }
+
+    public void AddWeapon(Weapon weaponToAdd)
+    {
+        if (!assignedWeapons.Contains(weaponToAdd) && unassignedWeapons.Contains(weaponToAdd))
+        {
+            unassignedWeapons.Remove(weaponToAdd);
+            assignedWeapons.Add(weaponToAdd);
+
+            weaponToAdd.stats = new List<WeaponStats>();
+            weaponToAdd.stats.Add(weaponToAdd.baseStats);
+
+            weaponToAdd.gameObject.SetActive(true);
+            weaponToAdd.weaponLvl = 0;
+            weaponToAdd.statsUpdated = true;
+
+            UIController.instance.UpdateInventoryUI();
+        }
+    }
+    
+    public void UpgradePassive(PassiveItem passiveToUpgrade, PassiveStatLevel statsToApply)
+    {
+        int currentLevelIndex = 0; 
+
+        if (unassignedPassives.Contains(passiveToUpgrade))
+        {
+            unassignedPassives.Remove(passiveToUpgrade);
+            assignedPassives.Add(passiveToUpgrade);
+            
+            passiveLevels[passiveToUpgrade] = 0; 
+            currentLevelIndex = 0;
+            
+            passiveToUpgrade.InitializeStats();
+        }
+        else
+        {
+            passiveLevels[passiveToUpgrade]++;
+            currentLevelIndex = passiveLevels[passiveToUpgrade];
+        }
+
+        passiveToUpgrade.ApplyLevel(statsToApply);
+        
     }
 }

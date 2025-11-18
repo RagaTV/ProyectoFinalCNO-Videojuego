@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 936a2a55411880e4aa622e40295ac226, type: 3}
+  m_Name: PickupRange
+  m_EditorClassIdentifier: 
+  icon: {fileID: -2172493953958920779, guid: 04bfd9b045239ec419b183772d611f13, type: 3}
+  passiveName: Fortuna
+  type: 4
+  maxLevels: 20
+  baseStats:
+    multiplier: 0.05
+    upgradeText: "+5% Rango de Recolecci\xF3n de Experiencia"
+    rarity: 0
+  levels:
+  - multiplier: 0.25
+    upgradeText: +25% Rango
+    rarity: 0
+  - multiplier: 0.45
+    upgradeText: "+45 % Rango de Recolecci\xF3n"
+    rarity: 3
+  - multiplier: 0.5
+    upgradeText: "+50 % Rango de Recolecci\xF3n"
+    rarity: 0
+  - multiplier: 0.55
+    upgradeText: "+55 % Rango de Recolecci\xF3n"
+    rarity: 0
+  - multiplier: 0.70000005
+    upgradeText: "+70 % Rango de Recolecci\xF3n"
+    rarity: 2
+  - multiplier: 0.75000006
+    upgradeText: "+75 % Rango de Recolecci\xF3n"
+    rarity: 0
+  - multiplier: 0.9000001
+    upgradeText: "+90 % Rango de Recolecci\xF3n"
+    rarity: 2
+  - multiplier: 0.9500001
+    upgradeText: "+95 % Rango de Recolecci\xF3n"
+    rarity: 0
+  - multiplier: 1.0000001
+    upgradeText: "+100 % Rango de Recolecci\xF3n"
+    rarity: 0
+  - multiplier: 1.0500001
+    upgradeText: "+105 % Rango de Recolecci\xF3n"
+    rarity: 0
+  - multiplier: 1.1
+    upgradeText: "+110 % Rango de Recolecci\xF3n"
+    rarity: 0
+  - multiplier: 1.2
+    upgradeText: "+120 % Rango de Recolecci\xF3n"
+    rarity: 1
+  - multiplier: 1.4000001
+    upgradeText: "+140 % Rango de Recolecci\xF3n"
+    rarity: 3
+  - multiplier: 1.45
+    upgradeText: "+145 % Rango de Recolecci\xF3n"
+    rarity: 0
+  - multiplier: 1.6500001
+    upgradeText: "+165 % Rango de Recolecci\xF3n"
+    rarity: 3
+  - multiplier: 1.7
+    upgradeText: "+170 % Rango de Recolecci\xF3n"
+    rarity: 0
+  - multiplier: 1.8000001
+    upgradeText: "+180 % Rango de Recolecci\xF3n"
+    rarity: 1
+  - multiplier: 1.85
+    upgradeText: "+185 % Rango de Recolecci\xF3n"
+    rarity: 0
+  - multiplier: 1.9
+    upgradeText: "+190 % Rango de Recolecci\xF3n"
+    rarity: 0
+  - multiplier: 1.9499999
+    upgradeText: "+195 % Rango de Recolecci\xF3n"
+    rarity: 0

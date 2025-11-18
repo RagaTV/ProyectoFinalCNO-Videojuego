@@ -6,26 +6,48 @@ public class EnemyController : MonoBehaviour
 {
     public Rigidbody2D rB;
     private Animator anim;
+    private SpriteRenderer spriteEnemy;
+    private Color originalColor;
+    
+    // --- NUEVA ESTRUCTURA DE STATS ---
+    [Header("Stats Base (del Inspector)")]
+    public float baseMoveSpeed = 3f;
+    public float baseDamageAmount = 1f;
+    public float baseMaxHealth = 2f;
+    public float coinDropChance = 0.25f;
+    public int coinValue = 1;
+    public int expToGive = 1;
 
-    public float moveSpeed;
-    public float damageAmount;
+    [Header("Stats de Combate")]
     public float hitWaitTime = 1f;
     private float hitCounter;
     private float knockbackForce = 5f;
+    private float knockBackTime = 0.25f;
+    private float knockBackCounter;
+
+    // "Stats Actuales" que se escalan y se usan en combate
+    private float currentMoveSpeed;
+    private float currentDamageAmount;
+    private float currentMaxHealth;
+    private float currentHealth; // Vida actual (de 0 a currentMaxHealth)
+    // ------------------------------------
 
     private Transform target;
     private PlayerHealthController healthController;
+    private GameObject playerObject;
+    
+    // Escalado
+    private int levelup;
 
-    public float health = 10f; //weaponds
-
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        rB=GetComponent<Rigidbody2D>();
+        rB = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        
-        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        spriteEnemy = GetComponent<SpriteRenderer>();
+        originalColor = spriteEnemy.color;
 
+        // Encontrar al jugador solo una vez si es posible
+        playerObject = GameObject.FindGameObjectWithTag("Player");
         if (playerObject != null)
         {
             target = playerObject.transform;
@@ -33,14 +55,80 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    { 
-        if (target != null && healthController != null && !healthController.deathPlayer)
-        {
-            // Si el jugador está vivo, lo seguimos.
-            rB.velocity = (target.position - transform.position).normalized * moveSpeed;
+    // OnEnable se llama CADA VEZ que sale del Object Pool
+    void OnEnable()
+    {
+        // Las stats actuales se igualan a las stats base
+        currentMoveSpeed = baseMoveSpeed;
+        currentDamageAmount = baseDamageAmount;
+        currentMaxHealth = baseMaxHealth;
+        currentHealth = currentMaxHealth; // Llenar la barra de vida
+        // ------------------------------------------------
 
+        levelup = 1; // Para que el escalado se recalcule
+        knockBackCounter = 0;
+        hitCounter = 0; 
+
+        if (rB != null)
+        {
+            rB.velocity = Vector2.zero;
+        }
+        if (anim != null)
+        {
+            anim.speed = 1;
+        }
+        
+        // Es más seguro verificar al jugador aquí también, por si acaso
+        if (target == null && PlayerController.instance != null)
+        {
+            target = PlayerController.instance.transform;
+            healthController = PlayerController.instance.GetComponent<PlayerHealthController>();
+        }
+    }
+
+    void Update()
+    {
+        if (healthController == null || healthController.deathPlayer)
+        {
+            gameObject.SetActive(false); // Devuelve al pool si el jugador muere
+            return;
+        }
+
+        int currentMinute = Mathf.FloorToInt(UIController.instance.gameTimer / 60f);
+        if (currentMinute >= levelup)
+        {
+            // Tasas de escalado separadas 
+            float healthRate = 0.6f; // 45% por minuto
+            float damageRate = 0.2f; // 15% por minuto
+
+            // Calcula multiplicadores
+            float healthMultiplier = 1f + (currentMinute * healthRate);
+            float damageMultiplier = 1f + (currentMinute * damageRate);
+            
+            currentMaxHealth = baseMaxHealth * healthMultiplier;
+            currentDamageAmount = baseDamageAmount * damageMultiplier;
+
+            levelup = currentMinute + 1;
+        }
+    }
+    
+    void FixedUpdate()
+    {
+        if (healthController == null || healthController.deathPlayer) return;
+        
+        if (knockBackCounter > 0)
+        {
+            knockBackCounter -= Time.fixedDeltaTime;
+            rB.velocity = -rB.velocity.normalized * knockbackForce;
+            return;
+        }
+
+        if (target != null)
+        {
+            // --- USA LAS STATS ACTUALES ---
+            rB.velocity = (target.position - transform.position).normalized * currentMoveSpeed;
+
+            // ... (lógica de voltear el sprite) ...
             Vector3 spriteOrientation = transform.localScale;
             if (target.position.x > transform.position.x)
                 spriteOrientation.x = Mathf.Abs(spriteOrientation.x);
@@ -48,15 +136,10 @@ public class EnemyController : MonoBehaviour
                 spriteOrientation.x = -Mathf.Abs(spriteOrientation.x);
             transform.localScale = spriteOrientation;
 
+
             if(hitCounter > 0){
-                hitCounter-=Time.deltaTime;
+                hitCounter-=Time.fixedDeltaTime;
             }
-        }
-        else
-        {
-            // Si el jugador está muerto o no existe, detenemos al enemigo.
-            rB.velocity = Vector2.zero;
-            anim.speed = 0;
         }
     }
 
@@ -68,8 +151,10 @@ public class EnemyController : MonoBehaviour
             {
                 if (healthController != null && !healthController.deathPlayer)
                 {
-                    // 1. Infligimos daño y aplicamos el knockback
-                    healthController.TakeDamage(damageAmount);
+                    // --- USA LAS STATS ACTUALES ---
+                    healthController.TakeDamage(currentDamageAmount);
+                    
+                    // ... (lógica de knockback al jugador) ...
                     Rigidbody2D playerRb = collision.gameObject.GetComponent<Rigidbody2D>();
                     if (playerRb != null)
                     {
@@ -83,15 +168,49 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float damageToTake) //weaponds
+    // Esta función ya estaba bien, porque usa "currentHealth"
+    public void TakeDamage(float damageToTake)
     {
-        health -= damageToTake;
-
-        if(health <= 0)
+        if (currentHealth <= 0)
         {
-            //Destroy(gameObject); //Aqui es donde marca el error de objectPooler xq se elimina el enemigo (lo mato)
-            gameObject.SetActive(false);
+            return;
         }
+        currentHealth -= damageToTake;
+        if (currentHealth <= 0)
+        {
+            spriteEnemy.color = originalColor;
+            if (ExperienceLevelController.instance != null)
+            {
+                ExperienceLevelController.instance.SpawnExp(transform.position, expToGive);
+            }
+
+            float finalCoinDropChance = coinDropChance * PlayerStats.instance.luck;
+            if (Random.value <= Mathf.Min(finalCoinDropChance, 1f))
+            {
+                CoinController.instance.SpawnCoin(transform.position, coinValue);
+            }
+
+            PlayerStats.instance.AddKill();
+            gameObject.SetActive(false); // Devuelve al pool
+        } else {
+            StartCoroutine(FlashDamage());
+        }
+        DamageNumberController.instance.SpawnDamage(damageToTake, transform.position);
     }
 
+    public void TakeDamage(float damageToTake, bool shouldKnockBack)
+    {
+        TakeDamage(damageToTake);
+        if (shouldKnockBack)
+        {
+            knockBackCounter = knockBackTime;
+        }
+    }
+    
+    private IEnumerator FlashDamage()
+    {
+        spriteEnemy.color = Color.red;
+        yield return new WaitForSeconds(0.1f); 
+        spriteEnemy.color = originalColor;
+    }
 }

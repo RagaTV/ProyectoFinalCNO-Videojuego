@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Boss
+  - WeaponProjectile
   layers:
   - Default
   - TransparentFX
@@ -13,8 +14,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - LevelsUI
+  - OptionsUI
   - 
   - 
   - 
@@ -43,18 +44,33 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: BackGround
+    uniqueID: 4275983961
+    locked: 0
   - name: Ground
     uniqueID: 992170719
+    locked: 0
+  - name: WalkInfront
+    uniqueID: 2289918073
+    locked: 0
+  - name: Collision
+    uniqueID: 2140737667
+    locked: 0
+  - name: WalkBehind
+    uniqueID: 3023166793
     locked: 0
   - name: Decoration
     uniqueID: 2989990049
     locked: 0
+  - name: Pickups
+    uniqueID: 330619031
+    locked: 0
   - name: Enemies
     uniqueID: 3329177273
     locked: 0
-  - name: Objetos
-    uniqueID: 330619031
-    locked: 0
   - name: Player
     uniqueID: 935879837
+    locked: 0
+  - name: UI
+    uniqueID: 663835965
     locked: 0
