@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyDamager : MonoBehaviour //weaponds
+public class EnemyDamager : MonoBehaviour
 {
     public float damageAmount;
     public float lifeTime, growSpeed = 4f;
@@ -14,7 +14,7 @@ public class EnemyDamager : MonoBehaviour //weaponds
     public bool damageOverTime;
     public float timeBetweenDamage;
     private float damageCounter;
-    private List<EnemyController> enemiesInrange = new List<EnemyController>();
+    private List<IDamageable> enemiesInrange = new List<IDamageable>();
     public int damageAmountMultiplier = 1;
     public Weapon weaponID;
 
@@ -57,9 +57,13 @@ public class EnemyDamager : MonoBehaviour //weaponds
             {
                 damageCounter = timeBetweenDamage;
 
-                for(int i=0; i<enemiesInrange.Count; i++)
+                for(int i = enemiesInrange.Count - 1; i >= 0; i--)
                 {
-                    if(enemiesInrange[i] != null && enemiesInrange[i].gameObject.activeInHierarchy)
+                    // Convertimos la interfaz a un MonoBehaviour
+                    MonoBehaviour enemyMono = enemiesInrange[i] as MonoBehaviour;
+
+                    // Comprobamos si el MonoBehaviour es válido Y su gameObject está activo
+                    if(enemyMono != null && enemyMono.gameObject.activeInHierarchy)
                     {
                         float finalDamage = (damageAmount * damageAmountMultiplier) * PlayerStats.instance.damageMultiplier;
                         enemiesInrange[i].TakeDamage(finalDamage, shouldKnockBack);
@@ -69,7 +73,6 @@ public class EnemyDamager : MonoBehaviour //weaponds
                     {
                         // Si es nulo O está inactivo, lo quita de la lista
                         enemiesInrange.RemoveAt(i);
-                        i--;
                     }
                 }
             }
@@ -78,25 +81,28 @@ public class EnemyDamager : MonoBehaviour //weaponds
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (damageOverTime == false)
+        IDamageable damageable = collision.GetComponent<IDamageable>();
+        if (damageable != null)
         {
-            if (collision.tag == "Enemy")
+            if (damageOverTime == false)
             {
+                // --- Lógica de daño instantáneo ---
                 if (hitSound != SoundEffect.None)
                 {
                     SFXManager.instance.PlaySFXPitched(hitSound);
                 }
 
                 float finalDamage = (damageAmount * damageAmountMultiplier) * PlayerStats.instance.damageMultiplier;
-                collision.GetComponent<EnemyController>().TakeDamage(finalDamage, shouldKnockBack);
+                damageable.TakeDamage(finalDamage, shouldKnockBack); // ¡Llama a la interfaz!
                 PlayerStats.instance.AddDamageForWeapon(weaponID, finalDamage);
             }
-        }
-        else
-        {
-            if (collision.tag == "Enemy")
+            else
             {
-                enemiesInrange.Add(collision.GetComponent<EnemyController>());
+                // --- Lógica de daño en el tiempo ---
+                if (!enemiesInrange.Contains(damageable))
+                {
+                    enemiesInrange.Add(damageable); // ¡Añade la interfaz!
+                }
             }
         }
     }
@@ -105,9 +111,13 @@ public class EnemyDamager : MonoBehaviour //weaponds
     {
         if(damageOverTime == true)
         {
-            if (collision.tag == "Enemy")
+            IDamageable damageable = collision.GetComponent<IDamageable>();
+            if (damageable != null)
             {
-                enemiesInrange.Remove(collision.GetComponent<EnemyController>());
+                if (enemiesInrange.Contains(damageable))
+                {
+                    enemiesInrange.Remove(damageable); // ¡Quita la interfaz!
+                }
             }
         }
     }
