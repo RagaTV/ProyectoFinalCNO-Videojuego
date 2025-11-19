@@ -14,7 +14,8 @@ public enum SoundEffect
     BrightZone,
     CoinPickup,
     BananaSound,
-    MouseSound
+    MouseSound,
+    ChestSound
     // ...añadir todos los necesarios
 }
 
