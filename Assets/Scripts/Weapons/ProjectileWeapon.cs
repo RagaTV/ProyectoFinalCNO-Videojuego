@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class ProjectileWeapon : Weapon
 {
+    [Header("Configuración Proyectil")]
     public EnemyDamager damager;
     public Projectile projectile;
+    [Header("Configuración Arma")]
     private float shotCounter;
     public float weaponRange;
     public LayerMask whatIsEnemy;
