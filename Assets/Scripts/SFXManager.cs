@@ -12,7 +12,9 @@ public enum SoundEffect
     SwordsCircle,
     ShieldSound,
     BrightZone,
-    CoinPickup
+    CoinPickup,
+    BananaSound,
+    MouseSound
     // ...añadir todos los necesarios
 }
 
