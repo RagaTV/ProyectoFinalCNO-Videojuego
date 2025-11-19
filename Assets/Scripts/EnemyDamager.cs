@@ -16,6 +16,7 @@ public class EnemyDamager : MonoBehaviour
     private float damageCounter;
     private List<IDamageable> enemiesInrange = new List<IDamageable>();
     public int damageAmountMultiplier = 1;
+    public bool destroyOnImpact;
     public Weapon weaponID;
 
 
@@ -90,6 +91,10 @@ public class EnemyDamager : MonoBehaviour
                 if (hitSound != SoundEffect.None)
                 {
                     SFXManager.instance.PlaySFXPitched(hitSound);
+                    if (destroyOnImpact == true)
+                    {
+                        Destroy(gameObject);
+                    }
                 }
 
                 float finalDamage = (damageAmount * damageAmountMultiplier) * PlayerStats.instance.damageMultiplier;

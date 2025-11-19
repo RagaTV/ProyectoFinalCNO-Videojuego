@@ -20,6 +20,11 @@ public class GoldenSwordWeapon : Weapon
     // Update is called once per frame
     void Update()
     {
+        if(statsUpdated == true)
+        {
+            statsUpdated = false;
+            SetStats(); 
+        }
         //holder.rotation = Quaternion.Euler(0f, 0f, holder.rotation.eulerAngles.z + (rotateSpeed * Time.deltaTime));
         holder.rotation = Quaternion.Euler(0f, 0f, holder.rotation.eulerAngles.z + (rotateSpeed * Time.deltaTime * stats[weaponLvl].speed));
 
@@ -45,11 +50,7 @@ public class GoldenSwordWeapon : Weapon
             }
         }
 
-        if(statsUpdated == true)
-        {
-            statsUpdated = false;
-            SetStats(); 
-        }
+        
     }
     
     public void SetStats()

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5101077508264737852}
   - component: {fileID: 4862442678410174882}
   - component: {fileID: 701003216731977428}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnemyCrab
   m_TagString: Enemy
   m_Icon: {fileID: 0}

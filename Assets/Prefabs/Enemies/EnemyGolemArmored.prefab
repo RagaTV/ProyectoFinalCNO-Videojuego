@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5735080407085131419}
   - component: {fileID: 3221253576689125122}
   - component: {fileID: 1433562078807200637}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnemyGolemArmored
   m_TagString: Enemy
   m_Icon: {fileID: 0}

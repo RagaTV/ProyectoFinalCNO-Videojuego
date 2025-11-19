@@ -15,7 +15,8 @@ public enum SoundEffect
     CoinPickup,
     BananaSound,
     MouseSound,
-    ChestSound
+    ChestSound,
+    KunaiSound
     // ...añadir todos los necesarios
 }
 
