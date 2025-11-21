@@ -24,7 +24,7 @@ public class ChestController : MonoBehaviour
         
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
+    /*private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
@@ -58,5 +58,5 @@ public class ChestController : MonoBehaviour
  
         yield return new WaitForSeconds(delay);
         UIController.instance.ShowLevelUpOptions();
-    }
+    }*/
 }
