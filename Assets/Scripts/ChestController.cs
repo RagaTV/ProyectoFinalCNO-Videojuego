@@ -29,12 +29,12 @@ public class ChestController : MonoBehaviour
     
     }
 
-
-
     // Update is called once per frame
     void Update()
     {
-
+        if(alreadyOpened==true){
+            StartCoroutine(destroyChest(10.0f));
+        }
     }
 
 
@@ -92,6 +92,12 @@ public class ChestController : MonoBehaviour
             coinText.gameObject.SetActive(false);
             yield return new WaitForSeconds(1.0f); 
         }
+    }
+
+    private IEnumerator destroyChest(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Destroy(gameObject);
     }
 }
 

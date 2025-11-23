@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpawnChest : MonoBehaviour
 {
-    public GameObject chestPrefab; 
+    public GameObject[] chestPrefabs;
     
     void Start()
     {
@@ -18,6 +18,7 @@ public class SpawnChest : MonoBehaviour
 
     public void SpawnChestCamara()
     {
+        int chestIndex=Random.Range(0, chestPrefabs.Length);
         //aparezca dentro de la camara y el jugador lo vea
         Camera mainCamera = Camera.main;
         Vector3 pos1=mainCamera.ViewportToWorldPoint(new Vector3(0, 0, mainCamera.nearClipPlane)); 
@@ -25,7 +26,7 @@ public class SpawnChest : MonoBehaviour
         float spawnX = Random.Range(pos1.x  , pos2.x );
         float spawnY = Random.Range(pos1.y , pos2.y );
         Vector3 spawnPosition = new Vector3(spawnX, spawnY, 0f);
-        Instantiate(chestPrefab, spawnPosition, chestPrefab.transform.rotation);
+        Instantiate(chestPrefabs[chestIndex], spawnPosition,chestPrefabs[chestIndex].transform.rotation);
     }
     private IEnumerator SpawnC(float delay)
     {
