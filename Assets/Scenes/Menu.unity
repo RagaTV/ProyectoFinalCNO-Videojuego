@@ -8673,7 +8673,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Gran da\xF1o, ideal para eliminar enemigos."
+  m_text: "Da\xF1o moderado\_pero\_muy\_r\xE1pido."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f69b4f11c687d344bba878f6c65aa8f8, type: 2}
   m_sharedMaterial: {fileID: -1466323227042049529, guid: f69b4f11c687d344bba878f6c65aa8f8, type: 2}
