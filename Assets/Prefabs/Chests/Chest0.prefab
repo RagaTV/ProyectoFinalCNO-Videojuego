@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 425be459172fcab4aa8023c0d67d0a0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  valor: 300
+  valor: 100
   anim: {fileID: 0}
   indicator: {fileID: 6738531454448947302}
   coinChest: {fileID: 2053312180183323066}

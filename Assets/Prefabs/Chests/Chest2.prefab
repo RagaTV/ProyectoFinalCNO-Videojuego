@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 425be459172fcab4aa8023c0d67d0a0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  valor: 100
+  valor: 50
   anim: {fileID: 0}
   indicator: {fileID: 6829976305336438837}
   coinChest: {fileID: 6829976305463766482}
