@@ -15,6 +15,7 @@ public class ChestController : MonoBehaviour
     public GameObject imcoinChest;
     public TextMeshProUGUI coinText;
     private Coroutine mostrar;
+    public ParticleSystem particulas;
     
 
     void Start()
@@ -26,6 +27,7 @@ public class ChestController : MonoBehaviour
         imcoinChest.transform.position += new Vector3(-0.2f, 0.32f, 0f);
         coinText.text ="- "+ valor;
         mostrar = StartCoroutine(mostrarCoins());
+        //particulas.Stop();
     
     }
 
@@ -56,7 +58,8 @@ public class ChestController : MonoBehaviour
                     SFXManager.instance.PlaySFX(SoundEffect.ChestSound);
                     anim.SetBool("Close", false);
                     alreadyOpened = true;
-                    StartCoroutine(ShowSeconds(2.5f));
+                    StartCoroutine(ShowSeconds(1.5f));
+                    
 
                 }else{
                     Debug.Log("No abre");
@@ -76,8 +79,11 @@ public class ChestController : MonoBehaviour
 
     private IEnumerator ShowSeconds(float delay)
     {
+        yield return new WaitForSeconds(0.5f);
+        particulas.Play();
         yield return new WaitForSeconds(delay);
         UIController.instance.ShowLevelUpOptions();
+        
     }
 
     private IEnumerator mostrarCoins()
