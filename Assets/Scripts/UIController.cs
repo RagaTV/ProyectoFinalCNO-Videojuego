@@ -42,10 +42,23 @@ public class UIController : MonoBehaviour
 
     public float gameTimer = 0f;
     // Start is called before the first frame update
+    public GameObject hudPanel; 
+
+    public void ToggleHUD(bool state)
+    {
+        if(hudPanel != null)
+        {
+            hudPanel.SetActive(state);
+        }
+    }
     void Start()
     {
         expLvlSlider.value = 0;
 
+        if(panelBgImage != null)
+        {
+            originalLevelUpColor = panelBgImage.color;
+        }
         if (rerollCostText != null)
         {
             rerollOriginalColor = rerollCostText.color;
@@ -267,6 +280,15 @@ public class UIController : MonoBehaviour
                 lvlUpButtons[i].gameObject.SetActive(false); 
             }
         }
+    }
+
+    public void CloseLvlOptions()
+    {
+        panelLvls.SetActive(false);
+        panelActive = false;
+        Time.timeScale = 1f;
+
+        panelBgImage.color = originalLevelUpColor;
     }
 
     private void ShuffleList<T>(List<T> list)

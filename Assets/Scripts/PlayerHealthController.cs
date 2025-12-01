@@ -20,6 +20,21 @@ public class PlayerHealthController : MonoBehaviour
     private PlayerController playerController;
     private SpriteRenderer sprite; 
     private Color originalColor;
+    
+    public void ToggleHealth(bool state)
+    {
+        if(healthSlider != null)
+        {
+            healthSlider.gameObject.SetActive(state);
+        }
+
+        // Agrega esto para que también desaparezca el texto "100/100"
+        if(healthText != null)
+        {
+            healthText.gameObject.SetActive(state);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
