@@ -31,7 +31,16 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private float baseXP = 1f;   // 1f = 100%
     [SerializeField] private float baseCoins = 1f; // 1f = 100%
     
-    
+    public float BaseMoveSpeed => baseMoveSpeed;
+    public float BaseMaxHealth => baseMaxHealth;
+    public float BaseHealthRegen => baseHealthRegen;
+    public float BaseDamage => baseDamage;
+    public float BasePickupRange => basePickupRange;
+    public float BaseProjectileSize => baseProjectileSize;
+    public float BaseArmor => baseArmor;
+    public float BaseLuck => baseLuck;
+    public float BaseXP => baseXP;
+    public float BaseCoins => baseCoins;
 
     private void Awake()
     {
@@ -129,6 +138,18 @@ public class PlayerStats : MonoBehaviour
         else
         {
             weaponDamageStats[weapon] = damage;
+        }
+    }
+
+    public void GameOver()
+    {
+        if (GameOverPanel.instance != null)
+        {
+            GameOverPanel.instance.DisplayStats();
+        }
+        else
+        {
+            Debug.LogError("¡No encontré el script GameOverPanel en la escena!");
         }
     }
 

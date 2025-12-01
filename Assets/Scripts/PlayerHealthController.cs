@@ -99,6 +99,7 @@ public class PlayerHealthController : MonoBehaviour
             playerController.Die();
             CameraControl.instance.StartDeathSequence();
             PlayerStats.instance.PrintGameReport();
+            StartCoroutine(ScreenGameOver());
         }
     }
 
@@ -122,6 +123,12 @@ public class PlayerHealthController : MonoBehaviour
         {
             sprite.color = originalColor;
         }
+    }
+
+    private IEnumerator ScreenGameOver()
+    {
+        yield return new WaitForSeconds(2f);
+        PlayerStats.instance.GameOver();
     }
     
     public void UpdateMaxHealth()
