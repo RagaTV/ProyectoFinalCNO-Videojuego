@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8992872020124479995}
   - component: {fileID: 6952542172017150267}
   - component: {fileID: 2439062096233634443}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnemySkeleton
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -965790023
-  m_SortingLayer: 3
+  m_SortingLayer: 8
   m_SortingOrder: 1
   m_Sprite: {fileID: -2626887618973932693, guid: 7f743a980fc7a574498b1588a01703d0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -155,9 +155,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rB: {fileID: 0}
-  moveSpeed: 1.5
-  damageAmount: 15
-  hitWaitTime: 1
-  maxHealth: 60
-  knockBackTime: 0.5
+  baseMoveSpeed: 2.5
+  baseDamageAmount: 10
+  baseMaxHealth: 50
+  coinDropChance: 0.25
+  coinValue: 25
   expToGive: 50
+  hitWaitTime: 1

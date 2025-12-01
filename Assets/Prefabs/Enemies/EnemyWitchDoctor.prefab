@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2898070778279905760}
   - component: {fileID: 4401727686521008205}
   - component: {fileID: 1683435729256031130}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnemyWitchDoctor
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -965790023
-  m_SortingLayer: 3
+  m_SortingLayer: 8
   m_SortingOrder: 1
   m_Sprite: {fileID: -1955918903984719247, guid: 0e51b08ea263334429fe1e2a74880d9a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -182,9 +182,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rB: {fileID: 0}
-  moveSpeed: 2.5
-  damageAmount: 25
-  hitWaitTime: 1
-  maxHealth: 55
-  knockBackTime: 0.5
+  baseMoveSpeed: 2
+  baseDamageAmount: 15
+  baseMaxHealth: 50
+  coinDropChance: 0.25
+  coinValue: 30
   expToGive: 50
+  hitWaitTime: 1

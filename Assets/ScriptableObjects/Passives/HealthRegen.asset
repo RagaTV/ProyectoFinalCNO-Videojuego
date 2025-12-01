@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 936a2a55411880e4aa622e40295ac226, type: 3}
+  m_Name: HealthRegen
+  m_EditorClassIdentifier: 
+  icon: {fileID: 1751070557139920308, guid: ad23728e66bc46d47b5ef96e06b1d39b, type: 3}
+  passiveName: Fluido Milagroso
+  type: 2
+  maxLevels: 20
+  baseStats:
+    multiplier: 0.25
+    upgradeText: +0.25 Regen de Vida
+    rarity: 0
+  levels:
+  - multiplier: 0.2
+    upgradeText: +0.2 Regen de Vida
+    rarity: 0
+  - multiplier: 0.45
+    upgradeText: "+0.5 Regeneraci\xF3n de Vida"
+    rarity: 0
+  - multiplier: 1.95
+    upgradeText: "+2.0 Regeneraci\xF3n de Vida"
+    rarity: 3
+  - multiplier: 2.2
+    upgradeText: "+2.2 Regeneraci\xF3n de Vida"
+    rarity: 0
+  - multiplier: 2.45
+    upgradeText: "+2.5 Regeneraci\xF3n de Vida"
+    rarity: 0
+  - multiplier: 2.7
+    upgradeText: "+2.7 Regeneraci\xF3n de Vida"
+    rarity: 0
+  - multiplier: 3.7
+    upgradeText: "+3.7 Regeneraci\xF3n de Vida"
+    rarity: 2
+  - multiplier: 5.2
+    upgradeText: "+5.2 Regeneraci\xF3n de Vida"
+    rarity: 3
+  - multiplier: 5.45
+    upgradeText: "+5.5 Regeneraci\xF3n de Vida"
+    rarity: 0
+  - multiplier: 5.95
+    upgradeText: "+6.0 Regeneraci\xF3n de Vida"
+    rarity: 1
+  - multiplier: 6.95
+    upgradeText: "+7.0 Regeneraci\xF3n de Vida"
+    rarity: 2
+  - multiplier: 7.2
+    upgradeText: "+7.2 Regeneraci\xF3n de Vida"
+    rarity: 0
+  - multiplier: 7.45
+    upgradeText: "+7.5 Regeneraci\xF3n de Vida"
+    rarity: 0
+  - multiplier: 7.95
+    upgradeText: "+8.0 Regeneraci\xF3n de Vida"
+    rarity: 1
+  - multiplier: 9.45
+    upgradeText: "+9.5 Regeneraci\xF3n de Vida"
+    rarity: 3
+  - multiplier: 10.45
+    upgradeText: "+10.5 Regeneraci\xF3n de Vida"
+    rarity: 2
+  - multiplier: 10.7
+    upgradeText: "+10.7 Regeneraci\xF3n de Vida"
+    rarity: 0
+  - multiplier: 10.95
+    upgradeText: "+11.0 Regeneraci\xF3n de Vida"
+    rarity: 0
+  - multiplier: 11.45
+    upgradeText: "+11.5 Regeneraci\xF3n de Vida"
+    rarity: 1
+  - multiplier: 11.7
+    upgradeText: "+11.7 Regeneraci\xF3n de Vida"
+    rarity: 0

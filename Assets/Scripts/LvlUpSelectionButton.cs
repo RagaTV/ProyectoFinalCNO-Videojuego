@@ -14,74 +14,94 @@ public class LvlUpSelectionButton : MonoBehaviour
     public Color raraColor = new Color(0.2f, 0.5f, 1f);   // Azul
     public Color epicaColor = new Color(0.7f, 0.2f, 1f);   // Morado
     public Color legendariaColor = new Color(1f, 0.8f, 0f); // Dorado
+    private UpgradeOption assignedOption;
 
     private void Awake()
     {
-        // Obtiene el componente Image de ESTE objeto (el botón)
-        buttonImage = GetComponent<Image>(); 
+        buttonImage = GetComponent<Image>();
     }
 
-    public void UpdateButtonDisplay(Weapon theWeapon)
+    public void UpdateButtonDisplay(UpgradeOption option)
     {
-        int nextLevel = theWeapon.weaponLvl + 1;
-
-        if (nextLevel >= theWeapon.stats.Count)
+        assignedOption = option;
+        GetComponent<Button>().interactable = true;
+        
+        if (option.item is Weapon)
         {
-            upgradeDescription.text = "MAX LEVEL";
-            weaponIcon.sprite = theWeapon.icon;
-            nameLvl.text = theWeapon.name + "\nNivel " + theWeapon.weaponLvl; // Muestra el nivel actual
-            assignedWeapon = null; 
+            Weapon weapon = (Weapon)option.item;
+            WeaponStats stats = (WeaponStats)option.generatedStats;
+            
+            upgradeDescription.text = stats.upgradeText;
+            weaponIcon.sprite = weapon.icon;
+            nameLvl.text = weapon.name + "\nNivel " + option.levelNum;
+            SetRarityColor(stats.rarity);
         }
-        else
+        else if (option.item is PassiveItem)
         {
-            upgradeDescription.text = theWeapon.stats[nextLevel].upgradeText;
-            weaponIcon.sprite = theWeapon.icon;
-            nameLvl.text = theWeapon.name + "\nNivel " + nextLevel;
-            assignedWeapon = theWeapon;
+            PassiveItem passive = (PassiveItem)option.item;
+            PassiveStatLevel stats = (PassiveStatLevel)option.generatedStats;
 
-            UpgradeRarity rarity = theWeapon.stats[nextLevel].rarity;
-            switch (rarity)
-            {
-                case UpgradeRarity.Comun:
-                    buttonImage.color = comunColor;
-                    break;
-                case UpgradeRarity.Rara:
-                    buttonImage.color = raraColor;
-                    break;
-                case UpgradeRarity.Epica: 
-                    buttonImage.color = epicaColor;
-                    break;
-                case UpgradeRarity.Legendaria:
-                    buttonImage.color = legendariaColor;
-                    break;
-            }
+            upgradeDescription.text = stats.upgradeText;
+            weaponIcon.sprite = passive.icon;
+            nameLvl.text = passive.passiveName + "\nNivel " + option.levelNum;
+            SetRarityColor(stats.rarity);
         }
-
-        /*upgradeDescription.text = theWeapon.stats[theWeapon.weaponLvl].upgradeText;
-        weaponIcon.sprite = theWeapon.icon;
-        nameLvl.text = theWeapon.name + "\nNivel " + theWeapon.weaponLvl;
-
-        assignedWeapon = theWeapon;*/
     }
-     
+    
     public void SelectUpgrade()
     {
-        if(assignedWeapon != null)
+        if(assignedOption == null) return;
+
+        SFXManager.instance.PlaySFX(SoundEffect.UIClick); // (Lo muevo aquí)
+
+        if (assignedOption.item is Weapon)
         {
-            if (PlayerController.instance.unassignedWeapons.Contains(assignedWeapon))
+            Weapon weapon = (Weapon)assignedOption.item;
+            WeaponStats stats = (WeaponStats)assignedOption.generatedStats;
+
+            if (PlayerController.instance.unassignedWeapons.Contains(weapon))
             {
-                // ¡Es un arma NUEVA! Llama a tu nueva función
-                PlayerController.instance.AddWeapon(assignedWeapon);
+                // Es un arma nueva, la añade y LUEGO aplica el Nivel 1
+                // (AddWeapon ya añade el Nivel 1 (baseStats))
+                PlayerController.instance.AddWeapon(weapon);
             }
             else
             {
-                // Es un arma que ya teníamos. Solo súbela de nivel.
-                assignedWeapon.LevelUp();
+                // Es un arma existente, solo aplica el nivel generado
+                weapon.ApplyLevel(stats);
             }
+        }
+        else if (assignedOption.item is PassiveItem)
+        {
+            PassiveItem passive = (PassiveItem)assignedOption.item;
+            PassiveStatLevel stats = (PassiveStatLevel)assignedOption.generatedStats;
             
-            // Cierra el panel y reanuda el juego
-            UIController.instance.panelLvls.SetActive(false);
-            Time.timeScale = 1f;
+            // Llama a la función de Upgrade, que se encarga de todo
+            PlayerController.instance.UpgradePassive(passive, stats);
+        }
+        
+        // Cierra el panel y reanuda el juego
+        UIController.instance.panelLvls.SetActive(false);
+        UIController.instance.panelActive = false;
+        Time.timeScale = 1f;
+    }
+    
+    private void SetRarityColor(UpgradeRarity rarity)
+    {
+        switch (rarity)
+        {
+            case UpgradeRarity.Comun:
+                buttonImage.color = comunColor;
+                break;
+            case UpgradeRarity.Rara:
+                buttonImage.color = raraColor;
+                break;
+            case UpgradeRarity.Epica: 
+                buttonImage.color = epicaColor;
+                break;
+            case UpgradeRarity.Legendaria:
+                buttonImage.color = legendariaColor;
+                break;
         }
     }
 }

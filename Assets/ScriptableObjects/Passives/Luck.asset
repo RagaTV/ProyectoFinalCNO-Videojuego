@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 936a2a55411880e4aa622e40295ac226, type: 3}
+  m_Name: Luck
+  m_EditorClassIdentifier: 
+  icon: {fileID: 1411911120798770589, guid: 68a8d5b9b884331458d51d35e4314116, type: 3}
+  passiveName: Paleta de la Suerte
+  type: 7
+  maxLevels: 20
+  baseStats:
+    multiplier: 0.1
+    upgradeText: +10% Suerte
+    rarity: 0
+  levels:
+  - multiplier: 0.1
+    upgradeText: +10% Suerte
+    rarity: 0
+  - multiplier: 0.1
+    upgradeText: +10% Suerte
+    rarity: 0
+  - multiplier: 0.2
+    upgradeText: '+10 % Suerte (Total: 20 %)'
+    rarity: 1
+  - multiplier: 0.35000002
+    upgradeText: '+15 % Suerte (Total: 35 %)'
+    rarity: 2
+  - multiplier: 0.5
+    upgradeText: '+15 % Suerte (Total: 50 %)'
+    rarity: 2
+  - multiplier: 0.55
+    upgradeText: '+5 % Suerte (Total: 55 %)'
+    rarity: 0

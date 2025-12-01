@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5411928490281370686}
   - component: {fileID: 9151828060384490615}
   - component: {fileID: 1523958655008309442}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnemyPebble
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -965790023
-  m_SortingLayer: 3
+  m_SortingLayer: 8
   m_SortingOrder: 1
   m_Sprite: {fileID: -50929703087204986, guid: 556aeb509c047194c95b85a6de559f06, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -155,9 +155,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rB: {fileID: 0}
-  moveSpeed: 1.5
-  damageAmount: 3
+  baseMoveSpeed: 2
+  baseDamageAmount: 2
+  baseMaxHealth: 2
+  coinDropChance: 0.25
+  coinValue: 2
+  expToGive: 2
   hitWaitTime: 1
-  maxHealth: 5
-  knockBackTime: 0.5
-  expToGive: 5

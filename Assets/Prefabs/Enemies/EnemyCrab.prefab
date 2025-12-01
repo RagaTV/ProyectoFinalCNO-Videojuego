@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5101077508264737852}
   - component: {fileID: 4862442678410174882}
   - component: {fileID: 701003216731977428}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnemyCrab
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -965790023
-  m_SortingLayer: 3
+  m_SortingLayer: 8
   m_SortingOrder: 1
   m_Sprite: {fileID: 2438307069932402953, guid: 0769525e02646174486edf3efe46adeb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -155,9 +155,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rB: {fileID: 0}
-  moveSpeed: 2
-  damageAmount: 6
-  hitWaitTime: 1
-  maxHealth: 12
-  knockBackTime: 0.5
+  baseMoveSpeed: 1.5
+  baseDamageAmount: 5
+  baseMaxHealth: 10
+  coinDropChance: 0.25
+  coinValue: 10
   expToGive: 10
+  hitWaitTime: 1

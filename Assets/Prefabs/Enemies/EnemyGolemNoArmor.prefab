@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2096891942864664014}
   - component: {fileID: 2458841315221979717}
   - component: {fileID: 1876830103591306870}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnemyGolemNoArmor
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -965790023
-  m_SortingLayer: 3
+  m_SortingLayer: 8
   m_SortingOrder: 1
   m_Sprite: {fileID: 4322419577333733612, guid: 8274a3da134c03a469f3cae5d7116aca, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -155,9 +155,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rB: {fileID: 0}
-  moveSpeed: 1.5
-  damageAmount: 8
+  baseMoveSpeed: 1
+  baseDamageAmount: 5
+  baseMaxHealth: 15
+  coinDropChance: 0.25
+  coinValue: 15
+  expToGive: 15
   hitWaitTime: 1
-  maxHealth: 15
-  knockBackTime: 0.5
-  expToGive: 10

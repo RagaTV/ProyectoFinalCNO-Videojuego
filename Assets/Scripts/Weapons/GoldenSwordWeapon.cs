@@ -5,7 +5,7 @@ using UnityEngine;
 public class GoldenSwordWeapon : Weapon
 {
     public float rotateSpeed;
-    public Transform holder, fireballToSpawn;
+    public Transform holder, weaponToSpawn;
     public float timeBetweenSpawn;
     private float spawnCounter;
     public EnemyDamager damager;
@@ -14,14 +14,17 @@ public class GoldenSwordWeapon : Weapon
     // Start is called before the first frame update
     void Start()
     {
-        SetStats();
-
-        //UIController.instance.lvlUpButtons[0].UpdateButtonDisplay(this);
+        spawnCounter = 0f;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(statsUpdated == true)
+        {
+            statsUpdated = false;
+            SetStats(); 
+        }
         //holder.rotation = Quaternion.Euler(0f, 0f, holder.rotation.eulerAngles.z + (rotateSpeed * Time.deltaTime));
         holder.rotation = Quaternion.Euler(0f, 0f, holder.rotation.eulerAngles.z + (rotateSpeed * Time.deltaTime * stats[weaponLvl].speed));
 
@@ -29,32 +32,34 @@ public class GoldenSwordWeapon : Weapon
         if (spawnCounter <= 0)
         {
             spawnCounter = timeBetweenSpawn;
+
             for (int i = 0; i < currentAmount; i++)
             {
                 float angle = (360f / currentAmount) * i;
 
                 Quaternion spawnRotation = holder.rotation * Quaternion.Euler(0, 0, angle);
 
-                Instantiate(fireballToSpawn, holder.position, spawnRotation, holder).gameObject.SetActive(true);
+                GameObject newProjectile = Instantiate(weaponToSpawn, holder.position, spawnRotation, holder).gameObject;
+                EnemyDamager damagerScript = newProjectile.GetComponent<EnemyDamager>();
+                
+                if (damagerScript != null)
+                {
+                    damagerScript.weaponID = this;
+                }
+                newProjectile.SetActive(true);
             }
         }
 
-        if(statsUpdated == true)
-        {
-            statsUpdated = false;
-            SetStats(); 
-        }
+        
     }
     
     public void SetStats()
     {
         damager.damageAmount = stats[weaponLvl].damage;
-        transform.localScale = Vector3.one * stats[weaponLvl].size;
-        timeBetweenSpawn = stats[weaponLvl].attackDelay;
+        transform.localScale = Vector3.one * stats[weaponLvl].size * PlayerStats.instance.projectileSizeMultiplier;
         damager.lifeTime = stats[weaponLvl].duration;
-
+        timeBetweenSpawn = damager.lifeTime + 1f;
         currentAmount = stats[weaponLvl].amount;
-
         spawnCounter = 0f; 
     }
 }

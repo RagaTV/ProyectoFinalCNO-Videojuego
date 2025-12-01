@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7432078174110006297}
   - component: {fileID: 7432078174110006296}
   - component: {fileID: 7432078174110006303}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BossAppleCat
   m_TagString: Boss
   m_Icon: {fileID: 0}
@@ -69,8 +69,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -965790023
+  m_SortingLayer: 8
   m_SortingOrder: 1
   m_Sprite: {fileID: -8096908110815696859, guid: 2a634a8ccf82a044dbec4eacd5bb694e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
