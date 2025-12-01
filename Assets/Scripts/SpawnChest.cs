@@ -45,8 +45,8 @@ public class SpawnChest : MonoBehaviour
     {
         while (true)
         {
-            SpawnChestCamara();
             yield return new WaitForSeconds(delay);
+            SpawnChestCamara();
         }
     }
 
