@@ -82,8 +82,7 @@ public class ChestController : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         particulas.Play();
         yield return new WaitForSeconds(delay);
-        UIController.instance.ShowLevelUpOptions();
-        
+        UIController.instance.ShowLevelUpOptions(true);
     }
 
     private IEnumerator mostrarCoins()

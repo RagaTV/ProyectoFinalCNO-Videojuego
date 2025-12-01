@@ -36,6 +36,9 @@ public class UIController : MonoBehaviour
     public float iconRadius = 150f; // Radio del círculo
     public float spinDuration = 3.0f; // Duración de la animación
     public float spinVelocity = 1080f;
+    public Image panelBgImage; 
+    public Color chestColor = new Color(1f, 0.8f, 0f); 
+    private Color originalLevelUpColor;
 
     public float gameTimer = 0f;
     // Start is called before the first frame update
@@ -105,8 +108,18 @@ public class UIController : MonoBehaviour
         }
     }
     
-    public void ShowLevelUpOptions()
+    public void ShowLevelUpOptions(bool isFromChest = false) 
     {
+        // --- Lógica de Apariencia ---
+        if (isFromChest)
+        {
+            panelBgImage.color = chestColor;
+        }
+        else
+        {
+            // Usa el color capturado al inicio
+            panelBgImage.color = originalLevelUpColor; 
+        }
         panelLvls.SetActive(true);
         panelActive = true;
         Time.timeScale = 0f;
