@@ -6,15 +6,11 @@ public class BolilloWeapon : Weapon
 {
     [Header("Configuración Proyectil")]
     public Projectile projectile; 
-    
     [Header("Configuración Arma Bolillo")]
     public Transform holder;
-   
     public EnemyDamager baseDamager; 
-    
     public float timeBetweenShot;
-    private float shotCounter;
-    
+    private float shotCounter;  
     private int currentAmount; 
 
     void Start()
