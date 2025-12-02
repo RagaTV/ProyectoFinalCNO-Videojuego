@@ -58,7 +58,7 @@ public class ChestController : MonoBehaviour
                     SFXManager.instance.PlaySFX(SoundEffect.ChestSound);
                     anim.SetBool("Close", false);
                     alreadyOpened = true;
-                    StartCoroutine(ShowSeconds(1.5f));
+                    StartCoroutine(ShowSeconds(0.7f));
                     
 
                 }else{
