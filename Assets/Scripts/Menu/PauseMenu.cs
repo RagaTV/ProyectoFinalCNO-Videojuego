@@ -11,39 +11,47 @@ public class PauseMenu : MonoBehaviour
 	public static bool AbiertoDesdePausa = false;
 
 	public ConfigurationManager configManager;
+	public GameObject gameOverScreen; 
 
     void Start() 
     {
     	menuPausa.SetActive(false);
     }
 
-    void Update() 
-    {
-    	// Comprueba si la tecla 'esc' ha sido presionada en este frame.
-    	if(Input.GetKeyDown(KeyCode.Escape)){ 
-    		
-            // PRIMERO, revisa si el panel de Configuración está abierto
-            if (configManager != null && configManager.menuConfiguracionPanel.activeSelf)
-            {
-                // Si SÍ está abierto, "Escape" actúa como el botón "Regresar"
-                configManager.Regresar();
-                
-                // Y nos aseguramos de que el juego SEPA que sigue pausado
-                juegoPausado = true; 
-                Time.timeScale = 0.0f;
-            }
+	void Update() 
+    {
+        // Si el panel de Game Over está activo, ignora ESC.
+        if (gameOverScreen != null && gameOverScreen.activeSelf)
+        {
+            return;
+        }
 
-            // Si NINGÚN panel especial está abierto, haz la lógica normal
-    		else if(juegoPausado)
-            { 
-    			Reanudar(); 
-    		} 
-            else 
-            { 
-    			Pausar(); 
-    		}
-    	}
-    }
+
+    	// Comprueba si la tecla 'esc' ha sido presionada
+    	if(Input.GetKeyDown(KeyCode.Escape)){ 
+    		
+            // PRIMERO, revisa si el panel de Configuración está abierto
+            if (configManager != null && configManager.menuConfiguracionPanel.activeSelf)
+            {
+                // Si SÍ está abierto, "Escape" actúa como el botón "Regresar"
+                configManager.Regresar();
+                
+                // Y nos aseguramos de que el juego SEPA que sigue pausado
+                juegoPausado = true; 
+                Time.timeScale = 0.0f;
+            }
+
+            // Si NINGÚN panel especial está abierto, haz la lógica normal
+    		else if(juegoPausado)
+            { 
+    			Reanudar(); 
+    		} 
+            else 
+            { 
+    			Pausar(); 
+    		}
+    	}
+    }
 
     public void Reanudar(){ 
 		SFXManager.instance.PlaySFX(SoundEffect.UIClick);

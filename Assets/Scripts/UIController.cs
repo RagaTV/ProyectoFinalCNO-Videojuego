@@ -127,11 +127,19 @@ public class UIController : MonoBehaviour
         if (isFromChest)
         {
             panelBgImage.color = chestColor;
+            if (rerollButton != null)
+            {
+                rerollButton.gameObject.SetActive(false);
+            }
         }
         else
         {
             // Usa el color capturado al inicio
-            panelBgImage.color = originalLevelUpColor; 
+            panelBgImage.color = originalLevelUpColor;
+            if (rerollButton != null)
+            {
+                rerollButton.gameObject.SetActive(true);
+            }
         }
         panelLvls.SetActive(true);
         panelActive = true;
