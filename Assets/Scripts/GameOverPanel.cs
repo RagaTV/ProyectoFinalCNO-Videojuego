@@ -10,8 +10,9 @@ public class GameOverPanel : MonoBehaviour
     public GameObject panelGameO;
 
     [Header("Colores")]
-    public Color upgradedColor = Color.white; // Color original (blanco/dorado)
-    public Color baseColor = new Color(0.5f, 0.5f, 0.5f, 1f); // Gris apagado
+    public Color upgradedColor = new Color(1f, 1f, 0f, 1f); // amarillo
+    public Color baseColor = Color.white; 
+    //public Color baseColor = new Color(0.5f, 0.5f, 0.5f, 1f);
 
     [Header("Textos Generales")]
     public TMP_Text timeSurvivedText;
@@ -45,24 +46,24 @@ public class GameOverPanel : MonoBehaviour
 
         // --- 1. DATOS GENERALES ---
         float time = UIController.instance.gameTimer;
-        timeSurvivedText.text = "Tiempo: " + System.TimeSpan.FromSeconds(time).ToString(@"mm\:ss");
-        levelObtainedText.text = "Nivel: " + ExperienceLevelController.instance.currentLevel.ToString();
+        timeSurvivedText.text = "Tiempo sobrevivido: " + System.TimeSpan.FromSeconds(time).ToString(@"mm\:ss");
+        levelObtainedText.text = "Nivel obtenido: " + ExperienceLevelController.instance.currentLevel.ToString();
         killsText.text = "Kills: " + stats.enemiesKilled.ToString();
         totalDamageText.text = "Daño Total: " + stats.totalDamageDone.ToString("F0");
         float dps = time > 0 ? stats.totalDamageDone / time : 0;
-        dpsText.text = "DPS: " + dps.ToString("F1");
+        dpsText.text = "Daño/s: " + dps.ToString("F1");
 
         // --- 2. MEJORAS DEL JUGADOR (CON COLORES) ---
         // Usamos la función mágica que creamos abajo:
         
         // Vida
-        SetStatText(maxHealthText, "Vida: ", stats.maxHealth, stats.BaseMaxHealth, "F0");
+        SetStatText(maxHealthText, "Vida Máx: ", stats.maxHealth, stats.BaseMaxHealth, "F0");
         
         // Armadura (Comparar si es mayor a 0, ya que la base suele ser 0)
         SetStatText(armorText, "Armadura: ", stats.armor, stats.BaseArmor, "F1");
         
         // Regen
-        SetStatText(regenText, "Regen: ", stats.healthRegen, stats.BaseHealthRegen, "F1", "/s");
+        SetStatText(regenText, "Regeneración: ", stats.healthRegen, stats.BaseHealthRegen, "F1", "/s");
 
         // Daño (Porcentaje)
         SetStatText(damageMultText, "Daño: ", stats.damageMultiplier, stats.BaseDamage, "F0", "%", true);
@@ -71,7 +72,7 @@ public class GameOverPanel : MonoBehaviour
         SetStatText(projectileSizeText, "Área: ", stats.projectileSizeMultiplier, stats.BaseProjectileSize, "F0", "%", true);
 
         // Velocidad
-        SetStatText(moveSpeedText, "Velocidad: ", stats.moveSpeed, stats.BaseMoveSpeed, "F1");
+        SetStatText(moveSpeedText, "Vel Mov: ", stats.moveSpeed, stats.BaseMoveSpeed, "F1");
 
         // Rango
         SetStatText(pickupRangeText, "Rango: ", stats.pickupRange, stats.BasePickupRange, "F1");

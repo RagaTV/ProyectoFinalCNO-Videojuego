@@ -16,7 +16,10 @@ public enum SoundEffect
     BananaSound,
     MouseSound,
     ChestSound,
-    KunaiSound
+    KunaiSound,
+    BolilloSound,
+    HachaSound,
+    SillaSound
     // ...añadir todos los necesarios
 }
 

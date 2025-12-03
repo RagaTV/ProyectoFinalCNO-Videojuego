@@ -203,7 +203,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         } else {
             StartCoroutine(FlashDamage());
         }
-        // DamageNumberController.instance.SpawnDamage(damageToTake, transform.position); // Asumo que esto existe
+        DamageNumberController.instance.SpawnDamage(damageToTake, transform.position); 
     }
 
     public void TakeDamage(float damageToTake, bool shouldKnockBack)
