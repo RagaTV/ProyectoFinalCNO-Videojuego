@@ -6,6 +6,8 @@ public class MusicController : MonoBehaviour
 {
     public AudioSource[] tracks;
     private int currentTrackIndex = -1;
+    private int aux=0;
+   
 
     void Start()
     {
@@ -19,31 +21,32 @@ public class MusicController : MonoBehaviour
 
     void Update()
     {
-        if (PlayerHealthController.instance.deathPlayer)
+        if (PlayerHealthController.instance.deathPlayer && aux==0)
         {
+            aux=1;
             StopAllTracks();
-
-            return;
-        }
+            PlayTrack(4);
+        }        
         
         float gameTimer = UIController.instance.gameTimer;
         float minutes = gameTimer / 60f;
 
-
-        // A los 15 minutos
-        if (minutes >= 15f && currentTrackIndex < 3)
-        {
-            PlayTrack(3); // Toca la canción 4
-        }
-        // A los 10 minutos
-        else if (minutes >= 10f && currentTrackIndex < 2)
-        {
-            PlayTrack(2); // Toca la canción 3
-        }
-        // A los 5 minutos
-        else if (minutes >= 5f && currentTrackIndex < 1)
-        {
-            PlayTrack(1); // Toca la canción 2
+        if(aux==0){
+            // A los 15 minutos
+            if (minutes >= 15f && currentTrackIndex < 3)
+            {
+                PlayTrack(3); // Toca la canción 4
+            }
+            // A los 10 minutos
+            else if (minutes >= 10f && currentTrackIndex < 2)
+            {
+                PlayTrack(2); // Toca la canción 3
+            }
+            // A los 5 minutos
+            else if (minutes >= 5f && currentTrackIndex < 1)
+            {
+                PlayTrack(1); // Toca la canción 2
+            }
         }
     }
 
