@@ -160,7 +160,7 @@ public class PlayerStats : MonoBehaviour
         float totalDamage = totalDamageDone;
         float finalDPS = 0f;
 
-        // 1. Cálculo de DPS (Daño por Segundo)
+        // 1. Cálculo de DPS
         if (timeSurvived > 0.1f)
         {
             finalDPS = totalDamage / timeSurvived;

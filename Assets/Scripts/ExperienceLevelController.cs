@@ -21,7 +21,6 @@ public class ExperienceLevelController : MonoBehaviour
     {
         healthController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthController>();
         
-        // Asumiendo que 'expLevels' tiene al menos un valor inicial desde el Inspector
         while (expLevels.Count < levelCapForCurve) 
         {
             expLevels.Add(Mathf.CeilToInt(expLevels[expLevels.Count - 1] * 1.05f));
@@ -49,13 +48,12 @@ public class ExperienceLevelController : MonoBehaviour
         float finalExp = amountToGet * PlayerStats.instance.xpMultiplier;
         currentExperience += Mathf.CeilToInt(finalExp);
 
-        // Usamos un 'while' por si el jugador gana suficiente XP para subir varios niveles
-        int expForNextLevel = GetRequiredExp(currentLevel); // <-- Usa la nueva función
+        int expForNextLevel = GetRequiredExp(currentLevel); 
         
         while (currentExperience >= expForNextLevel)
         {
-            LevelUp(expForNextLevel); // <-- Pasa el valor para restar
-            expForNextLevel = GetRequiredExp(currentLevel); // <-- Obtiene el requisito para el *nuevo* nivel
+            LevelUp(expForNextLevel); 
+            expForNextLevel = GetRequiredExp(currentLevel); 
         }
 
         if (healthController != null && !healthController.deathPlayer)

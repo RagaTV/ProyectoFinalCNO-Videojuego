@@ -67,4 +67,52 @@ public class CameraControl : MonoBehaviour
         cam.orthographicSize = targetOrthographicSize;
         fadePanel.color = targetColor;
     }
+
+    public IEnumerator FadeOut(float duration)
+    {
+        fadePanel.gameObject.SetActive(true);
+        float elapsedTime = 0f;
+        Color startColor = new Color(0, 0, 0, 0);
+        Color targetColor = new Color(0, 0, 0, 1); // Negro total
+
+        while (elapsedTime < duration)
+        {
+            fadePanel.color = Color.Lerp(startColor, targetColor, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        fadePanel.color = targetColor;
+    }
+
+    public IEnumerator FadeIn(float duration)
+    {
+        float elapsedTime = 0f;
+        Color startColor = new Color(0, 0, 0, 1);
+        Color targetColor = new Color(0, 0, 0, 0); // Transparente
+
+        while (elapsedTime < duration)
+        {
+            fadePanel.color = Color.Lerp(startColor, targetColor, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        fadePanel.color = targetColor;
+        fadePanel.gameObject.SetActive(false);
+    }
+
+    public IEnumerator FadeToWhite(float duration)
+    {
+        fadePanel.gameObject.SetActive(true);
+        float elapsedTime = 0f;
+        Color startColor = new Color(1, 1, 1, 0); // Blanco transparente
+        Color targetColor = new Color(1, 1, 1, 1); // Blanco solido
+
+        while (elapsedTime < duration)
+        {
+            fadePanel.color = Color.Lerp(startColor, targetColor, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        fadePanel.color = targetColor;
+    }
 }

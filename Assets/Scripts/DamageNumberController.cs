@@ -36,6 +36,14 @@ public class DamageNumberController : MonoBehaviour
         newDamage.gameObject.SetActive(true);
     }
 
+    public void SpawnFloatingText(string text, Vector3 location, float speed = -1f)
+    {
+        DamageNumber newText = GetFromPool();
+        newText.transform.position = location;
+        newText.Setup(text, speed);
+        newText.gameObject.SetActive(true);
+    }
+
     public DamageNumber GetFromPool()
     {
         DamageNumber numberSpawn = null;

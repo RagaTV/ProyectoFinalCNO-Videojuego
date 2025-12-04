@@ -9,8 +9,8 @@ public class EnemyController : MonoBehaviour, IDamageable
     private SpriteRenderer spriteEnemy;
     private Color originalColor;
     
-    // --- NUEVA ESTRUCTURA DE STATS ---
-    [Header("Stats Base (del Inspector)")]
+    // --- Estructura de Stats ---
+    [Header("Stats Base")]
     public float baseMoveSpeed = 3f;
     public float baseDamageAmount = 1f;
     public float baseMaxHealth = 2f;
@@ -25,7 +25,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     private float knockBackTime = 0.25f;
     private float knockBackCounter;
 
-    // "Stats Actuales" que se escalan y se usan en combate
+    // Stats Actuales
     private float currentMoveSpeed;
     private float currentDamageAmount;
     private float currentMaxHealth;
@@ -98,15 +98,23 @@ public class EnemyController : MonoBehaviour, IDamageable
         if (currentMinute >= levelup)
         {
             // Tasas de escalado separadas 
-            float healthRate = 0.6f; // 45% por minuto
-            float damageRate = 0.2f; // 15% por minuto
+            float healthRate = 0.25f; // 25% por minuto (balanceado)
+            float damageRate = 0.2f; // 20% por minuto
 
             // Calcula multiplicadores
             float healthMultiplier = 1f + (currentMinute * healthRate);
             float damageMultiplier = 1f + (currentMinute * damageRate);
             
+            float oldMaxHealth = currentMaxHealth; // Guardamos la vida máxima anterior
+
             currentMaxHealth = baseMaxHealth * healthMultiplier;
             currentDamageAmount = baseDamageAmount * damageMultiplier;
+
+            // --- Escalar Vida Actual ---
+            // Asegura que la vida actual crezca en proporción a la vida máxima para que no muera de un golpe
+            float maxHealthIncrease = currentMaxHealth - oldMaxHealth;
+            currentHealth += maxHealthIncrease;
+            // ------------------------------------------------
 
             levelup = currentMinute + 1;
         }
@@ -125,8 +133,42 @@ public class EnemyController : MonoBehaviour, IDamageable
 
         if (target != null)
         {
-            // --- USA LAS STATS ACTUALES ---
-            rB.velocity = (target.position - transform.position).normalized * currentMoveSpeed;
+            // --- Detección de Obstáculos ---
+            Vector2 dirToPlayer = (target.position - transform.position).normalized;
+            
+            // Chequea si hay algo adelante
+            Vector2 checkPos = (Vector2)transform.position + dirToPlayer * 0.5f;
+            Collider2D obstacle = Physics2D.OverlapCircle(checkPos, 0.3f);
+            
+            // Si hay obstáculo, verifica si debe esquivarlo
+            bool shouldAvoid = false;
+            if (obstacle != null && obstacle.gameObject != this.gameObject) // Ignora su propio collider
+            {
+                // NO esquivar si es:
+                // - El jugador
+                // - Otro enemigo
+                // - El boss
+                // - Un arma (tiene componente EnemyDamager)
+                // - Un pickup (monedas o experiencia)
+                bool isPlayer = obstacle.gameObject.tag == "Player";
+                bool isEnemy = obstacle.gameObject.tag == "Enemy";
+                bool isBoss = obstacle.gameObject.tag == "Boss";
+                bool isWeapon = obstacle.GetComponent<EnemyDamager>() != null;
+                bool isPickup = obstacle.GetComponent<CoinPickup>() != null || obstacle.GetComponent<ExpPickup>() != null;
+                
+                shouldAvoid = !isPlayer && !isEnemy && !isBoss && !isWeapon && !isPickup;
+            }
+            
+            // Si debe esquivar, mueve perpendicular
+            if (shouldAvoid)
+            {
+                Vector2 perp = Vector2.Perpendicular(dirToPlayer);
+                rB.velocity = perp * currentMoveSpeed * 0.7f; // Más lento al rodear
+            }
+            else
+            {
+                rB.velocity = dirToPlayer * currentMoveSpeed;
+            }
 
             // ... (lógica de voltear el sprite) ...
             Vector3 spriteOrientation = transform.localScale;
@@ -151,10 +193,10 @@ public class EnemyController : MonoBehaviour, IDamageable
             {
                 if (healthController != null && !healthController.deathPlayer)
                 {
-                    // --- USA LAS STATS ACTUALES ---
+                    // --- Usar Daño Escalado ---
                     healthController.TakeDamage(currentDamageAmount);
                     
-                    // ... (lógica de knockback al jugador) ...
+                    // ... (lógica de knockback) ...
                     Rigidbody2D playerRb = collision.gameObject.GetComponent<Rigidbody2D>();
                     if (playerRb != null)
                     {
@@ -195,7 +237,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         } else {
             StartCoroutine(FlashDamage());
         }
-        DamageNumberController.instance.SpawnDamage(damageToTake, transform.position);
+        DamageNumberController.instance.SpawnDamage(damageToTake, transform.position); 
     }
 
     public void TakeDamage(float damageToTake, bool shouldKnockBack)

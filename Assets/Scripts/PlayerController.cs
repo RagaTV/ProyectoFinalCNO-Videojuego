@@ -19,24 +19,18 @@ public class PlayerController : MonoBehaviour
     private Vector3 moveInput;
     private Vector3 lastDirection;
     private PlayerHealthController healthController;
-    //public Weapon activeWeapon;
     public List<Weapon> unassignedWeapons, assignedWeapons;
     public List<PassiveItem> unassignedPassives, assignedPassives;
     public Dictionary<PassiveItem, int> passiveLevels;
+    private Vector3 firstPosition;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         healthController = GetComponent<PlayerHealthController>();
-
+        firstPosition = transform.position;
         passiveLevels = new Dictionary<PassiveItem, int>();
-
-        /*if (unassignedWeapons.Count > 0)
-        {
-            int randomWeaponIndex = Random.Range(0, unassignedWeapons.Count);
-            AddWeapon(unassignedWeapons[randomWeaponIndex]);
-        }*/
 
         if (UIController.instance != null)
         {
@@ -48,7 +42,7 @@ public class PlayerController : MonoBehaviour
     {
         if (unassignedWeapons.Contains(chosenWeapon))
         {
-            // La lógica de AddWeapon ya hace el resto (mueve, activa, pone lvl=0)
+            // La lógica de AddWeapon
             AddWeapon(chosenWeapon);
         }
     }
@@ -130,6 +124,13 @@ public class PlayerController : MonoBehaviour
         {
             w.gameObject.SetActive(false);
         }
+        
+        // Limpiar cofres y pickups al morir
+        if (EnemySpawner.instance != null)
+        {
+            EnemySpawner.instance.CleanUpPickupsAndChests();
+        }
+
         this.enabled = false;
     }
 
@@ -173,5 +174,23 @@ public class PlayerController : MonoBehaviour
 
         passiveToUpgrade.ApplyLevel(statsToApply);
         
+    }
+
+    public void SetWeaponsActive(bool active)
+    {
+        foreach (Weapon w in assignedWeapons)
+        {
+            w.gameObject.SetActive(active);
+        }
+    }
+
+    public void ResetPosition()
+    {
+        transform.position = firstPosition;
+        rb.velocity = Vector2.zero;
+        if (anim != null)
+        {
+            anim.SetBool("isMoving", false);
+        }
     }
 }

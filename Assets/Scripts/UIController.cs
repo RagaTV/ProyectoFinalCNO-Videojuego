@@ -30,9 +30,9 @@ public class UIController : MonoBehaviour
     private List<UpgradeOption> generatedOptions = new List<UpgradeOption>();
 
     [Header("UI Ruleta Inicial")]
-    public GameObject roulettePanel; // Tu panel principal de ruleta
-    public Transform roulettePivot; // <--- El objeto que gira
-    public GameObject iconTemplatePrefab; // <--- El prefab del ícono
+    public GameObject roulettePanel; // panel principal de ruleta    
+    public Transform roulettePivot; // objeto que gira
+    public GameObject iconTemplatePrefab; // prefab del ícono
     public float iconRadius = 150f; // Radio del círculo
     public float spinDuration = 3.0f; // Duración de la animación
     public float spinVelocity = 1080f;
@@ -127,11 +127,19 @@ public class UIController : MonoBehaviour
         if (isFromChest)
         {
             panelBgImage.color = chestColor;
+            if (rerollButton != null)
+            {
+                rerollButton.gameObject.SetActive(false);
+            }
         }
         else
         {
             // Usa el color capturado al inicio
-            panelBgImage.color = originalLevelUpColor; 
+            panelBgImage.color = originalLevelUpColor;
+            if (rerollButton != null)
+            {
+                rerollButton.gameObject.SetActive(true);
+            }
         }
         panelLvls.SetActive(true);
         panelActive = true;
@@ -355,7 +363,7 @@ public class UIController : MonoBehaviour
 
         for (int i = 0; i < totalWeapons; i++)
         {
-            // 1. Calcular ángulo y posición (Matemáticas circulares)
+            // 1. Calcular ángulo y posición    
             float angle = i * angleStep;
             float radians = angle * Mathf.Deg2Rad;
 
@@ -365,7 +373,7 @@ public class UIController : MonoBehaviour
                 0f
             );
 
-            // 2. Crear el icono e Instanciar
+            // 2. Crear el icono y Instanciar
             GameObject iconObj = Instantiate(iconTemplatePrefab, roulettePivot);
             iconObj.GetComponent<RectTransform>().anchoredPosition = position;
 
@@ -376,15 +384,12 @@ public class UIController : MonoBehaviour
     
     public void StartInitialWeaponRoulette()
     {
-        // ... (Comprobación de nulls) ...
-
-        // 1. Genera el círculo de íconos
+        // 1. Genera el círculo de íconos   
         GenerateRoulette();
         
         // 2. Pausa el juego
         Time.timeScale = 0f;
         roulettePanel.SetActive(true);
-
         // 3. Inicia la animación
         StartCoroutine(SpinAndReveal());
     }
@@ -412,7 +417,7 @@ public class UIController : MonoBehaviour
         // Asegura que el giro ocurra en la dirección correcta
         float finalAngle = startAngle - targetAngle;
         
-        // --- GIRO RÁPIDO Y DESACELERACIÓN (EASING) ---
+        // --- GIRO RÁPIDO Y DESACELERACIÓN ---
         while (time < spinDuration)
         {
             float t = time / spinDuration;
@@ -430,7 +435,6 @@ public class UIController : MonoBehaviour
         // 4. Asegurar la posición final exacta
         roulettePivot.localEulerAngles = new Vector3(0f, 0f, finalAngle);
 
-        // Espera un momento para que el jugador vea el resultado
         yield return new WaitForSecondsRealtime(1.5f); 
 
         // 5. Aplica el arma al Player

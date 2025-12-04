@@ -1,18 +1,18 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro; // ¡Asegúrate de tener esto si usas TextMeshPro!
+using TMPro;
 
 public class BossHealthBar : MonoBehaviour
 {
     public static BossHealthBar instance;
 
     [Header("Referencias UI (Arrastra los objetos aquí)")]
-    public GameObject healthBarObject; // Arrastra el objeto padre "BossHealthBar"
-    public Slider healthSlider;        // Arrastra "BossHealthBar" (donde esté el componente Slider)
-    public TMP_Text bossNameText;      // Arrastra "BossName"
-    public TMP_Text hpText;            // Arrastra "HealthText"
+    public GameObject healthBarObject; 
+    public Slider healthSlider;        
+    public TMP_Text bossNameText;      
+    public TMP_Text hpText;            
 
-    private BossGolluxController activeBoss;
+    private BossBase activeBoss;
 
     void Awake()
     {
@@ -41,7 +41,7 @@ public class BossHealthBar : MonoBehaviour
         }
     }
 
-    public void ActivateBossHealth(BossGolluxController boss, string name)
+    public void ActivateBossHealth(BossBase boss, string name)
     {
         activeBoss = boss;
         

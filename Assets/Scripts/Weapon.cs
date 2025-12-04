@@ -48,7 +48,7 @@ public class Weapon : MonoBehaviour
         try { playerLuck = PlayerStats.instance.luck; }
         catch { playerLuck = 1f; }
         
-        //  Calcula las probabilidades (¡tu lógica de Suerte!)
+        // Calcular probabilidades
         float finalLegendaryChance = legendaryChance * playerLuck;
         float finalEpicChance = epicChance * playerLuck;
         float finalRareChance = rareChance * playerLuck;
@@ -99,7 +99,7 @@ public class Weapon : MonoBehaviour
             switch (statToUpgrade)
             {
                 case 0: // Daño
-                    float damageIncrease = 0.40f;
+                    float damageIncrease = 0.20f;
                     newStats.damage *= (1f + damageIncrease);
                     upgradeTexts.Add($"+{damageIncrease:P0} Daño");
                     break;
@@ -133,7 +133,7 @@ public class Weapon : MonoBehaviour
         
         newStats.upgradeText = string.Join(", ", upgradeTexts);
         
-        //  DEVUELVE el nivel generado (¡no lo añade a la lista!)
+        // Devuelve el nivel generado
         return newStats;
     }
     

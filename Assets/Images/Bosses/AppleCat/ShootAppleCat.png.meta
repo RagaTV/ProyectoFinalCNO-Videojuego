@@ -1,34 +1,28 @@
 fileFormatVersion: 2
-guid: db093992e2365d94c9b7bbcebf4868e4
+guid: 606c8bc7aa37dab43bd85ea59f341922
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4388490154902439849
-    second: AppleCat_Shooting_0
+      213: 4289000192914415882
+    second: ShootAppleCat_0
   - first:
-      213: -8160550243010991617
-    second: AppleCat_Shooting_1
+      213: -7392221192635227327
+    second: ShootAppleCat_1
   - first:
-      213: -4310024191766763366
-    second: AppleCat_Shooting_2
+      213: -7351774012634929420
+    second: ShootAppleCat_2
   - first:
-      213: -3046667104607655948
-    second: AppleCat_Shooting_3
+      213: 7145927997048027190
+    second: ShootAppleCat_3
   - first:
-      213: 5764767849890412893
-    second: AppleCat_Shooting_4
+      213: -5811680482879703693
+    second: ShootAppleCat_4
   - first:
-      213: -6727184329674864555
-    second: AppleCat_Shooting_5
+      213: -2057149417514969249
+    second: ShootAppleCat_5
   - first:
-      213: -7439467015228386712
-    second: AppleCat_Shooting_6
-  - first:
-      213: -5813523884296867222
-    second: AppleCat_Shooting_7
-  - first:
-      213: -3738122824750339979
-    second: AppleCat_Shooting_8
+      213: 4438120004142687088
+    second: ShootAppleCat_6
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -118,190 +112,148 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: AppleCat_Shooting_0
+      name: ShootAppleCat_0
       rect:
         serializedVersion: 2
-        x: 44
-        y: 472
-        width: 375
-        height: 342
+        x: 10
+        y: 77
+        width: 240
+        height: 208
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9a7424f6b8c07ec30800000000000000
-      internalID: 4388490154902439849
+      spriteID: a01ee3c83f6958b30800000000000000
+      internalID: 4289000192914415882
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AppleCat_Shooting_1
+      name: ShootAppleCat_1
       rect:
         serializedVersion: 2
-        x: 433
-        y: 477
-        width: 369
-        height: 337
+        x: 252
+        y: 60
+        width: 221
+        height: 228
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ff92a995ac6efbe80800000000000000
-      internalID: -8160550243010991617
+      spriteID: 143ecdfadfd896990800000000000000
+      internalID: -7392221192635227327
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AppleCat_Shooting_2
+      name: ShootAppleCat_2
       rect:
         serializedVersion: 2
-        x: 823
-        y: 474
-        width: 346
-        height: 336
+        x: 490
+        y: 60
+        width: 219
+        height: 235
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a98e66445d7bf24c0800000000000000
-      internalID: -4310024191766763366
+      spriteID: 4f662f3ac7049f990800000000000000
+      internalID: -7351774012634929420
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AppleCat_Shooting_3
+      name: ShootAppleCat_3
       rect:
         serializedVersion: 2
-        x: 1212
-        y: 473
-        width: 320
-        height: 333
+        x: 718
+        y: 51
+        width: 220
+        height: 225
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4f72ef8096018b5d0800000000000000
-      internalID: -3046667104607655948
+      spriteID: 638f09e07af6b2360800000000000000
+      internalID: 7145927997048027190
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AppleCat_Shooting_4
+      name: ShootAppleCat_4
       rect:
         serializedVersion: 2
-        x: 1562
-        y: 475
-        width: 361
-        height: 322
+        x: 954
+        y: 51
+        width: 221
+        height: 226
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d597f4101d1900050800000000000000
-      internalID: 5764767849890412893
+      spriteID: 37572e57463c85fa0800000000000000
+      internalID: -5811680482879703693
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AppleCat_Shooting_5
+      name: ShootAppleCat_5
       rect:
         serializedVersion: 2
-        x: 26
-        y: 52
-        width: 333
-        height: 352
+        x: 1204
+        y: 65
+        width: 220
+        height: 221
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 558c72b8e7d34a2a0800000000000000
-      internalID: -6727184329674864555
+      spriteID: f575e1701898373e0800000000000000
+      internalID: -2057149417514969249
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AppleCat_Shooting_6
+      name: ShootAppleCat_6
       rect:
         serializedVersion: 2
-        x: 390
-        y: 56
-        width: 322
-        height: 336
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 86293176a24b1c890800000000000000
-      internalID: -7439467015228386712
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: AppleCat_Shooting_7
-      rect:
-        serializedVersion: 2
-        x: 736
+        x: 1446
         y: 58
-        width: 334
-        height: 332
+        width: 221
+        height: 229
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a627c3f14d6325fa0800000000000000
-      internalID: -5813523884296867222
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: AppleCat_Shooting_8
-      rect:
-        serializedVersion: 2
-        x: 1103
-        y: 53
-        width: 331
-        height: 329
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 578e9f7a8158f1cc0800000000000000
-      internalID: -3738122824750339979
+      spriteID: 073ea7d21ae579d30800000000000000
+      internalID: 4438120004142687088
       vertices: []
       indices: 
       edges: []

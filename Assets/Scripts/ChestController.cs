@@ -26,9 +26,7 @@ public class ChestController : MonoBehaviour
         imcoinChest.transform.position = transform.position;
         imcoinChest.transform.position += new Vector3(-0.2f, 0.32f, 0f);
         coinText.text ="- "+ valor;
-        mostrar = StartCoroutine(mostrarCoins());
-        //particulas.Stop();
-    
+        mostrar = StartCoroutine(mostrarCoins());    
     }
 
     // Update is called once per frame
@@ -45,7 +43,6 @@ public class ChestController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            //indicator.transform.position=transform.position+new Vector3(0, 1.5f, 0);
             if(Input.GetKeyDown(KeyCode.E) && alreadyOpened==false){//si puede abrirlo
                 if(CoinController.instance.currentCoins >= valor){
                     //muestra monedas encima del cofre
@@ -58,7 +55,7 @@ public class ChestController : MonoBehaviour
                     SFXManager.instance.PlaySFX(SoundEffect.ChestSound);
                     anim.SetBool("Close", false);
                     alreadyOpened = true;
-                    StartCoroutine(ShowSeconds(1.5f));
+                    StartCoroutine(ShowSeconds(0.7f));
                     
 
                 }else{

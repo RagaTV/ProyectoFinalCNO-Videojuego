@@ -18,12 +18,11 @@ public class BossSpawnManager : MonoBehaviour
     [Header("Configuración Spawn")]
     public float spawnDistance = 10f; // Distancia del jugador a la que aparece
 
-    // Referencias (Arrastralas en el inspector o usa FindObjectOfType)
+    // Referencias
     
     void Update()
     {
-        // Asegurate de tener UIController.instance accesible, si no usa Time.time
-        float currentGameTime =  UIController.instance.gameTimer; // O UIController.instance.gameTimer;
+        float currentGameTime =  UIController.instance.gameTimer;
 
         foreach (BossSpawnEvent bossEvent in bossEvents)
         {
@@ -38,30 +37,21 @@ public class BossSpawnManager : MonoBehaviour
     private IEnumerator SpawnBossSequence(BossSpawnEvent bossEvent)
     {
         
-
-        // 2. Advertencia visual (Logs por ahora)
         Debug.LogWarning("¡⚠️ ALERTA DE JEFE: " + bossEvent.bossName + " ⚠️!");
         
-        // Espera dramática (puedes poner un sonido aquí)
         yield return new WaitForSeconds(2f); 
-
-        // 3. Calcular posición: En un círculo alrededor del jugador
         Vector2 randomDirection = Random.insideUnitCircle.normalized;
         Vector3 spawnPos = PlayerController.instance.transform.position + (Vector3)(randomDirection * spawnDistance);
 
-        // 4. Invocar al Jefe
+        // Invocar al Jefe
         GameObject bossObject = Instantiate(bossEvent.bossPrefab, spawnPos, Quaternion.identity);
 
-        // 5. CONECTAR LA BARRA DE VIDA
-        // Obtenemos TU script del objeto instanciado
-        BossGolluxController bossScript = bossObject.GetComponent<BossGolluxController>();
+        // CONECTAR LA BARRA DE VIDA
+        BossBase bossScript = bossObject.GetComponent<BossBase>();
         
         if (bossScript != null && BossHealthBar.instance != null)
         {
             BossHealthBar.instance.ActivateBossHealth(bossScript, bossEvent.bossName);
         }
-        
-        // (Opcional) Si quieres que la cámara haga algo, hazlo aquí
     }
-    
 }

@@ -11,17 +11,30 @@ public class PauseMenu : MonoBehaviour
 	public static bool AbiertoDesdePausa = false;
 
 	public ConfigurationManager configManager;
+	public GameObject gameOverScreen; 
 
     void Start() 
     {
     	menuPausa.SetActive(false);
     }
 
-    void Update() 
+	void Update()
     {
-    	// Comprueba si la tecla 'esc' ha sido presionada en este frame.
-    	if(Input.GetKeyDown(KeyCode.Escape)){ 
-    		
+        // Si el panel de Game Over está activo, ignora ESC.
+        if (gameOverScreen != null && gameOverScreen.activeSelf)
+        {
+            return;
+        }
+
+        // Si la ruleta está girando, no permitir pausa
+        if (UIController.instance != null && UIController.instance.roulettePanel.activeSelf)
+        {
+            return;
+        }
+
+        // Comprueba si la tecla 'esc' ha sido presionada
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
             // PRIMERO, revisa si el panel de Configuración está abierto
             if (configManager != null && configManager.menuConfiguracionPanel.activeSelf)
             {
@@ -29,20 +42,19 @@ public class PauseMenu : MonoBehaviour
                 configManager.Regresar();
                 
                 // Y nos aseguramos de que el juego SEPA que sigue pausado
-                juegoPausado = true; 
+                juegoPausado = true;
                 Time.timeScale = 0.0f;
             }
-
-            // Si NINGÚN panel especial está abierto, haz la lógica normal
-    		else if(juegoPausado)
-            { 
-    			Reanudar(); 
-    		} 
-            else 
-            { 
-    			Pausar(); 
-    		}
-    	}
+            // Si NINGÚN panel especial está abierto, lógica normal
+            else if(juegoPausado)
+            {
+                Reanudar();
+            }
+            else
+            {
+                Pausar();
+            }
+        }
     }
 
     public void Reanudar(){ 
@@ -62,8 +74,10 @@ public class PauseMenu : MonoBehaviour
     public void Pausar(){ 
 		if (configManager != null && configManager.menuConfiguracionPanel.activeSelf)
         {
-            //    Si cualquiera de los dos está abierto, NO HAGAS NADA.
-            //    Simplemente ignora el clic en el botón de pausa.
+            return;
+        }
+        if (UIController.instance != null && UIController.instance.roulettePanel.activeSelf)
+        {
             return;
         }
 		
@@ -101,8 +115,8 @@ public class PauseMenu : MonoBehaviour
 	    AbiertoDesdePausa = true; 
 	    
 		if (configManager != null){
-	    	configManager.AbrirConfiguracion(); 
-	    }
+	    	configManager.AbrirConfiguracion(); 
+	    }
     }
 
 }

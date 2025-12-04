@@ -16,8 +16,11 @@ public enum SoundEffect
     BananaSound,
     MouseSound,
     ChestSound,
-    KunaiSound
-    // ...añadir todos los necesarios
+    KunaiSound,
+    BolilloSound,
+    HachaSound,
+    SillaSound,
+    BossShoot
 }
 
 [System.Serializable]

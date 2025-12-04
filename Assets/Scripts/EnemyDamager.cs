@@ -23,13 +23,11 @@ public class EnemyDamager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     { 
-        //Destroy(gameObject, lifeTime);
         targetSize = transform.localScale;
         transform.localScale = Vector3.zero;
 
         if (weaponID == null)
         {
-            // Busca en mis padres hasta encontrar el script "Weapon"
             weaponID = GetComponentInParent<Weapon>();
         }
     }
@@ -98,15 +96,14 @@ public class EnemyDamager : MonoBehaviour
                 }
 
                 float finalDamage = (damageAmount * damageAmountMultiplier) * PlayerStats.instance.damageMultiplier;
-                damageable.TakeDamage(finalDamage, shouldKnockBack); // ¡Llama a la interfaz!
+                damageable.TakeDamage(finalDamage, shouldKnockBack); 
                 PlayerStats.instance.AddDamageForWeapon(weaponID, finalDamage);
             }
             else
             {
-                // --- Lógica de daño en el tiempo ---
                 if (!enemiesInrange.Contains(damageable))
                 {
-                    enemiesInrange.Add(damageable); // ¡Añade la interfaz!
+                    enemiesInrange.Add(damageable); 
                 }
             }
         }
@@ -121,7 +118,7 @@ public class EnemyDamager : MonoBehaviour
             {
                 if (enemiesInrange.Contains(damageable))
                 {
-                    enemiesInrange.Remove(damageable); // ¡Quita la interfaz!
+                    enemiesInrange.Remove(damageable); 
                 }
             }
         }

@@ -11,6 +11,9 @@ GameObject:
   - component: {fileID: 7432078174110006297}
   - component: {fileID: 7432078174110006296}
   - component: {fileID: 7432078174110006303}
+  - component: {fileID: 1559117216}
+  - component: {fileID: 1559117215}
+  - component: {fileID: 1559117214}
   m_Layer: 8
   m_Name: BossAppleCat
   m_TagString: Boss
@@ -102,3 +105,72 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!50 &1559117216
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7432078174110006302}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!58 &1559117215
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7432078174110006302}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.031113863, y: -0.13577056}
+  serializedVersion: 2
+  m_Radius: 0.9856006
+--- !u!114 &1559117214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7432078174110006302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12c9bb2eb02bb314d8212aaa6c280027, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 50000
+  currentHealth: 0
+  moveSpeed: 2.5
+  runAnimationSpeed: 1
+  spinDuration: 5
+  spinSpeedMultiplier: 2
+  spinDamage: 25
+  spinDamageInterval: 0.8
+  spinCooldown: 8
+  gunProjectilePrefab: {fileID: 4624326903821469349, guid: 0f5aada9ecba19d4282ddb5174c48259, type: 3}
+  firePoint: {fileID: 0}
+  shootCooldown: 3
+  shootDuration: 1.5
+  shootAnimDelay: 0.1
+  shootSound: 16
+  specialAttackChance: 0.5
+  specialAttackCheckInterval: 10
+  spiralDuration: 4
+  spiralShootRate: 0.1
+  spiralRotationSpeed: 180

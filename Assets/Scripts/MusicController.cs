@@ -4,50 +4,68 @@ using UnityEngine;
 
 public class MusicController : MonoBehaviour
 {
+    public static MusicController instance;
     public AudioSource[] tracks;
     private int currentTrackIndex = -1;
+    private int aux=0;
+    private Coroutine deathMusicCoroutine; // Para controlar la corrutina de retraso
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     void Start()
     {
-        // Al empezar, nos aseguramos de que todas las canciones
-        // estén paradas para tener un inicio limpio.
         StopAllTracks();
-
-        // Empezamos la primera canción (índice 0)
         PlayTrack(0);
     }
 
     void Update()
     {
-        if (PlayerHealthController.instance.deathPlayer)
+        if (PlayerHealthController.instance.deathPlayer && aux==0)
         {
+            aux=1; // Marca que la secuencia de muerte ha comenzado
             StopAllTracks();
-
-            return;
+            
+            // 1. INICIA LA CORRUTINA PARA ESPERAR 3 SEGUNDOS
+            if (deathMusicCoroutine != null) StopCoroutine(deathMusicCoroutine);
+            deathMusicCoroutine = StartCoroutine(StartDeathMusicDelay(4.0f));
+            return; // Salimos del Update para no seguir verificando el tiempo
         }
         
-        float gameTimer = UIController.instance.gameTimer;
-        float minutes = gameTimer / 60f;
+        // Si la corrutina de muerte está corriendo, ignora la lógica de tiempo normal
+        if (deathMusicCoroutine != null) return;
+            
+        // Lógica de cambio de canción por tiempo
+        if(aux==0){
+            float gameTimer = UIController.instance.gameTimer;
+            float minutes = gameTimer / 60f;
 
-
-        // A los 15 minutos
-        if (minutes >= 15f && currentTrackIndex < 3)
-        {
-            PlayTrack(3); // Toca la canción 4
-        }
-        // A los 10 minutos
-        else if (minutes >= 10f && currentTrackIndex < 2)
-        {
-            PlayTrack(2); // Toca la canción 3
-        }
-        // A los 5 minutos
-        else if (minutes >= 5f && currentTrackIndex < 1)
-        {
-            PlayTrack(1); // Toca la canción 2
+            // A los 10 minutos
+            if (minutes >= 10f && currentTrackIndex < 2)
+            {
+                PlayTrack(2); // Toca la canción 3
+            }
+            // A los 5 minutos
+            else if (minutes >= 5f && currentTrackIndex < 1)
+            {
+                PlayTrack(1); // Toca la canción 2
+            }
         }
     }
 
-    void PlayTrack(int trackIndex)
+    private IEnumerator StartDeathMusicDelay(float delay)
+    {
+        yield return new WaitForSecondsRealtime(delay); 
+
+        // 2. Toca la canción después del retraso
+        PlayTrack(4);
+        deathMusicCoroutine = null; // Marca la corrutina como terminada
+    }
+
+
+    public void PlayTrack(int trackIndex)
     {
         // Si ya estamos tocando esta canción
         if (trackIndex == currentTrackIndex) return;
@@ -60,7 +78,7 @@ public class MusicController : MonoBehaviour
         tracks[trackIndex].Play();
     }
 
-    void StopAllTracks()
+    public void StopAllTracks()
     {
         foreach (AudioSource track in tracks)
         {
