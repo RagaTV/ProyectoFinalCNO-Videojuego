@@ -188,9 +188,10 @@ public class BossFroggerController : BossBase
             bool isPlayer = obstacle.gameObject.CompareTag("Player");
             bool isEnemy = obstacle.gameObject.CompareTag("Enemy");
             bool isBoss = obstacle.gameObject.CompareTag("Boss");
+            bool isWeapon = obstacle.GetComponent<EnemyDamager>() != null;
             bool isPickup = obstacle.GetComponent<CoinPickup>() != null || obstacle.GetComponent<ExpPickup>() != null;
             
-            shouldAvoid = !isPlayer && !isEnemy && !isBoss && !isPickup;
+            shouldAvoid = !isPlayer && !isEnemy && !isBoss && !isWeapon && !isPickup;
         }
 
         if (shouldAvoid)

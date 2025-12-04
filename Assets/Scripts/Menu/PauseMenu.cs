@@ -18,40 +18,44 @@ public class PauseMenu : MonoBehaviour
     	menuPausa.SetActive(false);
     }
 
-	void Update() 
-    {
+	void Update()
+    {
         // Si el panel de Game Over está activo, ignora ESC.
         if (gameOverScreen != null && gameOverScreen.activeSelf)
         {
             return;
         }
 
+        // Si la ruleta está girando, no permitir pausa
+        if (UIController.instance != null && UIController.instance.roulettePanel.activeSelf)
+        {
+            return;
+        }
 
-    	// Comprueba si la tecla 'esc' ha sido presionada
-    	if(Input.GetKeyDown(KeyCode.Escape)){ 
-    		
-            // PRIMERO, revisa si el panel de Configuración está abierto
-            if (configManager != null && configManager.menuConfiguracionPanel.activeSelf)
-            {
-                // Si SÍ está abierto, "Escape" actúa como el botón "Regresar"
-                configManager.Regresar();
-                
-                // Y nos aseguramos de que el juego SEPA que sigue pausado
-                juegoPausado = true; 
-                Time.timeScale = 0.0f;
-            }
-
-            // Si NINGÚN panel especial está abierto, haz la lógica normal
-    		else if(juegoPausado)
-            { 
-    			Reanudar(); 
-    		} 
-            else 
-            { 
-    			Pausar(); 
-    		}
-    	}
-    }
+        // Comprueba si la tecla 'esc' ha sido presionada
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            // PRIMERO, revisa si el panel de Configuración está abierto
+            if (configManager != null && configManager.menuConfiguracionPanel.activeSelf)
+            {
+                // Si SÍ está abierto, "Escape" actúa como el botón "Regresar"
+                configManager.Regresar();
+                
+                // Y nos aseguramos de que el juego SEPA que sigue pausado
+                juegoPausado = true;
+                Time.timeScale = 0.0f;
+            }
+            // Si NINGÚN panel especial está abierto, haz la lógica normal
+            else if(juegoPausado)
+            {
+                Reanudar();
+            }
+            else
+            {
+                Pausar();
+            }
+        }
+    }
 
     public void Reanudar(){ 
 		SFXManager.instance.PlaySFX(SoundEffect.UIClick);
@@ -72,6 +76,12 @@ public class PauseMenu : MonoBehaviour
         {
             //    Si cualquiera de los dos está abierto, NO HAGAS NADA.
             //    Simplemente ignora el clic en el botón de pausa.
+            return;
+        }
+
+        // Si la ruleta está girando, no permitir pausa
+        if (UIController.instance != null && UIController.instance.roulettePanel.activeSelf)
+        {
             return;
         }
 		
@@ -109,8 +119,8 @@ public class PauseMenu : MonoBehaviour
 	    AbiertoDesdePausa = true; 
 	    
 		if (configManager != null){
-	    	configManager.AbrirConfiguracion(); 
-	    }
+	    	configManager.AbrirConfiguracion(); 
+	    }
     }
 
 }

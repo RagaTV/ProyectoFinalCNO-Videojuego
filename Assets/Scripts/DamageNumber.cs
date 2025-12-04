@@ -28,10 +28,32 @@ public class DamageNumber : MonoBehaviour
         transform.position += Vector3.up * floatSpeed * Time.deltaTime;
     }
     
+    private float originalSpeed;
+
+    private void Awake()
+    {
+        originalSpeed = floatSpeed;
+    }
+
     public void Setup (int damageDisplay)
     {
+        floatSpeed = originalSpeed; // Resetear velocidad normal
         lifeCounter = lifeTime;
-
         damageText.text = damageDisplay.ToString();
+    }
+
+    public void Setup(string textDisplay, float customSpeed = -1f)
+    {
+        lifeCounter = lifeTime;
+        damageText.text = textDisplay;
+        
+        if (customSpeed >= 0)
+        {
+            floatSpeed = customSpeed;
+        }
+        else
+        {
+            floatSpeed = originalSpeed;
+        }
     }
 }

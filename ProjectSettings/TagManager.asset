@@ -8,6 +8,8 @@ TagManager:
   - Boss
   - WeaponProjectile
   - Chest
+  - Coin
+  - Exp
   layers:
   - Default
   - TransparentFX

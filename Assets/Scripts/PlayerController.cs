@@ -23,13 +23,14 @@ public class PlayerController : MonoBehaviour
     public List<Weapon> unassignedWeapons, assignedWeapons;
     public List<PassiveItem> unassignedPassives, assignedPassives;
     public Dictionary<PassiveItem, int> passiveLevels;
+    private Vector3 firstPosition;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         healthController = GetComponent<PlayerHealthController>();
-
+        firstPosition = transform.position;
         passiveLevels = new Dictionary<PassiveItem, int>();
 
         /*if (unassignedWeapons.Count > 0)
@@ -130,6 +131,13 @@ public class PlayerController : MonoBehaviour
         {
             w.gameObject.SetActive(false);
         }
+        
+        // Limpiar cofres y pickups al morir
+        if (EnemySpawner.instance != null)
+        {
+            EnemySpawner.instance.CleanUpPickupsAndChests();
+        }
+
         this.enabled = false;
     }
 
@@ -173,5 +181,23 @@ public class PlayerController : MonoBehaviour
 
         passiveToUpgrade.ApplyLevel(statsToApply);
         
+    }
+
+    public void SetWeaponsActive(bool active)
+    {
+        foreach (Weapon w in assignedWeapons)
+        {
+            w.gameObject.SetActive(active);
+        }
+    }
+
+    public void ResetPosition()
+    {
+        transform.position = firstPosition;
+        rb.velocity = Vector2.zero;
+        if (anim != null)
+        {
+            anim.SetBool("isMoving", false);
+        }
     }
 }

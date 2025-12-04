@@ -33,6 +33,12 @@ public abstract class BossBase : MonoBehaviour, IDamageable
     protected virtual void Die()
     {
         Debug.Log(gameObject.name + " has been defeated!");
+        
+        if (StoryManager.instance != null)
+        {
+            StoryManager.instance.OnBossDefeated(gameObject.name);
+        }
+
         Destroy(gameObject);
     }
 }

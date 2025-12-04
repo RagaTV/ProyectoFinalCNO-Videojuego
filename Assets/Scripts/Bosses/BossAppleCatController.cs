@@ -132,7 +132,32 @@ public class BossAppleCatController : BossBase
 
         // Siempre corre hacia el jugador
         Vector2 dir = (target.position - transform.position).normalized;
-        rb.velocity = dir * moveSpeed;
+        
+        // Obstacle Avoidance
+        Vector2 checkPos = (Vector2)transform.position + dir * 0.5f;
+        Collider2D obstacle = Physics2D.OverlapCircle(checkPos, 0.5f);
+        
+        bool shouldAvoid = false;
+        if (obstacle != null && obstacle.gameObject != this.gameObject)
+        {
+            bool isPlayer = obstacle.gameObject.CompareTag("Player");
+            bool isEnemy = obstacle.gameObject.CompareTag("Enemy");
+            bool isBoss = obstacle.gameObject.CompareTag("Boss");
+            bool isWeapon = obstacle.GetComponent<EnemyDamager>() != null;
+            bool isPickup = obstacle.GetComponent<CoinPickup>() != null || obstacle.GetComponent<ExpPickup>() != null;
+            
+            shouldAvoid = !isPlayer && !isEnemy && !isBoss && !isWeapon && !isPickup;
+        }
+
+        if (shouldAvoid)
+        {
+            Vector2 perp = Vector2.Perpendicular(dir);
+            rb.velocity = perp * moveSpeed * 0.8f;
+        }
+        else
+        {
+            rb.velocity = dir * moveSpeed;
+        }
         
         // Animación de correr siempre activa
         anim.Play("Running"); 
@@ -212,7 +237,7 @@ public class BossAppleCatController : BossBase
 
         yield return new WaitForSeconds(shootDuration - 0.5f); // Resto de la animación
 
-        shootCounter = shootCooldown;
+        shootCounter = Random.Range(1f, 3f); // Random cooldown entre 1 y 3 segundos
         ChangeState(BossState.Running);
     }
 

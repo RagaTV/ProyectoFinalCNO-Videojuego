@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae44e9cce29daa54abe792d4b0783293, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 2000
+  maxHealth: 5000
   currentHealth: 0
   moveSpeed: 2
   damage: 10
@@ -165,5 +165,11 @@ MonoBehaviour:
   dashDamageMultiplier: 2
   dashCooldown: 10
   dashMinDistance: 4
+  dashTimeout: 3
   attackDuration: 1
-  deathDelay: 1.5
+  deathFadeDuration: 1.5
+  deathParticlePrefab: {fileID: 0}
+  useProceduralParticles: 1
+  particleColor1: {r: 1, g: 0.3, b: 0, a: 1}
+  particleColor2: {r: 0.8, g: 0, b: 0, a: 1}
+  particleCount: 30

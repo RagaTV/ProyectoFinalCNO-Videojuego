@@ -154,13 +154,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12c9bb2eb02bb314d8212aaa6c280027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 20000
+  maxHealth: 50000
   currentHealth: 0
   moveSpeed: 2.5
   runAnimationSpeed: 1
   spinDuration: 5
   spinSpeedMultiplier: 2
-  spinDamage: 15
+  spinDamage: 25
   spinDamageInterval: 0.8
   spinCooldown: 8
   gunProjectilePrefab: {fileID: 4624326903821469349, guid: 0f5aada9ecba19d4282ddb5174c48259, type: 3}
