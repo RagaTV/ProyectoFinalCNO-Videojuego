@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro; // ¡Asegúrate de tener esto si usas TextMeshPro!
+using TMPro;
 
 public class BossHealthBar : MonoBehaviour
 {
@@ -12,7 +12,7 @@ public class BossHealthBar : MonoBehaviour
     public TMP_Text bossNameText;      // Arrastra "BossName"
     public TMP_Text hpText;            // Arrastra "HealthText"
 
-    private BossGolluxController activeBoss;
+    private BossBase activeBoss;
 
     void Awake()
     {
@@ -41,7 +41,7 @@ public class BossHealthBar : MonoBehaviour
         }
     }
 
-    public void ActivateBossHealth(BossGolluxController boss, string name)
+    public void ActivateBossHealth(BossBase boss, string name)
     {
         activeBoss = boss;
         

@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossGolluxController : MonoBehaviour, IDamageable
+public class BossGolluxController : BossBase
 {
-    [Header("Stats Base")]
-    public float maxHealth = 1000f;
-    [HideInInspector]
-    public float currentHealth;
+    // [Header("Stats Base")] -> Inherited from BossBase
+    // public float maxHealth = 1000f; -> Inherited
+    // [HideInInspector]
+    // public float currentHealth; -> Inherited
+    
     public float moveSpeed = 2f;
     public float damage = 10f;
     
@@ -68,11 +69,10 @@ public class BossGolluxController : MonoBehaviour, IDamageable
         }
     }
     
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         target = PlayerController.instance.transform;
-
-        currentHealth = maxHealth;
         
         hitCounter = 0;
         dashCooldownCounter = dashCooldown; // Empieza en cooldown
@@ -319,7 +319,7 @@ public class BossGolluxController : MonoBehaviour, IDamageable
         Debug.Log("Gollux ataca (Básico)!");
     }
 
-    void Die()
+    protected override void Die()
     {
         // 1. EVITAR QUE SIGA MOLESTANDO
         GetComponent<Collider2D>().enabled = false;
@@ -462,46 +462,25 @@ public class BossGolluxController : MonoBehaviour, IDamageable
         }
     }
 
-    public void TakeDamage(float damageToTake)
+    public override void TakeDamage(float damageToTake)
     {
-        if (currentHealth <= 0)
-        {
-            return;
-        }
+        if (currentHealth <= 0) return;
 
-        currentHealth -= damageToTake;
+        base.TakeDamage(damageToTake);
         
         // (Opcional: Llama a tu barra de vida de jefe aquí)
         // BossHealthBar.instance.UpdateHealth(currentHealth);
         
-        if (currentHealth <= 0)
-        {
-            Die();
-        } 
-        else 
+        if (currentHealth > 0) 
         {
             // Solo efecto visual, NO cambia de estado
             StartCoroutine(FlashDamage());
         }
-        
-        // Muestra el número de daño
-        DamageNumberController.instance.SpawnDamage(damageToTake, transform.position);
     }
-
-    // El jefe no puede ser empujado, así que esta función
-    // simplemente llama a la otra.
-    public void TakeDamage(float damageToTake, bool shouldKnockBack)
-    {
-        TakeDamage(damageToTake);
-        
-        // (No aplicamos knockback al jefe)
-        // if (shouldKnockBack) { ... }
-    }
-
     private IEnumerator FlashDamage()
     {
         spriteRenderer.color = Color.red;
         yield return new WaitForSeconds(0.1f); 
-        spriteRenderer.color = originalSpriteColor; // Usa el color guardado en Awake
+        spriteRenderer.color = Color.white; // Usa el color guardado en Awake
     }
 }

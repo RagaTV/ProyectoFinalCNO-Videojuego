@@ -38,7 +38,6 @@ public class BossSpawnManager : MonoBehaviour
     private IEnumerator SpawnBossSequence(BossSpawnEvent bossEvent)
     {
         
-
         // 2. Advertencia visual (Logs por ahora)
         Debug.LogWarning("¡⚠️ ALERTA DE JEFE: " + bossEvent.bossName + " ⚠️!");
         
@@ -54,7 +53,7 @@ public class BossSpawnManager : MonoBehaviour
 
         // 5. CONECTAR LA BARRA DE VIDA
         // Obtenemos TU script del objeto instanciado
-        BossGolluxController bossScript = bossObject.GetComponent<BossGolluxController>();
+        BossBase bossScript = bossObject.GetComponent<BossBase>();
         
         if (bossScript != null && BossHealthBar.instance != null)
         {
