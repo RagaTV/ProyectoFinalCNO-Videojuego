@@ -467,6 +467,7 @@ public class BossGolluxController : BossBase
         if (currentHealth <= 0) return;
 
         base.TakeDamage(damageToTake);
+        DamageNumberController.instance.SpawnDamage(damageToTake, transform.position);
         
         // (Opcional: Llama a tu barra de vida de jefe aquí)
         // BossHealthBar.instance.UpdateHealth(currentHealth);

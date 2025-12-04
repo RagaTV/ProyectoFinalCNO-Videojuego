@@ -12,7 +12,6 @@ public class StoryManager : MonoBehaviour
     }
 
     private bool startDialogueShown = false;
-    private bool midGameDialogueShown = false;
 
     private void Update()
     {
@@ -39,10 +38,15 @@ public class StoryManager : MonoBehaviour
         float speed = 0.5f;
 
         yield return new WaitForSeconds(1f);
+        pos = PlayerController.instance.transform.position + Vector3.up * 2f;
         DamageNumberController.instance.SpawnFloatingText("¿Dónde estoy?...", pos, speed);
+        
         yield return new WaitForSeconds(3f);
+        pos = PlayerController.instance.transform.position + Vector3.up * 2f;
         DamageNumberController.instance.SpawnFloatingText("No recuerdo nada...", pos, speed);
+        
         yield return new WaitForSeconds(3f);
+        pos = PlayerController.instance.transform.position + Vector3.up * 2f;
         DamageNumberController.instance.SpawnFloatingText("Debo salir de aquí.", pos, speed);
     }
 
@@ -55,26 +59,41 @@ public class StoryManager : MonoBehaviour
 
         if (bossName.Contains("Frogger") || bossName.Contains("Rana"))
         {
+            pos = PlayerController.instance.transform.position + Vector3.up * 2f;
             DamageNumberController.instance.SpawnFloatingText("¿Qué era esa cosa?", pos, speed);
+            
             yield return new WaitForSeconds(3f);
+            pos = PlayerController.instance.transform.position + Vector3.up * 2f;
             DamageNumberController.instance.SpawnFloatingText("He encontrado una fotografía...", pos, speed);
+            
             yield return new WaitForSeconds(3f);
+            pos = PlayerController.instance.transform.position + Vector3.up * 2f;
             DamageNumberController.instance.SpawnFloatingText("Parece... mi familia.", pos, speed);
         }
         else if (bossName.Contains("Gollux") || bossName.Contains("Eye"))
         {
+            pos = PlayerController.instance.transform.position + Vector3.up * 2f;
             DamageNumberController.instance.SpawnFloatingText("Otra pesadilla terminada.", pos, speed);
+            
             yield return new WaitForSeconds(3f);
+            pos = PlayerController.instance.transform.position + Vector3.up * 2f;
             DamageNumberController.instance.SpawnFloatingText("Hay una nota en el suelo...", pos, speed);
+            
             yield return new WaitForSeconds(3f);
+            pos = PlayerController.instance.transform.position + Vector3.up * 2f;
             DamageNumberController.instance.SpawnFloatingText("'Busca las píldoras de la verdad'", pos, speed);
         }
         else if (bossName.Contains("Apple") || bossName.Contains("Cat"))
         {
+            pos = PlayerController.instance.transform.position + Vector3.up * 2f;
             DamageNumberController.instance.SpawnFloatingText("Todo se desvanece...", pos, speed);
+            
             yield return new WaitForSeconds(3f);
+            pos = PlayerController.instance.transform.position + Vector3.up * 2f;
             DamageNumberController.instance.SpawnFloatingText("Esas luces... ¿son de un hospital?", pos, speed);
+            
             yield return new WaitForSeconds(3f);
+            pos = PlayerController.instance.transform.position + Vector3.up * 2f;
             DamageNumberController.instance.SpawnFloatingText("Al fin... silencio.", pos, speed);
             yield return new WaitForSeconds(3f);
 

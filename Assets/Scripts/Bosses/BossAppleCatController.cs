@@ -47,6 +47,16 @@ public class BossAppleCatController : BossBase
 
     private Color originalSpriteColor = Color.white;
 
+    [Header("Muerte y Loot")]
+    public float deathFadeDuration = 1.5f; 
+    
+    [Header("Partículas de Muerte")]
+    public GameObject deathParticlePrefab; 
+    public bool useProceduralParticles = true; 
+    public Color particleColor1 = new Color(1f, 0.3f, 0f); 
+    public Color particleColor2 = new Color(0.8f, 0f, 0f); 
+    public int particleCount = 30; 
+
     void Awake()
     {
         anim = GetComponent<Animator>();
@@ -338,5 +348,114 @@ public class BossAppleCatController : BossBase
         spriteRenderer.color = Color.red;
         yield return new WaitForSeconds(0.1f);
         spriteRenderer.color = originalSpriteColor;
+    }
+    protected override void Die()
+    {
+        GetComponent<Collider2D>().enabled = false;
+        rb.velocity = Vector2.zero;
+        this.enabled = false; 
+
+        Debug.Log("¡El Boss ha sido derrotado!");
+
+        if (StoryManager.instance != null)
+        {
+            StoryManager.instance.OnBossDefeated(gameObject.name);
+        }
+
+        SpawnDeathParticles();
+        StartCoroutine(DeathFadeOut());
+    }
+    
+    void SpawnDeathParticles()
+    {
+        if (deathParticlePrefab != null)
+        {
+            GameObject particles = Instantiate(deathParticlePrefab, transform.position, Quaternion.identity);
+            Destroy(particles, 3f); 
+            return;
+        }
+        
+        if (useProceduralParticles)
+        {
+            CreateProceduralParticles();
+        }
+    }
+    
+    void CreateProceduralParticles()
+    {
+        GameObject particleObj = new GameObject("BossDeathParticles");
+        particleObj.transform.position = transform.position;
+        
+        ParticleSystem ps = particleObj.AddComponent<ParticleSystem>();
+        
+        var main = ps.main;
+        main.startLifetime = 1.5f; 
+        main.startSpeed = 5f; 
+        main.startSize = 0.3f; 
+        main.maxParticles = particleCount;
+        main.simulationSpace = ParticleSystemSimulationSpace.World; 
+        
+        var colorOverLifetime = ps.colorOverLifetime;
+        colorOverLifetime.enabled = true;
+        Gradient gradient = new Gradient();
+        gradient.SetKeys(
+            new GradientColorKey[] { 
+                new GradientColorKey(particleColor1, 0.0f),  
+                new GradientColorKey(particleColor2, 0.5f),  
+                new GradientColorKey(Color.black, 1.0f)      
+            },
+            new GradientAlphaKey[] { 
+                new GradientAlphaKey(1.0f, 0.0f),   
+                new GradientAlphaKey(0.8f, 0.5f),   
+                new GradientAlphaKey(0.0f, 1.0f)    
+            }
+        );
+        colorOverLifetime.color = gradient;
+        
+        var sizeOverLifetime = ps.sizeOverLifetime;
+        sizeOverLifetime.enabled = true;
+        AnimationCurve curve = new AnimationCurve();
+        curve.AddKey(0.0f, 1.0f);  
+        curve.AddKey(1.0f, 0.0f);  
+        sizeOverLifetime.size = new ParticleSystem.MinMaxCurve(1f, curve);
+        
+        var emission = ps.emission;
+        emission.enabled = true;
+        emission.rateOverTime = 0; 
+        
+        var shape = ps.shape;
+        shape.enabled = true;
+        shape.shapeType = ParticleSystemShapeType.Sphere;
+        shape.radius = 0.5f; 
+        
+        var forceOverLifetime = ps.forceOverLifetime;
+        forceOverLifetime.enabled = true;
+        forceOverLifetime.y = -2f; 
+        
+        ps.Emit(particleCount);
+        
+        Destroy(particleObj, main.startLifetime.constant + 0.5f);
+    }
+    
+    private IEnumerator DeathFadeOut()
+    {
+        float elapsed = 0f;
+        Color startColor = spriteRenderer.color;
+        
+        while (elapsed < deathFadeDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / deathFadeDuration;
+            
+            Color currentColor = Color.Lerp(startColor, Color.black, t);
+            currentColor.a = Mathf.Lerp(1f, 0f, t);
+            
+            spriteRenderer.color = currentColor;
+            
+            yield return null;
+        }
+        
+        spriteRenderer.color = new Color(0, 0, 0, 0);
+        Destroy(gameObject);
     }
 }
