@@ -19,8 +19,8 @@ public enum SoundEffect
     KunaiSound,
     BolilloSound,
     HachaSound,
-    SillaSound
-    // ...añadir todos los necesarios
+    SillaSound,
+    BossShoot
 }
 
 [System.Serializable]
