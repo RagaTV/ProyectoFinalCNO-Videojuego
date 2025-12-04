@@ -12,7 +12,7 @@ public class MenuEffects : MonoBehaviour
     public float tiempoDeTransicion = 1.0f;
     public float alphaDeseado = 0.5f;
 
-    // 🆕 Configuración de movimiento y escala
+    // Configuración de movimiento y escala
     public Vector2 rangoMovimientoHorizontal = new Vector2(-150f, 150f); // Rango de desplazamiento
     public Vector2 rangoMovimientoVertical = new Vector2(-75f, 75f);     // Rango de desplazamiento
     public Vector2 rangoEscala = new Vector2(1.0f, 1.2f);             // Rango de escala (ej. 100% a 120%)

@@ -13,7 +13,7 @@ public class BossFroggerController : BossBase
     [Header("Spit Attack")]
     public GameObject spitProjectilePrefab;
     public float spitCooldown = 5f;
-    public float spitRange = 15f; // Aumentado para que dispare desde lejos
+    public float spitRange = 15f; // Rango aumentado
     public int spitCount = 8; // 8 proyectiles
     public float spitSpread = 90f; // Ángulo más abierto para 8 balas
     private float spitCounter;
@@ -26,7 +26,7 @@ public class BossFroggerController : BossBase
 
     [Header("Tongue Attack")]
     public float tongueCooldown = 3f;
-    public float tongueRange = 1.8f; // ¡Muy cerca! (Antes 3f)
+    public float tongueRange = 1.8f; // Muy cerca
     public Vector2 tongueAttackSize = new Vector2(2.5f, 1.5f); // Tamaño del área de golpe
     public float tongueAttackOffset = 1.5f; // Qué tan adelante golpea
     public float tongueAttackOffsetY = 0.5f; // Qué tan arriba golpea
@@ -98,7 +98,7 @@ public class BossFroggerController : BossBase
         if (tongueCounter > 0) tongueCounter -= Time.deltaTime;
         if (healCounter > 0) healCounter -= Time.deltaTime;
 
-        // Special Attack Timer (Cada 10s chequea 10% de probabilidad)
+        // Temporizador de Ataque Especial
         specialAttackCheckTimer -= Time.deltaTime;
         if (specialAttackCheckTimer <= 0)
         {
@@ -111,10 +111,10 @@ public class BossFroggerController : BossBase
         }
 
         // Sprite Flip
-        // Sprite Flip (SOLO si no está atacando)
+        // Voltear Sprite
         if (currentHealth > 0 && (currentState == BossState.Moving || currentState == BossState.Idle))
         {
-            // INVERTIDO: Si el sprite original mira a la IZQUIERDA, usa esto.
+            // Invertido si el sprite mira a la izquierda
             // Si mira a la DERECHA, invierte los true/false.
             if (target.position.x > transform.position.x) spriteRenderer.flipX = false;
             else spriteRenderer.flipX = true;
@@ -220,7 +220,7 @@ public class BossFroggerController : BossBase
     IEnumerator SpitRoutine()
     {
         ChangeState(BossState.Attacking);
-        rb.velocity = Vector2.zero; // ¡Frenar en seco!
+        rb.velocity = Vector2.zero; // Detener inmediatamente
         anim.SetBool("IsMoving", false);
         anim.SetTrigger("Spit");
 
@@ -228,12 +228,12 @@ public class BossFroggerController : BossBase
 
         if (spitProjectilePrefab != null)
         {
-            // OLA 1
+            // Ola 1
             FireSpitWave();
             
-            yield return new WaitForSeconds(0.3f); // Pequeña pausa entre olas
+            yield return new WaitForSeconds(0.3f); // Pausa corta
             
-            // OLA 2
+            // Ola 2
             FireSpitWave();
         }
 
@@ -275,7 +275,7 @@ public class BossFroggerController : BossBase
         rb.velocity = Vector2.zero;
         anim.SetBool("IsMoving", false);
         
-        // Usamos la animación de Idle como pediste
+        // Usar animación Idle
         anim.Play("Idle"); 
 
         yield return new WaitForSeconds(0.5f); // Preparación
@@ -324,7 +324,7 @@ public class BossFroggerController : BossBase
         yield return new WaitForSeconds(0.4f); // Wait for hit frame
 
         // Check distance again
-        // USAMOS UNA CAJA (Hitbox) en lugar de distancia simple
+        // Usar Hitbox
         // Esto permite ver el área de golpe en el editor
         
         Vector2 center = transform.position;
@@ -407,7 +407,7 @@ public class BossFroggerController : BossBase
         spriteRenderer.color = originalSpriteColor;
     }
 
-    // DIBUJAR EL GIZMO EN EL EDITOR PARA VER EL RANGO
+    // Dibujar Gizmo
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
@@ -415,7 +415,6 @@ public class BossFroggerController : BossBase
 
         Gizmos.color = Color.red;
         // Calcular el centro del hitbox basado en hacia dónde miraría por defecto (derecha)
-        // Nota: En el editor estático no sabemos el flip, así que dibujamos ambos o asumimos derecha
         Vector2 center = transform.position;
         Vector2 rightCenter = center + new Vector2(tongueAttackOffset, tongueAttackOffsetY);
         Gizmos.DrawWireCube(rightCenter, tongueAttackSize);

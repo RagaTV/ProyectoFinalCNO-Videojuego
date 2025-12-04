@@ -9,8 +9,8 @@ public class EnemyController : MonoBehaviour, IDamageable
     private SpriteRenderer spriteEnemy;
     private Color originalColor;
     
-    // --- NUEVA ESTRUCTURA DE STATS ---
-    [Header("Stats Base (del Inspector)")]
+    // --- Estructura de Stats ---
+    [Header("Stats Base")]
     public float baseMoveSpeed = 3f;
     public float baseDamageAmount = 1f;
     public float baseMaxHealth = 2f;
@@ -25,7 +25,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     private float knockBackTime = 0.25f;
     private float knockBackCounter;
 
-    // "Stats Actuales" que se escalan y se usan en combate
+    // Stats Actuales
     private float currentMoveSpeed;
     private float currentDamageAmount;
     private float currentMaxHealth;
@@ -110,7 +110,7 @@ public class EnemyController : MonoBehaviour, IDamageable
             currentMaxHealth = baseMaxHealth * healthMultiplier;
             currentDamageAmount = baseDamageAmount * damageMultiplier;
 
-            // --- CORRECCIÓN CLAVE: ESCALAR LA VIDA ACTUAL ---
+            // --- Escalar Vida Actual ---
             // Asegura que la vida actual crezca en proporción a la vida máxima para que no muera de un golpe
             float maxHealthIncrease = currentMaxHealth - oldMaxHealth;
             currentHealth += maxHealthIncrease;
@@ -133,7 +133,7 @@ public class EnemyController : MonoBehaviour, IDamageable
 
         if (target != null)
         {
-            // --- DETECCIÓN INTELIGENTE DE OBSTÁCULOS ---
+            // --- Detección de Obstáculos ---
             Vector2 dirToPlayer = (target.position - transform.position).normalized;
             
             // Chequea si hay algo adelante
@@ -193,7 +193,7 @@ public class EnemyController : MonoBehaviour, IDamageable
             {
                 if (healthController != null && !healthController.deathPlayer)
                 {
-                    // --- USA EL DAÑO ESCALADO ---
+                    // --- Usar Daño Escalado ---
                     healthController.TakeDamage(currentDamageAmount);
                     
                     // ... (lógica de knockback) ...

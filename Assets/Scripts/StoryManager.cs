@@ -19,7 +19,7 @@ public class StoryManager : MonoBehaviour
 
         float minutes = UIController.instance.gameTimer / 60f;
 
-        // Diálogo Inicial (5 segundos)
+        // Diálogo Inicial
         if (minutes >= 0.08f && !startDialogueShown) // ~5 seg
         {
             startDialogueShown = true;
@@ -108,7 +108,7 @@ public class StoryManager : MonoBehaviour
                 yield return new WaitForSeconds(2f);
             }
 
-            // Música Final (Track 4)
+            // Música Final
             if (MusicController.instance != null)
             {
                 MusicController.instance.PlayTrack(4);

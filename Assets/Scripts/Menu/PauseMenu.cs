@@ -45,7 +45,7 @@ public class PauseMenu : MonoBehaviour
                 juegoPausado = true;
                 Time.timeScale = 0.0f;
             }
-            // Si NINGÚN panel especial está abierto, haz la lógica normal
+            // Si NINGÚN panel especial está abierto, lógica normal
             else if(juegoPausado)
             {
                 Reanudar();
@@ -74,12 +74,8 @@ public class PauseMenu : MonoBehaviour
     public void Pausar(){ 
 		if (configManager != null && configManager.menuConfiguracionPanel.activeSelf)
         {
-            //    Si cualquiera de los dos está abierto, NO HAGAS NADA.
-            //    Simplemente ignora el clic en el botón de pausa.
             return;
         }
-
-        // Si la ruleta está girando, no permitir pausa
         if (UIController.instance != null && UIController.instance.roulettePanel.activeSelf)
         {
             return;

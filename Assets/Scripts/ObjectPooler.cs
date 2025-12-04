@@ -70,7 +70,7 @@ public class ObjectPooler : MonoBehaviour
                 return GetRandomPooledObject(2); // Hard
         }
 
-        // Más de 12 min → solo Hard (puedes ajustar)
+        // Más de 12 min → solo Hard 
         else
         {
             return GetRandomPooledObject(2);

@@ -44,7 +44,7 @@ public class BossGunProjectile : MonoBehaviour
             }
             Destroy(gameObject);
         }
-        else if (other.gameObject.layer == LayerMask.NameToLayer("Obstacles")) // Asegúrate de tener esta capa o usa tags
+        else if (other.gameObject.layer == LayerMask.NameToLayer("Obstacles")) 
         {
             Destroy(gameObject);
         }

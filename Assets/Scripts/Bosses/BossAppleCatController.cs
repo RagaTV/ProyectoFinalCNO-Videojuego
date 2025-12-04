@@ -98,7 +98,7 @@ public class BossAppleCatController : BossBase
         // Special Attack Timer
         if (specialAttackTimer > 0) specialAttackTimer -= Time.deltaTime;
 
-        // Sprite Flip (Siempre mira al jugador, excepto si está girando locamente)
+        // Voltear Sprite
         if (currentHealth > 0 && !isSpinning && currentState != BossState.SpecialSpinning)
         {
             if (target.position.x > transform.position.x) spriteRenderer.flipX = true;
@@ -188,7 +188,7 @@ public class BossAppleCatController : BossBase
 
     void HandleSpinningState()
     {
-        // Sigue persiguiendo pero con "inercia" (Lerp) para no ser tan preciso
+        // Perseguir con inercia
         Vector2 dirToTarget = (target.position - transform.position).normalized;
         
         // Lerp de la velocidad actual hacia la dirección deseada
@@ -208,7 +208,7 @@ public class BossAppleCatController : BossBase
         while (timer < spinDuration)
         {
             timer += Time.deltaTime;
-            // Rotación visual loca (opcional)
+            // Rotación visual
             // transform.Rotate(Vector3.forward * 720 * Time.deltaTime); 
             yield return null;
         }
@@ -255,10 +255,10 @@ public class BossAppleCatController : BossBase
     {
         ChangeState(BossState.SpecialSpinning);
         
-        // Espera de 1 segundo antes de empezar (para no encimarse con otros ataques)
+        // Esperar 1 segundo
         yield return new WaitForSeconds(1f);
 
-        isSpinning = true; // Para que haga daño al contacto también
+        isSpinning = true; // Activar daño por contacto
         anim.Play("Spinning"); // Reusamos la animación de giro
 
         float timer = 0f;
@@ -278,7 +278,7 @@ public class BossAppleCatController : BossBase
 
                 if (gunProjectilePrefab != null)
                 {
-                    // Reproducir sonido (opcional, cuidado con saturar)
+                    // Reproducir sonido
                     // if (SFXManager.instance != null) SFXManager.instance.PlaySFX(shootSound);
 
                     Vector3 spawnPos = firePoint != null ? firePoint.position : transform.position;

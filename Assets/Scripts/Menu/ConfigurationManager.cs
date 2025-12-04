@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI; 
-using UnityEngine.Audio; // NECESARIO para AudioMixer
-using TMPro; // NECESARIO para usar TextMeshProUGUI
+using UnityEngine.Audio; 
+using TMPro;
 
 public class ConfigurationManager : MonoBehaviour
 {
@@ -82,7 +82,6 @@ public class ConfigurationManager : MonoBehaviour
     {
         if (mainMixer == null) return;
 
-        // FIX: Asegura que el volumen nunca es 0 para evitar errores logarítmicos, usando 0.0001f como mínimo.
         float clampedVolume = Mathf.Max(0.0001f, volume); 
         
         // Convierte el valor lineal del slider (0.0001 a 1) a Decibelios (-80dB a 0dB)

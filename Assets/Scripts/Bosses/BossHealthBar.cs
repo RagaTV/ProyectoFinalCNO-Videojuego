@@ -7,10 +7,10 @@ public class BossHealthBar : MonoBehaviour
     public static BossHealthBar instance;
 
     [Header("Referencias UI (Arrastra los objetos aquí)")]
-    public GameObject healthBarObject; // Arrastra el objeto padre "BossHealthBar"
-    public Slider healthSlider;        // Arrastra "BossHealthBar" (donde esté el componente Slider)
-    public TMP_Text bossNameText;      // Arrastra "BossName"
-    public TMP_Text hpText;            // Arrastra "HealthText"
+    public GameObject healthBarObject; 
+    public Slider healthSlider;        
+    public TMP_Text bossNameText;      
+    public TMP_Text hpText;            
 
     private BossBase activeBoss;
 

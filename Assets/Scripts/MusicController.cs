@@ -42,12 +42,6 @@ public class MusicController : MonoBehaviour
             float gameTimer = UIController.instance.gameTimer;
             float minutes = gameTimer / 60f;
 
-            // A los 15 minutos (DESACTIVADO: Se activa con la pastilla roja)
-            /*if (minutes >= 15f && currentTrackIndex < 3)
-            {
-                PlayTrack(3); // Toca la canción 4
-            }*/
-            
             // A los 10 minutos
             if (minutes >= 10f && currentTrackIndex < 2)
             {
@@ -61,11 +55,8 @@ public class MusicController : MonoBehaviour
         }
     }
 
-    // --- NUEVA CORRUTINA: Espera y toca la canción de muerte ---
     private IEnumerator StartDeathMusicDelay(float delay)
     {
-        // Usa WaitForSecondsRealtime para asegurar que la espera funcione 
-        // incluso si Time.timeScale = 0 (lo cual sucede en la secuencia de Game Over).
         yield return new WaitForSecondsRealtime(delay); 
 
         // 2. Toca la canción después del retraso

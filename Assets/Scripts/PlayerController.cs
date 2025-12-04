@@ -19,7 +19,6 @@ public class PlayerController : MonoBehaviour
     private Vector3 moveInput;
     private Vector3 lastDirection;
     private PlayerHealthController healthController;
-    //public Weapon activeWeapon;
     public List<Weapon> unassignedWeapons, assignedWeapons;
     public List<PassiveItem> unassignedPassives, assignedPassives;
     public Dictionary<PassiveItem, int> passiveLevels;
@@ -33,12 +32,6 @@ public class PlayerController : MonoBehaviour
         firstPosition = transform.position;
         passiveLevels = new Dictionary<PassiveItem, int>();
 
-        /*if (unassignedWeapons.Count > 0)
-        {
-            int randomWeaponIndex = Random.Range(0, unassignedWeapons.Count);
-            AddWeapon(unassignedWeapons[randomWeaponIndex]);
-        }*/
-
         if (UIController.instance != null)
         {
             UIController.instance.StartInitialWeaponRoulette();
@@ -49,7 +42,7 @@ public class PlayerController : MonoBehaviour
     {
         if (unassignedWeapons.Contains(chosenWeapon))
         {
-            // La lógica de AddWeapon ya hace el resto (mueve, activa, pone lvl=0)
+            // La lógica de AddWeapon
             AddWeapon(chosenWeapon);
         }
     }

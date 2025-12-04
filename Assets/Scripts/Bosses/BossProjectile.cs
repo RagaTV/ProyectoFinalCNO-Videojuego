@@ -40,7 +40,7 @@ public class BossProjectile : MonoBehaviour
             }
             Destroy(gameObject);
         }
-        else if (other.gameObject.layer == LayerMask.NameToLayer("Obstacles")) // Optional: Destroy on walls
+        else if (other.gameObject.layer == LayerMask.NameToLayer("Obstacles")) 
         {
             Destroy(gameObject);
         }

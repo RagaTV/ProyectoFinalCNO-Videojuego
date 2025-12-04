@@ -12,7 +12,6 @@ public class GameOverPanel : MonoBehaviour
     [Header("Colores")]
     public Color upgradedColor = new Color(1f, 1f, 0f, 1f); // amarillo
     public Color baseColor = Color.white; 
-    //public Color baseColor = new Color(0.5f, 0.5f, 0.5f, 1f);
 
     [Header("Textos Generales")]
     public TMP_Text timeSurvivedText;
@@ -54,7 +53,6 @@ public class GameOverPanel : MonoBehaviour
         dpsText.text = "Daño/s: " + dps.ToString("F1");
 
         // --- 2. MEJORAS DEL JUGADOR (CON COLORES) ---
-        // Usamos la función mágica que creamos abajo:
         
         // Vida
         SetStatText(maxHealthText, "Vida Máx: ", stats.maxHealth, stats.BaseMaxHealth, "F0");
@@ -80,7 +78,7 @@ public class GameOverPanel : MonoBehaviour
         // Suerte (Porcentaje)
         SetStatText(luckText, "Suerte: ", stats.luck, stats.BaseLuck, "F0", "%", true);
 
-        // XP y Oro (Opcionales)
+        // XP y Oro 
         if(xpMultText) SetStatText(xpMultText, "XP: ", stats.xpMultiplier, stats.BaseXP, "F0", "%", true);
         if(coinMultText) SetStatText(coinMultText, "Oro: ", stats.coinMultiplier, stats.BaseCoins, "F0", "%", true);
 
@@ -105,8 +103,6 @@ public class GameOverPanel : MonoBehaviour
         Time.timeScale = 0f;
     }
 
-    // --- FUNCIÓN AUXILIAR MÁGICA ---
-    // Esta función revisa si el stat cambió y asigna el color correcto
     void SetStatText(TMP_Text textComp, string prefix, float currentVal, float baseVal, string format, string suffix = "", bool isPercent = false)
     {
         // 1. Construir el texto numérico
@@ -126,19 +122,14 @@ public class GameOverPanel : MonoBehaviour
         textComp.text = prefix + valueStr + suffix;
 
         // 3. LOGICA DE COLOR
-        // Usamos una pequeña tolerancia (0.01) porque comparar floats exactos a veces falla
         if (Mathf.Abs(currentVal - baseVal) > 0.01f)
         {
-            // ¡Es diferente! (Mejorado) -> Color Brillante
             textComp.color = upgradedColor;
-            // Opcional: Ponerlo en negrita
             textComp.fontStyle = FontStyles.Bold; 
         }
         else
         {
-            // Es igual al base -> Color Gris
             textComp.color = baseColor;
-            // Opcional: Quitar negrita
             textComp.fontStyle = FontStyles.Normal;
         }
     }

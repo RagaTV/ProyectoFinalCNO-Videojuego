@@ -22,10 +22,8 @@ public class CoinController : MonoBehaviour
         UIController.instance.UpdateCoinCount(currentCoins);
     }
 
-    // Esta función es llamada por el Enemigo al morir
     public void SpawnCoin(Vector3 position, int coinValue)
     {
-        // Instancia el prefab de la moneda
         Instantiate(pickup, position, Quaternion.identity).coinValue = coinValue;
     }
 

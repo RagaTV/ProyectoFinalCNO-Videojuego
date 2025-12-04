@@ -62,7 +62,6 @@ public class PillChoice : MonoBehaviour
             CameraControl.instance.StartDeathSequence();
         }
 
-        // Espera dramática
         yield return new WaitForSeconds(2f);
 
         // Pantalla de Game Over
@@ -70,7 +69,7 @@ public class PillChoice : MonoBehaviour
         {
             PlayerStats.instance.GameOver();
         }
-        // Tocar música final (Track 4)
+        // Tocar música final
         if (MusicController.instance != null)
         {   
             MusicController.instance.PlayTrack(4);

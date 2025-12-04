@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BossGolluxController : BossBase
 {
-    // [Header("Stats Base")] -> Inherited from BossBase
+    // [Header("Stats Base")] -> Heredado de BossBase
     // public float maxHealth = 1000f; -> Inherited
     // [HideInInspector]
     // public float currentHealth; -> Inherited
@@ -16,10 +16,10 @@ public class BossGolluxController : BossBase
     public float hitWaitTime = 1.5f; 
     private float hitCounter;
     
-    // --- ¡NUEVAS VARIABLES PARA LA CARRERA! ---
+    // --- VARIABLES PARA LA CARRERA ---
     [Header("Ataque de Carrera (Dash)")]
     public float dashOvershoot = 3f;
-    public float dashSpeed = 8f; // ¡Más rápido que moveSpeed!
+    public float dashSpeed = 8f;
     public float dashAnimationSpeed = 2.5f; // Multiplicador de la anim "Move"
     public float dashDamageMultiplier = 2f; // Doble daño
     public float dashCooldown = 10f; // Tiempo entre carreras
@@ -28,7 +28,7 @@ public class BossGolluxController : BossBase
     private float dashCooldownCounter;
     private float dashTimer; // Temporizador para detectar dash atascado
     private Vector2 dashTargetPosition; // Dónde estaba el jugador
-    private bool isDashing = false; // ¡El booleano que pediste!
+    private bool isDashing = false;
     // ------------------------------------------
     [Header("Ajustes de Ataque")]
     public float attackDuration = 1.0f;
@@ -37,8 +37,8 @@ public class BossGolluxController : BossBase
     private Rigidbody2D rb;
     private Transform target;
     
-    // FSM (solo 3 estados, Dashing se maneja con el booleano)
-    // NO HAY HURT - El boss es imparable
+    // FSM
+    // Boss es imparable
     private enum BossState { Idle, Moving, Attacking }
     private BossState currentState;
     private Color originalSpriteColor = Color.white; // Guardamos el color original
@@ -61,7 +61,7 @@ public class BossGolluxController : BossBase
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         
-        // FIX CRÍTICO: Fuerza el color a blanco ANTES que cualquier otra cosa
+        // Fuerza el color a blanco ANTES que cualquier otra cosa
         if (spriteRenderer != null)
         {
             spriteRenderer.color = Color.white;
@@ -135,7 +135,7 @@ public class BossGolluxController : BossBase
                     // Incrementa el temporizador del dash
                     dashTimer += Time.deltaTime;
                     
-                    // TIMEOUT: Si el dash tarda demasiado, cáncelalo (probablemente está atascado)
+                    // TIMEOUT: Si el dash tarda demasiado, cáncelalo
                     if (dashTimer >= dashTimeout)
                     {
                         Debug.Log("Dash timeout - Boss estaba atascado");
@@ -155,7 +155,7 @@ public class BossGolluxController : BossBase
                 // 3. Lógica de Movimiento Normal
                 else
                 {
-                    // --- DETECCIÓN INTELIGENTE DE OBSTÁCULOS ---
+                    // --- DETECCIÓN DE OBSTÁCULOS ---
                     Vector2 dirToPlayer = (target.position - transform.position).normalized;
                     
                     // Chequea si hay algo adelante
@@ -246,12 +246,12 @@ public class BossGolluxController : BossBase
         // Verificamos que esté moviéndose Y que el cooldown haya terminado
         else if (currentState == BossState.Moving && hitCounter <= 0)
         {
-            // EN LUGAR de solo cambiar estado, iniciamos la rutina segura
+            // Iniciamos la rutina segura
             StartCoroutine(AttackRoutine());
         }
     }
 
-    // --- ESTA ES LA SOLUCIÓN MÁGICA ---
+
     IEnumerator AttackRoutine()
     {
         ChangeState(BossState.Attacking);
@@ -262,8 +262,8 @@ public class BossGolluxController : BossBase
         hitCounter = hitWaitTime;
         ChangeState(BossState.Moving);
         
-        // FUERZA BRUTA: Le decimos al Animator "Ponte a caminar AHORA MISMO"
-        // (Asegúrate de que "Move" sea el nombre exacto de tu estado en la caja gris del Animator)
+        // Le decimos al Animator "Ponte a caminar"
+
         anim.Play("Move");
     }
 
@@ -298,7 +298,7 @@ public class BossGolluxController : BossBase
 
     void EndDash()
     {
-        isDashing = false; // ¡Desactivamos el booleano!
+        isDashing = false;
         
         // 1. Devuelve la animación a velocidad normal
         anim.speed = 1.0f;
@@ -321,7 +321,7 @@ public class BossGolluxController : BossBase
 
     protected override void Die()
     {
-        // 1. EVITAR QUE SIGA MOLESTANDO
+        // 1. Desactivar collider
         GetComponent<Collider2D>().enabled = false;
         rb.velocity = Vector2.zero;
         this.enabled = false; 

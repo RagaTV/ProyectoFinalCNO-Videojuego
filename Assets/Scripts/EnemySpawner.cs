@@ -54,14 +54,13 @@ public class EnemySpawner : MonoBehaviour
                 {
                     StartCoroutine(StartEndGameEvent());
                 }
-                return; // Ya no spawneamos nada más
+                return; // Ya no spawneamos
             }
 
             GameObject spawnedObject = pool.GetEnemyByDifficulty();
             spawnedObject.transform.position = SelectSpawnPoint();
             spawnedObject.SetActive(true);
 
-            // float minutes = UIController.instance.gameTimer / 60f; // Ya calculado arriba
             if (minutes >= 5f)
             {
                 GameObject extra = pool.GetExtraEasy();
@@ -137,7 +136,7 @@ public class EnemySpawner : MonoBehaviour
             yield return new WaitForSeconds(1f);
         }
 
-        // 3. Resetear jugador y congelarlo (mientras está oscuro)
+        // 3. Resetear jugador y congelarlo 
         if (PlayerController.instance != null)
         {
             PlayerController.instance.ResetPosition();
@@ -150,7 +149,7 @@ public class EnemySpawner : MonoBehaviour
         SpawnChest chestSpawner = FindObjectOfType<SpawnChest>();
         if (chestSpawner != null) chestSpawner.enabled = false;
 
-        // 5. FADE IN (Aclarar pantalla para ver los textos)
+        // 5. FADE IN 
         if (CameraControl.instance != null)
         {
             yield return StartCoroutine(CameraControl.instance.FadeIn(1f));
@@ -191,10 +190,7 @@ public class EnemySpawner : MonoBehaviour
     public void CleanUpPickupsAndChests()
     {
         // Destruir Pickups (Monedas, XP, Comida)
-        // Asumiendo que tienen tags o scripts específicos. Si no tienen tag, buscar por tipo.
-        // Ajusta los Tags según tu proyecto.
-        string[] tagsToClean = { "Coin", "Exp", "Chest" }; 
-        
+        string[] tagsToClean = { "Chest" };   
         foreach (string tag in tagsToClean)
         {
             GameObject[] objects = GameObject.FindGameObjectsWithTag(tag);
@@ -203,9 +199,18 @@ public class EnemySpawner : MonoBehaviour
                 Destroy(obj);
             }
         }
-        
-        // Si usas scripts específicos y no tags, puedes usar FindObjectsOfType
-        // CoinPickup[] coins = FindObjectsOfType<CoinPickup>(); ...
+
+        CoinPickup[] coins = FindObjectsOfType<CoinPickup>();
+        foreach (CoinPickup coin in coins)
+        {
+            Destroy(coin.gameObject);
+        }
+        ExpPickup[] expPickups = FindObjectsOfType<ExpPickup>();
+        foreach (ExpPickup expPickup in expPickups)
+        {
+            Destroy(expPickup.gameObject);
+        }
+
     }
 
     public void DespawnAllEnemies()
@@ -214,14 +219,7 @@ public class EnemySpawner : MonoBehaviour
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (GameObject enemy in enemies)
         {
-            enemy.SetActive(false); // O Destroy(enemy) si no usas pool para todo
-        }
-        
-        // También los Bosses si hay alguno vivo
-        GameObject[] bosses = GameObject.FindGameObjectsWithTag("Boss");
-        foreach (GameObject boss in bosses)
-        {
-            boss.SetActive(false);
+            enemy.SetActive(false); 
         }
     }
 
@@ -245,16 +243,10 @@ public class EnemySpawner : MonoBehaviour
         }
 
         // 3. Música Final
-        if (MusicController.instance != null) // Asumiendo que existe instancia estática o búscala
+        if (MusicController.instance != null) 
         {
-            // MusicController no tiene static instance en tu código original, vamos a buscarlo
             MusicController mc = FindObjectOfType<MusicController>();
-            if (mc != null) mc.PlayTrack(3); // EndTheme
+            if (mc != null) mc.PlayTrack(3); 
         }
-        
-        // Nota: Los enemigos normales NO vuelven a spawnear porque el timer sigue > 15
-        // Si quieres que vuelvan, tendrías que cambiar la lógica del Update, 
-        // pero normalmente en la pelea final es solo el Boss.
-        // Si quieres enemigos + Boss, comenta el "return" en el Update o usa un flag "bossFightActive".
     }
 }

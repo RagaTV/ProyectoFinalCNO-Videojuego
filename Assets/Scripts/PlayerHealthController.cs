@@ -28,7 +28,6 @@ public class PlayerHealthController : MonoBehaviour
             healthSlider.gameObject.SetActive(state);
         }
 
-        // Agrega esto para que también desaparezca el texto "100/100"
         if(healthText != null)
         {
             healthText.gameObject.SetActive(state);

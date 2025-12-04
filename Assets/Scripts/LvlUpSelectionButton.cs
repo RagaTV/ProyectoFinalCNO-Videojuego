@@ -52,7 +52,7 @@ public class LvlUpSelectionButton : MonoBehaviour
     {
         if(assignedOption == null) return;
 
-        SFXManager.instance.PlaySFX(SoundEffect.UIClick); // (Lo muevo aquí)
+        SFXManager.instance.PlaySFX(SoundEffect.UIClick);
 
         if (assignedOption.item is Weapon)
         {
