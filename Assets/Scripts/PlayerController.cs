@@ -57,6 +57,18 @@ public class PlayerController : MonoBehaviour
         // Movimiento normal
         moveInput.x = Input.GetAxisRaw("Horizontal");
         moveInput.y = Input.GetAxisRaw("Vertical");
+
+        // Soporte para Joystick Virtual (Android)
+        if (VirtualJoystick.instance != null)
+        {
+            Vector2 joystickInput = VirtualJoystick.instance.GetInput();
+            if (joystickInput != Vector2.zero)
+            {
+                moveInput.x = joystickInput.x;
+                moveInput.y = joystickInput.y;
+            }
+        }
+
         moveInput.Normalize();
 
         if (moveInput != Vector3.zero)
@@ -76,7 +88,15 @@ public class PlayerController : MonoBehaviour
             spriteOrientation.x = -Mathf.Abs(spriteOrientation.x);
         transform.localScale = spriteOrientation;
 
-        if (Input.GetButtonDown("Jump") && canDash)
+        if (Input.GetButtonDown("Jump"))
+        {
+            AttemptDash();
+        }
+    }
+
+    public void AttemptDash()
+    {
+        if (canDash && !isDashing)
         {
             StartCoroutine(Dash());
         }
