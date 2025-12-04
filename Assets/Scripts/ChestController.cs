@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class ChestController : MonoBehaviour
+public class ChestController : MonoBehaviour, IInteractable
 {
     public int valor;
     public Animator anim;
@@ -37,35 +37,67 @@ public class ChestController : MonoBehaviour
         }
     }
 
-
-
-    private void OnCollisionStay2D(Collision2D collision)
+    // --- Detección por Trigger ---
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.CompareTag("Player"))
         {
-            if(Input.GetKeyDown(KeyCode.E) && alreadyOpened==false){//si puede abrirlo
-                if(CoinController.instance.currentCoins >= valor){
-                    //muestra monedas encima del cofre
-                    StopCoroutine(mostrar);   
-                    coinChest.SetActive(false);
-                    imcoinChest.SetActive(false);
-                    coinText.gameObject.SetActive(false);
-                    //Se le resta lo que vale el cofre
-                    CoinController.instance.currentCoins=CoinController.instance.currentCoins-valor; 
-                    SFXManager.instance.PlaySFX(SoundEffect.ChestSound);
-                    anim.SetBool("Close", false);
-                    alreadyOpened = true;
-                    StartCoroutine(ShowSeconds(0.7f));
-                    
-
-                }else{
-                    Debug.Log("No abre");
-                    StartCoroutine(ShowIndicatorForSeconds(1.0f));
-                }
-            }
+            PlayerController.instance.SetInteractable(this);
         }
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            PlayerController.instance.ClearInteractable(this);
+        }
+    }
+
+    // --- Detección por Colisión (Física) ---
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            PlayerController.instance.SetInteractable(this);
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            PlayerController.instance.ClearInteractable(this);
+        }
+    }
+
+    // --- Lógica de Interacción ---
+    public void Interact()
+    {
+        if(alreadyOpened==false)
+        {//si puede abrirlo
+            if(CoinController.instance.currentCoins >= valor){
+                //muestra monedas encima del cofre
+                StopCoroutine(mostrar);   
+                coinChest.SetActive(false);
+                imcoinChest.SetActive(false);
+                coinText.gameObject.SetActive(false);
+                //Se le resta lo que vale el cofre
+                CoinController.instance.currentCoins=CoinController.instance.currentCoins-valor; 
+                SFXManager.instance.PlaySFX(SoundEffect.ChestSound);
+                anim.SetBool("Close", false);
+                alreadyOpened = true;
+                StartCoroutine(ShowSeconds(0.7f));
+                
+                // Ya no es interactuable
+                PlayerController.instance.ClearInteractable(this);
+
+            }else{
+                Debug.Log("No abre");
+                StartCoroutine(ShowIndicatorForSeconds(1.0f));
+            }
+        }
+    }
 
     private IEnumerator ShowIndicatorForSeconds(float delay)
     {
@@ -102,6 +134,3 @@ public class ChestController : MonoBehaviour
         Destroy(gameObject);
     }
 }
-
-
-  

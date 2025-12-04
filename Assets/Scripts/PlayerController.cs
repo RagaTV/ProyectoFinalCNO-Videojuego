@@ -24,6 +24,9 @@ public class PlayerController : MonoBehaviour
     public Dictionary<PassiveItem, int> passiveLevels;
     private Vector3 firstPosition;
 
+    // Interacción
+    private IInteractable currentInteractable;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -92,6 +95,12 @@ public class PlayerController : MonoBehaviour
         {
             AttemptDash();
         }
+        
+        // Tecla E para teclado
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            AttemptInteract();
+        }
     }
 
     public void AttemptDash()
@@ -99,6 +108,30 @@ public class PlayerController : MonoBehaviour
         if (canDash && !isDashing)
         {
             StartCoroutine(Dash());
+        }
+    }
+
+    public void AttemptInteract()
+    {
+        if (currentInteractable != null)
+        {
+            currentInteractable.Interact();
+        }
+    }
+
+    // Métodos para que los objetos se registren
+    public void SetInteractable(IInteractable interactable)
+    {
+        currentInteractable = interactable;
+        // Opcional: Mostrar UI de "Presiona Botón"
+    }
+
+    public void ClearInteractable(IInteractable interactable)
+    {
+        if (currentInteractable == interactable)
+        {
+            currentInteractable = null;
+            // Opcional: Ocultar UI
         }
     }
 

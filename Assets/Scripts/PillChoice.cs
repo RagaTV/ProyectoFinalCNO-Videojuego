@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PillChoice : MonoBehaviour
+public class PillChoice : MonoBehaviour, IInteractable
 {
     public bool isRedPill; // True = Boss Fight, False = Game Over
-    private bool isInRange;
 
     // Variables para flotar
     public float floatSpeed = 2f;
@@ -28,29 +27,63 @@ public class PillChoice : MonoBehaviour
         // Efecto de rotación (balanceo)
         float zRotation = Mathf.Sin(Time.time * rotateSpeed) * rotateAngle;
         transform.rotation = Quaternion.Euler(0f, 0f, zRotation);
+    }
 
-        if (isInRange && Input.GetKeyDown(KeyCode.E))
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
         {
-            if (isRedPill)
+            PlayerController.instance.SetInteractable(this);
+            Debug.Log("Presiona Botón de Acción para seleccionar la pastilla " + (isRedPill ? "ROJA" : "AZUL"));
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            PlayerController.instance.ClearInteractable(this);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            PlayerController.instance.SetInteractable(this);
+            Debug.Log("Presiona Botón de Acción para seleccionar la pastilla " + (isRedPill ? "ROJA" : "AZUL"));
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            PlayerController.instance.ClearInteractable(this);
+        }
+    }
+
+    public void Interact()
+    {
+        if (isRedPill)
+        {
+            // True Ending: Boss Fight
+            if (EnemySpawner.instance != null)
             {
-                // True Ending: Boss Fight
-                if (EnemySpawner.instance != null)
-                {
-                    EnemySpawner.instance.ResumeGameForTrueEnding();
-                }
-                
-                // Destruir ambas pastillas (buscándolas por tag o tipo)
-                PillChoice[] pills = FindObjectsOfType<PillChoice>();
-                foreach (PillChoice pill in pills)
-                {
-                    Destroy(pill.gameObject);
-                }
+                EnemySpawner.instance.ResumeGameForTrueEnding();
             }
-            else
+            
+            // Destruir ambas pastillas (buscándolas por tag o tipo)
+            PillChoice[] pills = FindObjectsOfType<PillChoice>();
+            foreach (PillChoice pill in pills)
             {
-                // Game Over (Blue Pill)
-                StartCoroutine(ScreenGameOver());
+                Destroy(pill.gameObject);
             }
+        }
+        else
+        {
+            // Game Over (Blue Pill)
+            StartCoroutine(ScreenGameOver());
         }
     }
 
@@ -62,6 +95,7 @@ public class PillChoice : MonoBehaviour
             CameraControl.instance.StartDeathSequence();
         }
 
+        // Espera dramática
         yield return new WaitForSeconds(2f);
 
         // Pantalla de Game Over
@@ -73,23 +107,6 @@ public class PillChoice : MonoBehaviour
         if (MusicController.instance != null)
         {   
             MusicController.instance.PlayTrack(4);
-        }
-    }
-
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            isInRange = true;
-            Debug.Log("Presiona E para seleccionar la pastilla " + (isRedPill ? "ROJA" : "AZUL"));
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            isInRange = false;
         }
     }
 }
