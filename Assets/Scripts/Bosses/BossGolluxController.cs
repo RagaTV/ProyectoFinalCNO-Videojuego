@@ -23,7 +23,9 @@ public class BossGolluxController : MonoBehaviour, IDamageable
     public float dashDamageMultiplier = 2f; // Doble daño
     public float dashCooldown = 10f; // Tiempo entre carreras
     public float dashMinDistance = 4f; // Distancia mín. para usarla
+    public float dashTimeout = 3f; // Tiempo máximo de dash antes de auto-cancelar
     private float dashCooldownCounter;
+    private float dashTimer; // Temporizador para detectar dash atascado
     private Vector2 dashTargetPosition; // Dónde estaba el jugador
     private bool isDashing = false; // ¡El booleano que pediste!
     // ------------------------------------------
@@ -34,25 +36,47 @@ public class BossGolluxController : MonoBehaviour, IDamageable
     private Rigidbody2D rb;
     private Transform target;
     
-    // FSM (solo 4 estados, Dashing se maneja con el booleano)
-    private enum BossState { Idle, Moving, Attacking, Hurt }
+    // FSM (solo 3 estados, Dashing se maneja con el booleano)
+    // NO HAY HURT - El boss es imparable
+    private enum BossState { Idle, Moving, Attacking }
     private BossState currentState;
+    private Color originalSpriteColor = Color.white; // Guardamos el color original
     private SpriteRenderer spriteRenderer;
     [Header("Muerte y Loot")]
     //public GameObject lootPrefab; 
-    public float deathDelay = 1.5f;
+    public float deathFadeDuration = 1.5f; // Duración del fade-out al morir
     
-    void Start()
+    [Header("Partículas de Muerte")]
+    [Tooltip("OPCIONAL: Arrastra un prefab de partículas aquí. Si está vacío, se crearán partículas por código.")]
+    public GameObject deathParticlePrefab; // Prefab de partículas (opcional)
+    public bool useProceduralParticles = true; // Si no hay prefab, crear partículas por código
+    public Color particleColor1 = new Color(1f, 0.3f, 0f); // Naranja
+    public Color particleColor2 = new Color(0.8f, 0f, 0f); // Rojo oscuro
+    public int particleCount = 30; // Cantidad de partículas
+    
+    void Awake()
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        target = PlayerController.instance.transform;
         spriteRenderer = GetComponent<SpriteRenderer>();
+        
+        // FIX CRÍTICO: Fuerza el color a blanco ANTES que cualquier otra cosa
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = Color.white;
+            originalSpriteColor = Color.white;
+        }
+    }
+    
+    void Start()
+    {
+        target = PlayerController.instance.transform;
 
         currentHealth = maxHealth;
         
         hitCounter = 0;
         dashCooldownCounter = dashCooldown; // Empieza en cooldown
+        dashTimer = 0f;
         
         ChangeState(BossState.Idle); 
     }
@@ -76,11 +100,12 @@ public class BossGolluxController : MonoBehaviour, IDamageable
         if (hitCounter > 0) hitCounter -= Time.deltaTime;
         if (dashCooldownCounter > 0) dashCooldownCounter -= Time.deltaTime;
 
-        if (!isDashing && currentHealth > 0)
+        // Voltea el sprite según la dirección (incluso durante el dash)
+        if (currentHealth > 0)
         {
             if (target.position.x > transform.position.x)
             {
-                spriteRenderer.flipX = false; // Asumiendo que tu sprite original mira a la DERECHA
+                spriteRenderer.flipX = false; // Sprite original mira a la DERECHA
             }
             else
             {
@@ -107,8 +132,17 @@ public class BossGolluxController : MonoBehaviour, IDamageable
                 // 1. Lógica de Dash
                 if (isDashing)
                 {
+                    // Incrementa el temporizador del dash
+                    dashTimer += Time.deltaTime;
+                    
+                    // TIMEOUT: Si el dash tarda demasiado, cáncelalo (probablemente está atascado)
+                    if (dashTimer >= dashTimeout)
+                    {
+                        Debug.Log("Dash timeout - Boss estaba atascado");
+                        EndDash();
+                    }
                     // Comprueba si ya llegó al destino
-                    if (Vector2.Distance(transform.position, dashTargetPosition) < 0.5f)
+                    else if (Vector2.Distance(transform.position, dashTargetPosition) < 0.5f)
                     {
                         EndDash();
                     }
@@ -121,7 +155,42 @@ public class BossGolluxController : MonoBehaviour, IDamageable
                 // 3. Lógica de Movimiento Normal
                 else
                 {
-                    rb.velocity = (target.position - transform.position).normalized * moveSpeed;
+                    // --- DETECCIÓN INTELIGENTE DE OBSTÁCULOS ---
+                    Vector2 dirToPlayer = (target.position - transform.position).normalized;
+                    
+                    // Chequea si hay algo adelante
+                    Vector2 checkPos = (Vector2)transform.position + dirToPlayer * 0.5f;
+                    Collider2D obstacle = Physics2D.OverlapCircle(checkPos, 0.3f);
+                    
+                    // Si hay obstáculo, verifica si debe esquivarlo
+                    bool shouldAvoid = false;
+                    if (obstacle != null && obstacle.gameObject != this.gameObject) // Ignora su propio collider
+                    {
+                        // NO esquivar si es:
+                        // - El jugador
+                        // - Otro enemigo
+                        // - El boss
+                        // - Un arma (tiene componente EnemyDamager)
+                        // - Un pickup (monedas o experiencia)
+                        bool isPlayer = obstacle.gameObject.tag == "Player";
+                        bool isEnemy = obstacle.gameObject.tag == "Enemy";
+                        bool isBoss = obstacle.gameObject.tag == "Boss";
+                        bool isWeapon = obstacle.GetComponent<EnemyDamager>() != null;
+                        bool isPickup = obstacle.GetComponent<CoinPickup>() != null || obstacle.GetComponent<ExpPickup>() != null;
+                        
+                        shouldAvoid = !isPlayer && !isEnemy && !isBoss && !isWeapon && !isPickup;
+                    }
+                    
+                    // Si debe esquivar, mueve perpendicular
+                    if (shouldAvoid)
+                    {
+                        Vector2 perp = Vector2.Perpendicular(dirToPlayer);
+                        rb.velocity = perp * moveSpeed * 0.7f; // Más lento al rodear
+                    }
+                    else
+                    {
+                        rb.velocity = dirToPlayer * moveSpeed;
+                    }
                 }
 
                 anim.SetBool("IsMoving", rb.velocity.magnitude > 0.1f);
@@ -132,12 +201,30 @@ public class BossGolluxController : MonoBehaviour, IDamageable
                 rb.velocity = Vector2.zero;
                 anim.SetBool("IsMoving", false);
                 break;
-            
-            case BossState.Hurt:
-                // Pausado, esperando la corrutina de recuperación
-                rb.velocity = Vector2.zero;
-                anim.SetBool("IsMoving", false);
-                break;
+        }
+    }
+    
+    // Detecta colisiones durante el dash (para evitar quedarse atascado en paredes)
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (isDashing)
+        {
+            // Ignorar colisiones con:
+            // - Jugador (porque es el objetivo)
+            // - Enemigos (para no detenerse si choca con ellos)
+            // - Pickups (monedas/exp)
+            // - Armas (si tienen collider físico)
+            bool isPlayer = collision.gameObject.tag == "Player";
+            bool isEnemy = collision.gameObject.tag == "Enemy";
+            bool isPickup = collision.gameObject.GetComponent<CoinPickup>() != null || collision.gameObject.GetComponent<ExpPickup>() != null;
+            bool isWeapon = collision.gameObject.GetComponent<EnemyDamager>() != null;
+
+            // Si choca con algo que NO es ninguno de los anteriores (ej: pared), termina el dash
+            if (!isPlayer && !isEnemy && !isPickup && !isWeapon)
+            {
+                Debug.Log("Dash interrumpido por colisión con: " + collision.gameObject.name);
+                EndDash();
+            }
         }
     }
 
@@ -184,6 +271,7 @@ public class BossGolluxController : MonoBehaviour, IDamageable
     void StartDash()
     {
         isDashing = true;
+        dashTimer = 0f; // Reinicia el temporizador
         
         dashCooldownCounter = dashCooldown;
         
@@ -234,24 +322,132 @@ public class BossGolluxController : MonoBehaviour, IDamageable
     void Die()
     {
         // 1. EVITAR QUE SIGA MOLESTANDO
-        // Desactivamos el colisionador para que el jugador ya no pueda chocar ni recibir daño del cadáver.
         GetComponent<Collider2D>().enabled = false;
-        
-        // Detenemos el movimiento en seco.
         rb.velocity = Vector2.zero;
-        
-        // Desactivamos este script para que el Update() deje de correr (ya no buscará al jugador).
         this.enabled = false; 
 
         Debug.Log("¡El Boss ha sido derrotado!");
 
         /*if (lootPrefab != null)
         {
-            // Instancia el cofre o gema en la posición del boss
             Instantiate(lootPrefab, transform.position, Quaternion.identity);
         }*/
 
-        Destroy(gameObject, deathDelay);
+        // 2. PARTÍCULAS DE MUERTE
+        SpawnDeathParticles();
+        
+        // 3. FADE-OUT SUAVE (oscurecer y desaparecer)
+        StartCoroutine(DeathFadeOut());
+    }
+    
+    void SpawnDeathParticles()
+    {
+        // OPCIÓN 1: Si tienes un prefab asignado, úsalo
+        if (deathParticlePrefab != null)
+        {
+            GameObject particles = Instantiate(deathParticlePrefab, transform.position, Quaternion.identity);
+            Destroy(particles, 3f); // Destruye después de 3 segundos
+            return;
+        }
+        
+        // OPCIÓN 2: Si no hay prefab Y useProceduralParticles está activo, crea partículas por código
+        if (useProceduralParticles)
+        {
+            CreateProceduralParticles();
+        }
+    }
+    
+    void CreateProceduralParticles()
+    {
+        // Crea un GameObject temporal para las partículas
+        GameObject particleObj = new GameObject("BossDeathParticles");
+        particleObj.transform.position = transform.position;
+        
+        // Añade el componente ParticleSystem
+        ParticleSystem ps = particleObj.AddComponent<ParticleSystem>();
+        
+        // --- CONFIGURACIÓN DEL SISTEMA DE PARTÍCULAS ---
+        var main = ps.main;
+        main.startLifetime = 1.5f; // Duración de cada partícula
+        main.startSpeed = 5f; // Velocidad inicial
+        main.startSize = 0.3f; // Tamaño
+        main.maxParticles = particleCount;
+        main.simulationSpace = ParticleSystemSimulationSpace.World; // No sigue al boss
+        
+        // Gradiente de color (naranja → rojo oscuro → transparente)
+        var colorOverLifetime = ps.colorOverLifetime;
+        colorOverLifetime.enabled = true;
+        Gradient gradient = new Gradient();
+        gradient.SetKeys(
+            new GradientColorKey[] { 
+                new GradientColorKey(particleColor1, 0.0f),  // Inicio: naranja
+                new GradientColorKey(particleColor2, 0.5f),  // Medio: rojo
+                new GradientColorKey(Color.black, 1.0f)      // Final: negro
+            },
+            new GradientAlphaKey[] { 
+                new GradientAlphaKey(1.0f, 0.0f),   // Inicio: opaco
+                new GradientAlphaKey(0.8f, 0.5f),   // Medio: semi-transparente
+                new GradientAlphaKey(0.0f, 1.0f)    // Final: transparente
+            }
+        );
+        colorOverLifetime.color = gradient;
+        
+        // Reducir tamaño con el tiempo
+        var sizeOverLifetime = ps.sizeOverLifetime;
+        sizeOverLifetime.enabled = true;
+        AnimationCurve curve = new AnimationCurve();
+        curve.AddKey(0.0f, 1.0f);  // Inicio: tamaño normal
+        curve.AddKey(1.0f, 0.0f);  // Final: tamaño 0
+        sizeOverLifetime.size = new ParticleSystem.MinMaxCurve(1f, curve);
+        
+        // Emisión en ráfaga
+        var emission = ps.emission;
+        emission.enabled = true;
+        emission.rateOverTime = 0; // No emitir continuamente
+        
+        // Forma de emisión (esfera)
+        var shape = ps.shape;
+        shape.enabled = true;
+        shape.shapeType = ParticleSystemShapeType.Sphere;
+        shape.radius = 0.5f; // Radio de la explosión
+        
+        // Gravedad
+        var forceOverLifetime = ps.forceOverLifetime;
+        forceOverLifetime.enabled = true;
+        forceOverLifetime.y = -2f; // Gravedad hacia abajo
+        
+        // Emite todas las partículas de golpe
+        ps.Emit(particleCount);
+        
+        // Destruye el objeto después de que terminen las partículas
+        Destroy(particleObj, main.startLifetime.constant + 0.5f);
+    }
+    
+    private IEnumerator DeathFadeOut()
+    {
+        float elapsed = 0f;
+        Color startColor = spriteRenderer.color;
+        
+        while (elapsed < deathFadeDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / deathFadeDuration;
+            
+            // Oscurece el color (va hacia negro)
+            Color currentColor = Color.Lerp(startColor, Color.black, t);
+            // Reduce la opacidad (va hacia transparente)
+            currentColor.a = Mathf.Lerp(1f, 0f, t);
+            
+            spriteRenderer.color = currentColor;
+            
+            yield return null;
+        }
+        
+        // Asegura que esté completamente transparente
+        spriteRenderer.color = new Color(0, 0, 0, 0);
+        
+        // Destruye el objeto
+        Destroy(gameObject);
     }
 
     void ChangeState(BossState newState)
@@ -274,24 +470,18 @@ public class BossGolluxController : MonoBehaviour, IDamageable
         }
 
         currentHealth -= damageToTake;
-        ChangeState(BossState.Hurt);
         
         // (Opcional: Llama a tu barra de vida de jefe aquí)
         // BossHealthBar.instance.UpdateHealth(currentHealth);
         
-        // Activa el estado de "Hurt" que diseñamos
-        ChangeState(BossState.Hurt);
-        // (Asegúrate de tener un Trigger "Hurt" en tu Animator)
-        // anim.SetTrigger("Hurt"); 
-        
         if (currentHealth <= 0)
         {
-            Die(); // Llama a la función Die() que ya escribimos
+            Die();
         } 
         else 
         {
+            // Solo efecto visual, NO cambia de estado
             StartCoroutine(FlashDamage());
-            StartCoroutine(RecoverFromHurt());
         }
         
         // Muestra el número de daño
@@ -312,15 +502,6 @@ public class BossGolluxController : MonoBehaviour, IDamageable
     {
         spriteRenderer.color = Color.red;
         yield return new WaitForSeconds(0.1f); 
-        spriteRenderer.color = Color.white; // O el color original
-    }
-
-    private IEnumerator RecoverFromHurt()
-    {
-        // Define cuánto tiempo se queda "aturdido"
-        yield return new WaitForSeconds(0.001f); 
-        
-        // Después de 0.5s, vuelve a moverse
-        ChangeState(BossState.Moving);
+        spriteRenderer.color = originalSpriteColor; // Usa el color guardado en Awake
     }
 }

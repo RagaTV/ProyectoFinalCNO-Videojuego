@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9164098526955434810}
   - component: {fileID: 9164098526955434811}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: NoX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 9164098527207700385}
   - component: {fileID: 9164098527207700398}
   - component: {fileID: 9164098527207700399}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -305,7 +305,7 @@ GameObject:
   - component: {fileID: 9164098528203746018}
   - component: {fileID: 9164098528203746019}
   - component: {fileID: 9164098528203746016}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Chest0
   m_TagString: Chest
   m_Icon: {fileID: 0}
@@ -577,7 +577,7 @@ GameObject:
   - component: {fileID: 9164098528837183135}
   - component: {fileID: 9164098528837183133}
   - component: {fileID: 9164098528837183132}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Particulas
   m_TagString: Chest
   m_Icon: {fileID: 0}
